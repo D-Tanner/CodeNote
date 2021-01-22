@@ -10,6 +10,9 @@ const { requireAuth } = require('../../utils/auth.js');
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 
+router.post('/test', function (req, res) {
+  res.json({ requestBody: req.body })
+})
 
 //testing api routes
 router.get('/set-token-cookie', asyncHandler(async (req, res) => {
@@ -40,9 +43,6 @@ router.get(
 );
 
 
-router.post('/test', function (req, res) {
-  res.json({ requestBody: req.body })
-})
 
 
 module.exports = router;

@@ -8,13 +8,15 @@ const routes = require('./routes');
 const { environment } = require('./config');
 const isProduction = environment === 'production';
 const { ValidationError } = require('sequelize');
-
+const indexRouter = require('./routes/api/index')
 const app = express();
+
 
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
 
+app.use('', indexRouter);
 // Security Middleware
 if (!isProduction) {
   // enable cors only in development
