@@ -21,6 +21,7 @@ const validateLogin = [
 ];
 
 // Log in
+//express => postgres. Post route to login user
 router.post(
   '/',
   validateLogin,
@@ -39,6 +40,7 @@ router.post(
 
     await setTokenCookie(res, user);
 
+    //Information sent in json format to thunkactioncreator in session.js frontend
     return res.json({
       user,
     });
