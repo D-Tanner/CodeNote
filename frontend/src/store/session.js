@@ -16,8 +16,36 @@ const removeUser = () => {
     type: REMOVE_USER,
   };
 };
-
 //Action creator
+
+export const restoreUser = () => async (dispatch) => {
+  const response = await fetch('/api/session');
+  dispatch(setUser(response.data.user))
+  return response;
+};
+
+export const signup = (user) => async (dispatch) => {
+  const { username, email, password } = user;
+  const response = await fetch('/api/users', {
+    method: 'POST',
+    body: JSON.stringify({
+      username,
+      email,
+      password
+    })
+  })
+  dispatch(setUser(response.data.user))
+  return response;
+}
+
+export const deleteSession = () => async (dispatch) => {
+  const response = await fetch('/api/session', {
+    method: 'DELETE',
+  });
+  dispatch(removeUser())
+  return response;
+}
+
 //Connects with session.js backend post route
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
