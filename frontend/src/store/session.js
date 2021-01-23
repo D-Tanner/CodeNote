@@ -1,3 +1,4 @@
+// frontend/src/store/session.js
 import { fetch } from './csrf';
 
 const SET_USER = 'session/setUser';
