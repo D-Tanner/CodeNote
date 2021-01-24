@@ -14,13 +14,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/D-Tanner/React-Project.git"
+    "url": "git+https://github.com/D-Tanner/CodeNote.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/D-Tanner/React-Project/issues"
+    "url": "https://github.com/D-Tanner/CodeNote/issues"
   },
-  "homepage": "https://github.com/D-Tanner/React-Project#readme"
+  "homepage": "https://github.com/D-Tanner/CodeNote#readme"
 }
