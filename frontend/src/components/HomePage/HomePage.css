@@ -1,0 +1,30 @@
+.main-container {
+  display: flex;
+  flex-direction: row;
+  background-color: aqua;
+  height: 100%;
+  margin: 0;
+}
+
+.navbar-homepage {
+  width: 204px;
+  max-width: 395px;
+  padding: 1px;
+}
+
+.notes-homepage {
+  width: 371px;
+  max-width: 759px;
+}
+
+.text-editor-homepage {
+  max-width: 980px;
+  width: 855px;
+}
+
+.col-resize {
+  padding-left: 4px;
+  height: 100%;
+  background-color: grey;
+  cursor: col-resize;
+}

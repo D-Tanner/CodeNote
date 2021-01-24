@@ -7,8 +7,19 @@ import ProfileButton from '../Navigation/ProfileButton'
 function HomePage() {
   const sessionUser = useSelector(state => state.session.user);
   return (
-    <div>You are now on the home page.
-      <ProfileButton user={sessionUser} />
+    <div className="main-container">
+      <div className="navbar-homepage">
+        You are now on the home page.
+        <ProfileButton user={sessionUser} />
+      </div>
+      <div className="col-resize"></div>
+      <div className="notes-homepage">
+        main notes
+      </div>
+      <div className="col-resize"></div>
+      <div className="text-editor-homepage">
+        rich-text-editor
+    </div>
     </div>
   )
 }
