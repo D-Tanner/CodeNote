@@ -47,6 +47,14 @@ router.post(
   }),
 );
 
+//Log out
+router.delete(
+  '/',
+  (req, res) => {
+    res.clearCookie('token');
+    return res.json({ message: 'success' });
+  }
+);
 
 // Restore session user
 router.get(

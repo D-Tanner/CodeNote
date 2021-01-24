@@ -42,9 +42,9 @@ export const logout = () => async (dispatch) => {
   const response = await fetch('/api/session', {
     method: 'DELETE',
   });
-  dispatch(removeUser())
+  dispatch(removeUser());
   return response;
-}
+};
 
 //Connects with session.js backend post route
 export const login = (user) => async (dispatch) => {
