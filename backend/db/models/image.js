@@ -1,4 +1,7 @@
 'use strict';
+const { random } = require('faker');
+const faker = require('faker');
+
 module.exports = (sequelize, DataTypes) => {
   const Image = sequelize.define('Image', {
     url: DataTypes.STRING,
