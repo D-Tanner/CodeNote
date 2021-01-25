@@ -9,7 +9,7 @@ function HomePage() {
   return (
     <div className="main-container">
       <div className="navbar-homepage">
-        You are now on the home page.
+        You are now on the home page!
         <ProfileButton user={sessionUser} />
       </div>
       <div className="col-resize"></div>
