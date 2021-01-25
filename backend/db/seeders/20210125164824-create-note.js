@@ -5,9 +5,9 @@ const faker = require('faker');
 module.exports = {
   up: (queryInterface, Sequelize) => {
     const notes = []
-    for (let i = 1; i < 60; i++) {
+    for (let i = 1; i < 20; i++) {
       let newAnswer = {
-        tite: faker.lorem.words(),
+        title: faker.lorem.words(),
         content: faker.lorem.paragraph(),
         isBookmarked: random.boolean(),
         isPublic: random.boolean(),

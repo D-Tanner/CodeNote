@@ -9,10 +9,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(255)
       },
       content: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       isBookmarked: {
         allowNull: false,
