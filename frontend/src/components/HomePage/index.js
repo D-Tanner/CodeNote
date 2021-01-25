@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux'
 import './HomePage.css';
 import ProfileButton from '../Navigation/ProfileButton'
-//import AllNotes from '../AllNotes'
+import QuillEditor from '../QuillEditor'
 
 function HomePage() {
   const sessionUser = useSelector(state => state.session.user);
@@ -20,8 +20,8 @@ function HomePage() {
       </div>
       <div className="col-resize"></div>
       <div className="text-editor-homepage">
-        rich-text-editor
-    </div>
+        <QuillEditor />
+      </div>
     </div>
   )
 }
