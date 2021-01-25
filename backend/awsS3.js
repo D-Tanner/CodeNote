@@ -1,6 +1,6 @@
 const AWS = require("aws-sdk");
 // name of your bucket here
-const NAME_OF_BUCKET = "aws-s3-pern-demo";
+const NAME_OF_BUCKET = "codenoteapp";
 
 const multer = require("multer");
 
