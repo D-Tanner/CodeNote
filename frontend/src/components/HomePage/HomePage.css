@@ -1,7 +1,7 @@
 .main-container {
   display: flex;
   flex-direction: row;
-  background-color: aqua;
+  background-color: #262626;
   height: 100%;
   margin: 0;
 }
