@@ -12,10 +12,11 @@
 .ql-container {
   box-sizing: border-box;
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 13px;
+  font-size: 17px;
   height: 100%;
   margin: 0px;
   position: relative;
+  color: #b4b4b4;
 }
 .ql-container.ql-disabled .ql-tooltip {
   visibility: hidden;
