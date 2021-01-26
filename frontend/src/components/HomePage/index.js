@@ -6,6 +6,8 @@ import './HomePage.css';
 import ProfileButton from '../Navigation/ProfileButton'
 import QuillEditor from '../QuillEditor'
 import GlobalNotes from '../GlobalNotes'
+import PersonalNotes from '../PersonalNotes'
+import Bookmarked from '../Bookmarked'
 
 function HomePage() {
 
@@ -19,11 +21,14 @@ function HomePage() {
           <ProfileButton user={sessionUser} />
         CodeNote
         </span>
+        <div><button>Global</button></div>
 
       </div>
       <div className="col-resize"></div>
       <div className="notes-homepage">
-        <GlobalNotes />
+        {/* <GlobalNotes /> */}
+        {/* <PersonalNotes /> */}
+        <Bookmarked />
       </div>
       <div className="col-resize"></div>
       <div className="text-editor-homepage">

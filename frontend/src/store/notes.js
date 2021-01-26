@@ -29,9 +29,17 @@ export const getPersonalNotes = (userId) => async (dispatch) => {
   return response;
 }
 
-
+//
 //Bookmarked.
 // /api/notes/saved
+export const getBookmarked = () => async (dispatch) => {
+  const response = await fetch('/api/notes/bookmarked');
+  //check dev tools
+  //console.log(response)
+  dispatch(setNotes(response.data))
+  //Do not do anything with this response, it only updates the store
+  return response;
+}
 
 //after getting notes in each of these, we need one action creator set notes.
 //case SET_NOTES (user) type: setNOTES, notes

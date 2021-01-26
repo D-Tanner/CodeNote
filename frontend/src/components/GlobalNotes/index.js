@@ -11,7 +11,7 @@ function GlobalNotes() {
     dispatch(getGlobalNotes())
   }, [dispatch])
 
-  console.log(notes)
+  //console.log(notes)
   return (
     <div>
       {/* {notes.map((notes, idx) => {
