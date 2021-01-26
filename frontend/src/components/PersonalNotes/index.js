@@ -1,30 +1,32 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
-import { getBookmarked } from '../../store/notes';
+import { getPersonalNotes } from '../../store/notes';
 //map over the notes and hav
-function Bookmarked() {
+function PersonalNotes() {
 
   const notes = useSelector(state => state.notes.notes);
+  const userId = useSelector(state => state.session.user.id);
+  //console.log(userId)
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getBookmarked())
+    dispatch(getPersonalNotes(userId))
   }, [dispatch])
-  //Hello
-  //console.log(notes)
+
+  //console.log("notes", notes)
   return (
     <div>
-      {/* {notes.map((notes, idx) => {
+      {notes.map((notes, idx) => {
         return (
           <>
             <div>{notes.title}</div>
             <div>{notes.content}</div>
           </>
         )
-      })} */}
+      })}
     </div>
   )
 }
 
 
-export default Bookmarked;
+export default PersonalNotes;

@@ -2,21 +2,34 @@
 import React from 'react';
 import { useSelector } from 'react-redux'
 import './HomePage.css';
+//import { Route, Switch, NavLink } from 'react-router-dom'
 import ProfileButton from '../Navigation/ProfileButton'
 import QuillEditor from '../QuillEditor'
+import GlobalNotes from '../GlobalNotes'
+import PersonalNotes from '../PersonalNotes'
+import Bookmarked from '../Bookmarked'
 
 function HomePage() {
+
+
   const sessionUser = useSelector(state => state.session.user);
+
   return (
     <div className="main-container">
       <div className="navbar-homepage">
-        You are now on the home page!
-        <ProfileButton user={sessionUser} />
-        {/* <AllNotes user={sessionUser} /> */}
+        <span>
+          <ProfileButton user={sessionUser} />
+        CodeNote
+        </span>
+        <div><button>Global</button></div>
+
       </div>
       <div className="col-resize"></div>
       <div className="notes-homepage">
-        main notes
+        {/* create a switch component in react, have route for each component */}
+        {/* <GlobalNotes /> */}
+        {/* <PersonalNotes /> */}
+        {/* <Bookmarked /> */}
       </div>
       <div className="col-resize"></div>
       <div className="text-editor-homepage">

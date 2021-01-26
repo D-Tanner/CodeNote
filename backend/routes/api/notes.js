@@ -1,13 +1,37 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
-const { Notes } = require('../../db/models')
+const { Note } = require('../../db/models')
 
 const router = express.Router();
 
 
-router.get('/api/notes/global', asyncHandler(async (req, res) => {
+router.get('/global', asyncHandler(async (req, res) => {
   //Find notes by public key
-  const notes = await Notes;
+  const notes = await Note.findAll({ where: { isPublic: true } });
+  //backend server
+  console.log(notes)
   //Need to add a filter
   return res.json(notes);
 }))
+
+router.get('/bookmarked', asyncHandler(async (req, res) => {
+  //Find notes by public key
+  const notes = await Note.findAll({ where: { isBookmarked: true } });
+  //backend server
+  console.log(notes)
+  //Need to add a filter
+  return res.json(notes);
+}))
+
+router.get('/:id/personal', asyncHandler(async (req, res) => {
+  //Find notes by public key
+  const userId = req.params.id;
+  //console.log(userId)
+  const notes = await Note.findAll({ where: { userId } });
+  //backend server
+  //console.log(notes)
+  //Need to add a filter
+  return res.json(notes);
+}))
+
+module.exports = router;
