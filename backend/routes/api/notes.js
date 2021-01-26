@@ -1,13 +1,18 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
-const { Notes } = require('../../db/models')
+const { Note } = require('../../db/models')
 
 const router = express.Router();
 
 
-router.get('/api/notes/global', asyncHandler(async (req, res) => {
+router.get('/global', asyncHandler(async (req, res) => {
   //Find notes by public key
-  const notes = await Notes.findAll();
+  const notes = await Note.findAll({ where: { isPublic: true } });
+  //backend server
+  console.log(notes)
   //Need to add a filter
   return res.json(notes);
 }))
+
+
+module.exports = router;

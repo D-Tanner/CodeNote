@@ -1,20 +1,27 @@
-import { useSelector } from 'react-redux'
-
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react';
+import { getGlobalNotes } from '../../store/notes';
 //map over the notes and hav
 function GlobalNotes() {
-  const notes = useSelector(state => state.notes);
+
+  const notes = useSelector(state => state.notes.notes);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getGlobalNotes())
+  }, [dispatch])
+
+  console.log(notes)
   return (
     <div>
-      {/* {notes.map((note, idx) => {
+      {/* {notes.map((notes, idx) => {
         return (
-          <div>
-            <div>{note.title}</div>
-            <div>{note.content}<div />
-
-            </div>
+          <>
+            <div>{notes.title}</div>
+            <div>{notes.content}</div>
+          </>
         )
       })} */}
-      {notes}
     </div>
   )
 }

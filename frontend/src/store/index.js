@@ -5,6 +5,7 @@ import notesReducer from './notes'
 
 const rootReducer = combineReducers({
   // add reducer functions here
+  //slices of state
   session: sessionReducer,
   //Need to add notes reducer and set it to a key of notes
   notes: notesReducer
