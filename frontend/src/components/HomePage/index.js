@@ -15,8 +15,11 @@ function HomePage() {
   return (
     <div className="main-container">
       <div className="navbar-homepage">
-        You are now on the home page!
-        <ProfileButton user={sessionUser} />
+        <span>
+          <ProfileButton user={sessionUser} />
+        CodeNote
+        </span>
+
       </div>
       <div className="col-resize"></div>
       <div className="notes-homepage">

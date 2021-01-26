@@ -7,19 +7,24 @@
 }
 
 .navbar-homepage {
-  width: 204px;
+  /* width: 204px; */
+  width: 15%;
   max-width: 395px;
   padding: 1px;
+  overflow: hidden;
 }
 
 .notes-homepage {
   width: 371px;
+  /* width: 40%; */
   max-width: 759px;
 }
 
 .text-editor-homepage {
   max-width: 980px;
-  width: 855px;
+  width: 100%;
+  /* width: 855px; */
+  overflow: hidden;
 }
 
 .col-resize {

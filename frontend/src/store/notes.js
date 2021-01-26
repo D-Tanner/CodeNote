@@ -1,6 +1,6 @@
-// //slice of state for notes
 // import { fetch } from './csrf'
 
+// //slice of state for notes
 // const SET_NOTES = 'session/setNotes';
 // //action type
 // //set notes
