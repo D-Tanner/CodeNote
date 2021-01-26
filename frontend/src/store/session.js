@@ -16,6 +16,7 @@ const removeUser = () => {
     type: REMOVE_USER,
   };
 };
+
 //Action creator
 
 export const restoreUser = () => async (dispatch) => {
