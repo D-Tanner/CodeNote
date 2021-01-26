@@ -11,7 +11,7 @@ function PersonalNotes() {
 
   useEffect(() => {
     dispatch(getPersonalNotes(userId))
-  }, [dispatch])
+  }, [dispatch, userId])
 
   //console.log("notes", notes)
   return (

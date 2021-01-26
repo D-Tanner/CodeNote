@@ -2,7 +2,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux'
 import './HomePage.css';
-//import { Route, Switch, NavLink } from 'react-router-dom'
+import { Route, Switch, NavLink } from 'react-router-dom'
 import ProfileButton from '../Navigation/ProfileButton'
 import QuillEditor from '../QuillEditor'
 import GlobalNotes from '../GlobalNotes'
@@ -21,7 +21,11 @@ function HomePage() {
           <ProfileButton user={sessionUser} />
         CodeNote
         </span>
-        <div><button>Global</button></div>
+        <div>
+          <div><NavLink to="/global">Global Notes</NavLink></div>
+          <div><NavLink to="/personal">Personal Notes</NavLink></div>
+          <div><NavLink to="/bookmarked">Bookmarked</NavLink></div>
+        </div>
 
       </div>
       <div className="col-resize"></div>
@@ -30,6 +34,11 @@ function HomePage() {
         {/* <GlobalNotes /> */}
         {/* <PersonalNotes /> */}
         {/* <Bookmarked /> */}
+        <Switch>
+          <Route path="/global"><GlobalNotes /></Route>
+          <Route path="/personal"><PersonalNotes /></Route>
+          <Route path="/bookmarked"><Bookmarked /></Route>
+        </Switch>
       </div>
       <div className="col-resize"></div>
       <div className="text-editor-homepage">

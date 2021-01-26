@@ -14,14 +14,16 @@ function GlobalNotes() {
   //console.log(notes)
   return (
     <div>
-      {/* {notes.map((notes, idx) => {
+      {notes.map((note, idx) => {
         return (
           <>
-            <div>{notes.title}</div>
-            <div>{notes.content}</div>
+            <div>
+              <div>{note.title}</div>
+              <div>{note.content}</div>
+            </div>
           </>
         )
-      })} */}
+      })}
     </div>
   )
 }
