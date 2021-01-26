@@ -32,8 +32,8 @@ export const getPersonalNotes = (userId) => async (dispatch) => {
 //
 //Bookmarked.
 // /api/notes/saved
-export const getBookmarked = () => async (dispatch) => {
-  const response = await fetch(`/api/notes/bookmarked`);
+export const getBookmarked = (userId) => async (dispatch) => {
+  const response = await fetch(`/api/notes/${userId}/bookmarked`);
   //check dev tools
   //console.log(response)
   dispatch(setNotes(response.data))

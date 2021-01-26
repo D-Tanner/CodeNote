@@ -7,11 +7,12 @@ import '../GlobalNotes/GlobalNotes.css'
 function Bookmarked() {
 
   const notes = useSelector(state => state.notes.notes);
+  const userId = useSelector(state => state.session.user.id);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getBookmarked())
-  }, [dispatch])
+    dispatch(getBookmarked(userId))
+  }, [dispatch, userId])
   //Hello
   //console.log(notes)
   return (

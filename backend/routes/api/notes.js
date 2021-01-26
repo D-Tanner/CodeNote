@@ -14,10 +14,10 @@ router.get('/global', asyncHandler(async (req, res) => {
   return res.json(notes);
 }))
 
-router.get('/bookmarked', asyncHandler(async (req, res) => {
+router.get('/:id/bookmarked', asyncHandler(async (req, res) => {
   //Find notes by public key
-  //const userId = req.params.id;
-  const notes = await Note.findAll({ where: { isBookmarked: true } });
+  const userId = req.params.id;
+  const notes = await Note.findAll({ where: { userId, isBookmarked: true } });
   //backend server
   console.log(notes)
   //Need to add a filter
