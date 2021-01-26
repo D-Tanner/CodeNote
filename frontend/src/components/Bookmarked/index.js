@@ -11,7 +11,7 @@ function Bookmarked() {
     dispatch(getBookmarked())
   }, [dispatch])
   //Hello
-  console.log(notes)
+  //console.log(notes)
   return (
     <div>
       {/* {notes.map((notes, idx) => {

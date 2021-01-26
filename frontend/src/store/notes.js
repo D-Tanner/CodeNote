@@ -24,8 +24,8 @@ export const getGlobalNotes = () => async (dispatch) => {
 //Personal
 // /api/notes/personal
 export const getPersonalNotes = (userId) => async (dispatch) => {
-  const response = await fetch('/api/notes/personal');
-  dispatch(setNotes(response.notes))
+  const response = await fetch(`/api/notes//${userId}/personal`);
+  dispatch(setNotes(response.data))
   return response;
 }
 
@@ -43,7 +43,7 @@ export const getBookmarked = () => async (dispatch) => {
 
 //after getting notes in each of these, we need one action creator set notes.
 //case SET_NOTES (user) type: setNOTES, notes
-const initialNote = { notes: null }
+const initialNote = { notes: [] }
 
 const notesReducer = (state = initialNote, action) => {
   let newState;

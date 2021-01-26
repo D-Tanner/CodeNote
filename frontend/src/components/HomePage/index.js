@@ -26,9 +26,10 @@ function HomePage() {
       </div>
       <div className="col-resize"></div>
       <div className="notes-homepage">
+        {/* create a switch component in react, have route for each component */}
         {/* <GlobalNotes /> */}
         {/* <PersonalNotes /> */}
-        <Bookmarked />
+        {/* <Bookmarked /> */}
       </div>
       <div className="col-resize"></div>
       <div className="text-editor-homepage">

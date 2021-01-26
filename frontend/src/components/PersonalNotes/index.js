@@ -5,23 +5,25 @@ import { getPersonalNotes } from '../../store/notes';
 function PersonalNotes() {
 
   const notes = useSelector(state => state.notes.notes);
+  const userId = useSelector(state => state.session.user.id);
+  //console.log(userId)
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPersonalNotes())
+    dispatch(getPersonalNotes(userId))
   }, [dispatch])
 
-  console.log(notes)
+  //console.log("notes", notes)
   return (
     <div>
-      {/* {notes.map((notes, idx) => {
+      {notes.map((notes, idx) => {
         return (
           <>
             <div>{notes.title}</div>
             <div>{notes.content}</div>
           </>
         )
-      })} */}
+      })}
     </div>
   )
 }
