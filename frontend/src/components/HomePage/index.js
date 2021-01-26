@@ -8,6 +8,7 @@ import QuillEditor from '../QuillEditor'
 import GlobalNotes from '../GlobalNotes'
 import PersonalNotes from '../PersonalNotes'
 import Bookmarked from '../Bookmarked'
+import './HomePage.css'
 
 function HomePage() {
 
@@ -22,18 +23,14 @@ function HomePage() {
         CodeNote
         </span>
         <div>
-          <div><NavLink to="/global">Global Notes</NavLink></div>
-          <div><NavLink to="/personal">Personal Notes</NavLink></div>
-          <div><NavLink to="/bookmarked">Bookmarked</NavLink></div>
+          <div><NavLink className="nav-link" to="/global">Global Notes</NavLink></div>
+          <div><NavLink className="nav-link" to="/personal">Personal Notes</NavLink></div>
+          <div><NavLink className="nav-link" to="/bookmarked">Bookmarked</NavLink></div>
         </div>
 
       </div>
       <div className="col-resize"></div>
       <div className="notes-homepage">
-        {/* create a switch component in react, have route for each component */}
-        {/* <GlobalNotes /> */}
-        {/* <PersonalNotes /> */}
-        {/* <Bookmarked /> */}
         <Switch>
           <Route path="/global"><GlobalNotes /></Route>
           <Route path="/personal"><PersonalNotes /></Route>
@@ -42,7 +39,21 @@ function HomePage() {
       </div>
       <div className="col-resize"></div>
       <div className="text-editor-homepage">
-        <QuillEditor />
+        {/* <Route path="/global/:id"> <QuillEditor /></Route>
+        <Route path="/personal/:id"> <QuillEditor /></Route>
+        <Route path="/bookmarked/:id"> <QuillEditor /></Route> */}
+        <Switch>
+          <Route path='/' exact> <QuillEditor /></Route>
+          <Route path='/global' exact><QuillEditor /></Route>
+          <Route path='/global/:id'><QuillEditor /></Route>
+
+          <Route path='/personal' exact><QuillEditor /></Route>
+          <Route path='/personal/:id'><QuillEditor /></Route>
+
+          <Route path='/bookmarked' exact><QuillEditor /></Route>
+          <Route path='/bookmarked/:id'><QuillEditor /></Route>
+
+        </Switch>
       </div>
     </div>
   )

@@ -16,6 +16,7 @@ router.get('/global', asyncHandler(async (req, res) => {
 
 router.get('/bookmarked', asyncHandler(async (req, res) => {
   //Find notes by public key
+  //const userId = req.params.id;
   const notes = await Note.findAll({ where: { isBookmarked: true } });
   //backend server
   console.log(notes)
