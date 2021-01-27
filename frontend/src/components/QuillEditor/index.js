@@ -22,7 +22,7 @@ function QuillEditor() {
   }, [dispatch, id])
 
   return (
-    <ReactQuill theme="snow" value={note ? note.content : ''} />
+    <ReactQuill theme="snow" value={note ? note.title : ''} />
     // <ReactQuill theme="snow" />
   )
 }
