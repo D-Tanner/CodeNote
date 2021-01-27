@@ -11,6 +11,7 @@ function QuillEditor() {
   //use note.content
 
   const dispatch = useDispatch();
+  //Quick Change
   // console.log(note)
 
   console.log(id)
