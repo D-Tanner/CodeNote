@@ -2,12 +2,20 @@ import { fetch } from './csrf'
 
 //slice of state for notes
 const SET_NOTES = 'session/setNotes';
+const CURRENT_NOTE = 'session/currentNote'
 //action type
 //set notes
 const setNotes = (notes) => {
   return {
     type: SET_NOTES,
     notes
+  }
+}
+
+const currentNote = (note) => {
+  return {
+    type: CURRENT_NOTE,
+    note
   }
 }
 //three thunk functions
@@ -24,7 +32,7 @@ export const getGlobalNotes = () => async (dispatch) => {
 //Personal
 // /api/notes/personal
 export const getPersonalNotes = (userId) => async (dispatch) => {
-  const response = await fetch(`/api/notes//${userId}/personal`);
+  const response = await fetch(`/api/notes/${userId}/personal`);
   dispatch(setNotes(response.data))
   return response;
 }
@@ -32,11 +40,21 @@ export const getPersonalNotes = (userId) => async (dispatch) => {
 //
 //Bookmarked.
 // /api/notes/saved
-export const getBookmarked = () => async (dispatch) => {
-  const response = await fetch('/api/notes/bookmarked');
+export const getBookmarked = (userId) => async (dispatch) => {
+  const response = await fetch(`/api/notes/${userId}/bookmarked`);
   //check dev tools
   //console.log(response)
   dispatch(setNotes(response.data))
+  //Do not do anything with this response, it only updates the store
+  return response;
+}
+
+export const getNoteById = (id) => async (dispatch) => {
+  const response = await fetch(`/api/notes/${id}`);
+  console.log(response)
+  //check dev tools
+  //console.log(response)
+  dispatch(currentNote(response.data))
   //Do not do anything with this response, it only updates the store
   return response;
 }
@@ -52,6 +70,11 @@ const notesReducer = (state = initialNote, action) => {
       newState = Object.assign({}, state);
       newState.notes = action.notes;
       return newState;
+    case CURRENT_NOTE:
+      // newState = Object.assign({}, state);
+      // newState.notes.currentNote = action.note
+      // return newState;
+      return { ...state, currentNote: action.note }
     default:
       return state;
   }
