@@ -14,8 +14,8 @@
 }
 
 .rte-nav {
-  position: absolute;
-  /* padding: 10px; */
+  position: fixed;
+  overflow: hidden;
   width: 100%;
   height: 60px;
 }
