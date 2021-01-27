@@ -48,11 +48,11 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
 
 //POST requests
-router.post('/', asyncHandler(async (req, res) => {
+router.post('/new', asyncHandler(async (req, res) => {
 
-  const newNote = await Note.create();
+  const newNote = await Note.create({ title: 'Untitled', content: 'content', userId: req.body.userId, isPublic: false, isBookmarked: false });
 
-  return res.json();
+  return res.json(newNote);
 }))
 
 module.exports = router;

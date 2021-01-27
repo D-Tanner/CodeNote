@@ -3,7 +3,7 @@ import { fetch } from './csrf'
 //slice of state for notes
 const SET_NOTES = 'session/setNotes';
 const CURRENT_NOTE = 'session/currentNote'
-//const NEW_NOTE = 'session/newNote';
+const NEW_NOTE = 'session/newNote';
 
 //action type
 //set notes
@@ -21,12 +21,12 @@ const currentNote = (note) => {
   }
 }
 
-// const newNote = () => {
-//   return {
-//     type: NEW_NOTE,
-
-//   }
-// }
+const newNote = (note) => {
+  return {
+    type: NEW_NOTE,
+    note
+  }
+}
 //three thunk functions
 //Global - userId passed in to async funciton. Get request method. Findall where userid === notes
 // /api/notes/global
@@ -68,7 +68,18 @@ export const getNoteById = (id) => async (dispatch) => {
   return response;
 }
 
+export const createNewNote = (userId) => async (dispatch) => {
+  const response = await fetch(`/api/notes/new`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ userId }),
+  });
 
+  dispatch(newNote(response.data))
+  return response;
+}
 
 //after getting notes in each of these, we need one action creator set notes.
 //case SET_NOTES (user) type: setNOTES, notes
@@ -83,8 +94,8 @@ const notesReducer = (state = initialNote, action) => {
       return newState;
     case CURRENT_NOTE:
       return { ...state, currentNote: action.note }
-    // case NEW_NOTE:
-    //   return {...state, newNote: action.note}
+    case NEW_NOTE:
+      return { notes: [...state.notes, { [action.note.id]: action.note },], currentNote: action.note }
     default:
       return state;
   }

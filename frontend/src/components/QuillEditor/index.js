@@ -9,7 +9,7 @@ function QuillEditor() {
   const { id } = useParams();
   const note = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
   const user = useSelector(state => state.session.user.id)
-  const userId = note.userId;
+  const userId = (note !== undefined) ? note.userId : null;
 
 
   //use note.content

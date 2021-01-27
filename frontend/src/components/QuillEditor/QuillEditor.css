@@ -49,9 +49,9 @@
 .ql-editor {
   box-sizing: border-box;
   line-height: 1.42;
-  height: 100%;
+  height: 86vh;
   outline: none;
-  overflow-y: auto;
+  overflow-y: scroll;
   padding: 12px 15px;
   tab-size: 4;
   -moz-tab-size: 4;
