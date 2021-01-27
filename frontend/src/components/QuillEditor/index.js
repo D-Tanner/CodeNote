@@ -11,6 +11,7 @@ function QuillEditor() {
   //use note.content
 
   const dispatch = useDispatch();
+  //Quick Change
   // console.log(note)
 
   console.log(id)
@@ -22,7 +23,7 @@ function QuillEditor() {
   }, [dispatch, id])
 
   return (
-    <ReactQuill theme="snow" value={note ? note.content : ''} />
+    <ReactQuill theme="snow" value={note ? note.title : ''} />
     // <ReactQuill theme="snow" />
   )
 }
