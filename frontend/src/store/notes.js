@@ -121,7 +121,7 @@ const notesReducer = (state = initialNote, action) => {
       // newState.notes.delete(action.noteId)
       const newNote = [];
 
-      const deleteNote = newState.notes.forEach(note => {
+      newState.notes.forEach(note => {
         //console.log(note.id, action.noteId)
         if (note.id !== Number(action.noteId)) {
           return newNote.push(note)
@@ -132,7 +132,7 @@ const notesReducer = (state = initialNote, action) => {
       // //filter so the new state contains everything but the action.noteId
       // //console.log(deleteNote)
       // console.log('delete', newNote)
-      newState.notes = deleteNote
+      newState.notes = newNote
       return newState;
     default:
       return state;
