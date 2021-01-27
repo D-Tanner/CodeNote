@@ -9,16 +9,32 @@
 }
 
 .quill{
-  margin-top: 60px;
-  position: absolute;
+
+  width: 100%;
+  overflow: hidden;
 }
 
 .rte-nav {
-  position: fixed;
+  /* position: absolute; */
   overflow: hidden;
   width: 100%;
   height: 60px;
 }
+
+.ql-editor::-webkit-scrollbar {
+  width: 9px;               /* width of the entire scrollbar */
+}
+
+.ql-editor::-webkit-scrollbar-track {
+  background: rgb(38,38,38);        /* color of the tracking area */
+}
+
+.ql-editor::-webkit-scrollbar-thumb {
+  background-color: rgb(165, 165, 190);    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid rgb(38,38,38);  /* creates padding around scroll thumb */
+}
+
 
 .ql-container {
   box-sizing: border-box;
@@ -959,4 +975,5 @@
 }
 .ql-container.ql-snow {
   /* border: 1px solid #ccc; */
+
 }
