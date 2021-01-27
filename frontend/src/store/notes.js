@@ -118,20 +118,15 @@ const notesReducer = (state = initialNote, action) => {
     case REMOVE_NOTE:
       newState = { ...state }
 
-      // newState.notes.delete(action.noteId)
       const newNote = [];
-
+      //filter notes that have been deleted
       newState.notes.forEach(note => {
-        //console.log(note.id, action.noteId)
+
         if (note.id !== Number(action.noteId)) {
           return newNote.push(note)
         }
       })
-      //console.log(newNote)
-      // // console.log(action.noteId)
-      // //filter so the new state contains everything but the action.noteId
-      // //console.log(deleteNote)
-      // console.log('delete', newNote)
+
       newState.notes = newNote
       return newState;
     default:
