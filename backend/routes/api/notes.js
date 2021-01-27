@@ -41,9 +41,18 @@ router.get('/:id', asyncHandler(async (req, res) => {
   //console.log(userId)
   const notes = await Note.findAll({ where: { id } });
   //backend server
-  console.log(notes)
+  //console.log(notes)
   //Need to add a filter
   return res.json(notes);
+}))
+
+
+//POST requests
+router.post('/', asyncHandler(async (req, res) => {
+
+  const newNote = await Note.create();
+
+  return res.json();
 }))
 
 module.exports = router;

@@ -5,13 +5,20 @@
  * Copyright (c) 2013, salesforce.com
  */
 .titles {
-  background: blue;
+  color: blue;
 }
 
 .quill{
   margin-top: 60px;
+  position: absolute;
 }
 
+.rte-nav {
+  position: absolute;
+  /* padding: 10px; */
+  width: 100%;
+  height: 60px;
+}
 
 .ql-container {
   box-sizing: border-box;

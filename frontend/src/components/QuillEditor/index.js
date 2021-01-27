@@ -10,15 +10,12 @@ function QuillEditor() {
   const note = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
   const user = useSelector(state => state.session.user.id)
   const userId = note.userId;
-  console.log(userId === user)
+
 
   //use note.content
 
   const dispatch = useDispatch();
-  //Quick Change
-  // console.log(note)
 
-  //console.log(id)
 
   useEffect(() => {
     if (id !== undefined) {
@@ -27,8 +24,18 @@ function QuillEditor() {
   }, [dispatch, id])
 
   return (
-    <ReactQuill theme="snow" value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''} readOnly={user !== userId} />
-    // <ReactQuill theme="snow" />
+    <div>
+      <div className="rte-nav">
+        <button type="button">Delete Note</button>
+      </div>
+      <ReactQuill theme="snow"
+        value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
+        readOnly={user !== userId}
+      //dispatch onkeyevent updateNote
+      // onChange={console.log('hello')}
+      />
+    </div>
+
   )
 }
 

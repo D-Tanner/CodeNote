@@ -1,6 +1,6 @@
 //Page for home. Three vertical divs containing navbar search, notes, and rich-text-editor
 import React from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import './HomePage.css';
 import { Route, Switch, NavLink } from 'react-router-dom'
 import ProfileButton from '../Navigation/ProfileButton'
@@ -10,10 +10,20 @@ import PersonalNotes from '../PersonalNotes'
 import Bookmarked from '../Bookmarked'
 import './HomePage.css'
 
+
 function HomePage() {
 
+  const dispatch = useDispatch();
 
   const sessionUser = useSelector(state => state.session.user);
+
+  const handleNewNote = async (e) => {
+    e.preventDefault();
+
+    //let newNote = await dispatch(createNewNote())
+    //I want to be redirected to /personal page/:newNoteId
+    console.log('button pressed');
+  }
 
   return (
     <div className="main-container">
@@ -23,6 +33,7 @@ function HomePage() {
         CodeNote
         </span>
         <div>
+          <div><button type="button" onClick={handleNewNote}>New Note</button></div>
           <div><NavLink className="nav-link" to="/global">Global Notes</NavLink></div>
           <div><NavLink className="nav-link" to="/personal">Personal Notes</NavLink></div>
           <div><NavLink className="nav-link" to="/bookmarked">Bookmarked</NavLink></div>
