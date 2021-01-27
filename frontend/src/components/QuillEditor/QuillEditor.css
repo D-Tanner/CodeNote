@@ -4,6 +4,10 @@
  * Copyright (c) 2014, Jason Chen
  * Copyright (c) 2013, salesforce.com
  */
+.titles {
+  background: blue;
+}
+
 .quill{
   margin-top: 60px;
 }
