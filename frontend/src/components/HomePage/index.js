@@ -29,7 +29,7 @@ function HomePage() {
         </div>
 
       </div>
-      <div className="col-resize"></div>
+      {/* <div className="col-resize"></div> */}
       <div className="notes-homepage">
         <Switch>
           <Route path="/global"><GlobalNotes /></Route>
@@ -37,7 +37,7 @@ function HomePage() {
           <Route path="/bookmarked"><Bookmarked /></Route>
         </Switch>
       </div>
-      <div className="col-resize"></div>
+      {/* <div className="col-resize"></div> */}
       <div className="text-editor-homepage">
         {/* <Route path="/global/:id"> <QuillEditor /></Route>
         <Route path="/personal/:id"> <QuillEditor /></Route>

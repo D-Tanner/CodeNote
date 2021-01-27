@@ -2,12 +2,20 @@ import { fetch } from './csrf'
 
 //slice of state for notes
 const SET_NOTES = 'session/setNotes';
+const CURRENT_NOTE = 'session/currentNote'
 //action type
 //set notes
 const setNotes = (notes) => {
   return {
     type: SET_NOTES,
     notes
+  }
+}
+
+const currentNote = (note) => {
+  return {
+    type: CURRENT_NOTE,
+    note
   }
 }
 //three thunk functions
@@ -42,10 +50,11 @@ export const getBookmarked = (userId) => async (dispatch) => {
 }
 
 export const getNoteById = (id) => async (dispatch) => {
-  const response = await fetch(`/api/notes/${id}/specific`);
+  const response = await fetch(`/api/notes/${id}`);
+  console.log(response)
   //check dev tools
   //console.log(response)
-  dispatch(setNotes(response.data))
+  dispatch(currentNote(response.data))
   //Do not do anything with this response, it only updates the store
   return response;
 }
@@ -61,6 +70,11 @@ const notesReducer = (state = initialNote, action) => {
       newState = Object.assign({}, state);
       newState.notes = action.notes;
       return newState;
+    case CURRENT_NOTE:
+      // newState = Object.assign({}, state);
+      // newState.notes.currentNote = action.note
+      // return newState;
+      return { ...state, currentNote: action.note }
     default:
       return state;
   }

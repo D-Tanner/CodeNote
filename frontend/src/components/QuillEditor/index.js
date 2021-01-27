@@ -7,17 +7,22 @@ import { useSelector, useDispatch } from 'react-redux';
 //useParams here grab the noteId called id
 function QuillEditor() {
   const { id } = useParams();
-  const note = useSelector(state => state.notes.notes)
+  // const note = useSelector(state => state.notes.currentNote[0])
+  //use note.content
+
   const dispatch = useDispatch();
   // console.log(note)
 
-  // console.log(id)
+  console.log(id)
 
-  // useEffect(() => {
-  //   dispatch(getNoteById(id))
-  // }, [dispatch, id])
+  useEffect(() => {
+    if (id !== undefined) {
+      dispatch(getNoteById(id))
+    }
+  }, [dispatch, id])
 
   return (
+    // <ReactQuill theme="snow" value={note ? note.content : ''} />
     <ReactQuill theme="snow" />
   )
 }

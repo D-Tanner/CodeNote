@@ -35,7 +35,7 @@ router.get('/:id/personal', asyncHandler(async (req, res) => {
   return res.json(notes);
 }))
 
-router.get('/:id/specific', asyncHandler(async (req, res) => {
+router.get('/:id', asyncHandler(async (req, res) => {
   //Find notes by public key
   const id = req.params.id;
   //console.log(userId)
