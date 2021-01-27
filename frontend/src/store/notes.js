@@ -4,6 +4,7 @@ import { fetch } from './csrf'
 const SET_NOTES = 'session/setNotes';
 const CURRENT_NOTE = 'session/currentNote'
 const NEW_NOTE = 'session/newNote';
+const REMOVE_NOTE = 'session/removeNote'
 
 //action type
 //set notes
@@ -25,6 +26,13 @@ const newNote = (note) => {
   return {
     type: NEW_NOTE,
     note
+  }
+}
+
+const removeNote = (noteId) => {
+  return {
+    type: REMOVE_NOTE,
+    noteId
   }
 }
 //three thunk functions
@@ -81,6 +89,17 @@ export const createNewNote = (userId) => async (dispatch) => {
   return response;
 }
 
+//delete note
+export const deleteNoteById = (noteId) => async (dispatch) => {
+  const response = await fetch(`/api/notes/delete/${noteId}`, {
+    method: "DELETE"
+  })
+  //console.log("response in store", response)
+  dispatch(removeNote(response.data))
+  return response;
+}
+
+
 //after getting notes in each of these, we need one action creator set notes.
 //case SET_NOTES (user) type: setNOTES, notes
 const initialNote = { notes: [] }
@@ -96,6 +115,25 @@ const notesReducer = (state = initialNote, action) => {
       return { ...state, currentNote: action.note }
     case NEW_NOTE:
       return { notes: [...state.notes, { [action.note.id]: action.note },], currentNote: action.note }
+    case REMOVE_NOTE:
+      newState = { ...state }
+
+      // newState.notes.delete(action.noteId)
+      const newNote = [];
+
+      const deleteNote = newState.notes.forEach(note => {
+        //console.log(note.id, action.noteId)
+        if (note.id !== Number(action.noteId)) {
+          return newNote.push(note)
+        }
+      })
+      //console.log(newNote)
+      // // console.log(action.noteId)
+      // //filter so the new state contains everything but the action.noteId
+      // //console.log(deleteNote)
+      // console.log('delete', newNote)
+      newState.notes = deleteNote
+      return newState;
     default:
       return state;
   }

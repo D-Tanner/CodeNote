@@ -55,4 +55,14 @@ router.post('/new', asyncHandler(async (req, res) => {
   return res.json(newNote);
 }))
 
+//Delete route with specific id
+router.delete("/delete/:id", asyncHandler(async function (req, res) {
+  const id = req.params.id
+  console.log(id)
+  const note = await Note.findOne({ where: { id } });
+  // console.log(note)
+  note.destroy();
+  return res.json(id);
+}));
+
 module.exports = router;
