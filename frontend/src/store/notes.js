@@ -5,7 +5,8 @@ const SET_NOTES = 'session/setNotes';
 const CURRENT_NOTE = 'session/currentNote'
 const NEW_NOTE = 'session/newNote';
 const REMOVE_NOTE = 'session/removeNote'
-
+const UPDATE_BOOKMARK = 'session/updateBookmark'
+const UPDATE_STATUS = 'session/updateStatus'
 //action type
 //set notes
 const setNotes = (notes) => {
@@ -32,6 +33,20 @@ const newNote = (note) => {
 const removeNote = (noteId) => {
   return {
     type: REMOVE_NOTE,
+    noteId
+  }
+}
+
+const updateBookmark = (noteId) => {
+  return {
+    type: UPDATE_BOOKMARK,
+    noteId
+  }
+}
+
+const updateStatus = (noteId) => {
+  return {
+    type: UPDATE_STATUS,
     noteId
   }
 }
@@ -99,6 +114,24 @@ export const deleteNoteById = (noteId) => async (dispatch) => {
   return response;
 }
 
+export const updateBookmarkById = (noteId) => async (dispatch) => {
+  const response = await fetch(`/api/notes/bookmark/update/${noteId}`, {
+    method: "PATCH"
+  })
+  //console.log("response in store", response)
+  dispatch(updateBookmark(response.data))
+  return response;
+}
+
+//updates either public or private
+export const updateStatusById = (noteId) => async (dispatch) => {
+  const response = await fetch(`/api/notes/status/update/${noteId}`, {
+    method: "PATCH"
+  })
+  //console.log("response in store", response)
+  dispatch(updateStatus(response.data))
+  return response;
+}
 
 //after getting notes in each of these, we need one action creator set notes.
 //case SET_NOTES (user) type: setNOTES, notes
@@ -119,18 +152,21 @@ const notesReducer = (state = initialNote, action) => {
       return addedNote;
     case REMOVE_NOTE:
       newState = { ...state }
-
       const newNote = [];
       //filter notes that have been deleted
       newState.notes.forEach(note => {
-
         if (note.id !== Number(action.noteId)) {
           return newNote.push(note)
         }
       })
-
       newState.notes = newNote
       return newState;
+    case UPDATE_BOOKMARK:
+
+      return { ...state, currentNote: [action.noteId] };
+
+    case UPDATE_STATUS:
+      return { ...state, currentNote: [action.noteId] }
     default:
       return state;
   }
