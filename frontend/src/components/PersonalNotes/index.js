@@ -17,7 +17,7 @@ function PersonalNotes() {
       notes.unshift(shifted)
     }
   }
-  console.log(notes)
+
   const dispatch = useDispatch();
 
   useEffect(() => {

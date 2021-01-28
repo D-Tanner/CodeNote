@@ -14,7 +14,6 @@ router.get('/global', asyncHandler(async (req, res) => {
       order: [['updatedAt', 'DESC']]
     });
   // const notes = await Note.findAll({ where: { isPublic: true }, order: [['updatedAt', 'DESC']] });
-  console.log(notes)
   return res.json(notes);
 }))
 
@@ -40,7 +39,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
   const id = req.params.id;
 
   const notes = await Note.findAll({ where: { id }, include: [Bookmark], order: [['updatedAt', 'DESC']] });
-  console.log(notes)
+  //console.log(notes)
   return res.json(notes);
 }))
 
@@ -78,10 +77,11 @@ router.patch("/status/update/:id", asyncHandler(async function (req, res) {
   return res.json(note)
 }))
 
-router.patch("/:id/edit", asyncHandler(async function (req, res) {
+router.patch("/edit/:id", asyncHandler(async function (req, res) {
   const id = req.params.id;
-  const body = req.body;
-  console.log(body)
+  const bodyString = req.body.value;
+  const bodyTitle = bodyString.split('</h1>')[0] + "</h1>"
+  //console.log("body!", bodyTitle)
   const note = await Note.findOne({ where: { id } });
 
   return res.json(note)

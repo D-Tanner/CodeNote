@@ -78,7 +78,9 @@ function QuillEditor() {
         value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
         readOnly={user !== userId}
         // e.target.value
-        onChange={(value) => dispatch(editNoteById(note.id, { value }))}
+        onChange={(value) => {
+          dispatch(editNoteById(note.id, value))
+        }}
 
       />
     </div >

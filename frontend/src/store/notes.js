@@ -65,7 +65,7 @@ const editNote = (noteId, content) => {
 export const getGlobalNotes = () => async (dispatch) => {
   const response = await fetch('/api/notes/global');
   //check dev tools
-  console.log("getglobalnotes", response)
+  console.log('right here', response)
   dispatch(setNotes(response.data))
   //Do not do anything with this response, it only updates the store
   return response;
@@ -74,6 +74,7 @@ export const getGlobalNotes = () => async (dispatch) => {
 // /api/notes/personal
 export const getPersonalNotes = (userId) => async (dispatch) => {
   const response = await fetch(`/api/notes/${userId}/personal`);
+
   dispatch(setNotes(response.data))
   return response;
 }
@@ -144,14 +145,16 @@ export const updateStatusById = (noteId) => async (dispatch) => {
 
 export const editNoteById = (noteId, content) => async (dispatch) => {
   // console.log("!!!!!!!!!!!!!!!", noteId, content)
-  const response = await fetch(`api/notes/${noteId}/edit`, {
-    method: "PATCH",
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(content)
-  })
-  console.log(response)
-  dispatch(editNote(response.data))
-  return response;
+  console.log(noteId, content)
+  // const response = await fetch(`api/notes/edit/${noteId}`, {
+  //   method: "PATCH",
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({ content })
+  // })
+  // console.log(response)
+  // dispatch(editNote(response.data))
+  // return response;
+
 }
 
 //after getting notes in each of these, we need one action creator set notes.
