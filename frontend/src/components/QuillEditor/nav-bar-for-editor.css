@@ -1,16 +1,19 @@
 .private-public-toggle {
   width: 500px;
-  /* display: flex;
-  justify-content: space-around;
-  padding: 20px; */
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
 }
 
 .titles {
   color: blue;
 }
 
-.quill{
+.toggle-label {
+  color:rgb(242,242,242)
+}
 
+.quill{
   width: 100%;
   overflow: hidden;
 }
@@ -43,6 +46,8 @@
 
 .onoffswitch2 {
     position: relative; width: 60px;
+    height: 24px;
+    margin: 0px 5px 0px 5px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
 }
 .onoffswitch2-checkbox {
@@ -50,8 +55,8 @@
 }
 .onoffswitch2-label {
     display: block; overflow: hidden; cursor: pointer;
-    height: 20px; padding: 0; line-height: 35px;
-    border: 2px solid #CCCCCC; border-radius: 35px;
+    height: 20px; padding: 0; line-height: 20px;
+    border: 2px solid #CCCCCC; border-radius: 20px;
     background-color: #FFFFFF;
     transition: background-color 0.3s ease-in;
 }
@@ -60,16 +65,17 @@
     display: block; width: 20px; margin: 0px;
     background: #FFFFFF;
     /* background:blue; */
-    position: absolute; top: 0; bottom: 0;
+    position: absolute;
+    top: 0; bottom: 0;
     right: 37px;
-    border: 2px solid #CCCCCC; border-radius: 35px;
+    border: 2px solid #CCCCCC; border-radius: 20px;
     transition: all 0.3s ease-in 0s;
 }
 .onoffswitch2-checkbox:checked + .onoffswitch2-label {
-    background-color: #49E845;
+    background-color: #4caf50;
 }
 .onoffswitch2-checkbox:checked + .onoffswitch2-label, .onoffswitch2-checkbox:checked + .onoffswitch2-label:before {
-   border-color: #49E845;
+   border-color: #4caf50;
 }
 .onoffswitch2-checkbox:checked + .onoffswitch2-label:before {
     right: 0px;

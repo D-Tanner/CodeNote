@@ -16,9 +16,12 @@ function QuillEditor() {
   const dispatch = useDispatch();
   const note = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
   const user = useSelector(state => state.session.user.id)
+  const toggleCheck = useSelector(state => (state.session.user.id === state.notes.currentNote[0].userId))
+  // const toggleCheck = useSelector(state => (console.log(state.session.user.id, state.notes.currentNote[0].userId)))
+
   const userId = (note !== undefined) ? note.userId : null;
   const [toggle, setToggle] = useState(true)
-
+  const [hiddenToggle, setHiddenToggle] = useState(false)
   //use note.content
   const deleteNote = async (e) => {
     e.preventDefault();
@@ -40,22 +43,15 @@ function QuillEditor() {
       <div className="rte-nav">
         <button type="button" onClick={deleteNote}>Delete Note</button>
         {/* {isBookmard && icon || isBookmar} */}
-        <div className="private-public-toggle">
-          {/* <div>Publicccc</div> */}
+        {toggleCheck && <div className="private-public-toggle">
+          <div className="toggle-label">Public</div>
           <div className="onoffswitch2">
             <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="myonoffswitch2" onClick={() => setToggle(!toggle)} checked={toggle}></input>
             <label class="onoffswitch2-label" for="myonoffswitch2">
             </label>
-            {/* <div>Private</div> */}
           </div>
-          {/* <div className="onoffswitch">
-            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked={false}></input>
-            <label class="onoffswitch-label" for="myonoffswitch">
-              <span class="onoffswitch-inner"></span>
-              <span class="onoffswitch-switch"></span>
-            </label>
-          </div> */}
-        </div>
+          <div className="toggle-label">Private</div>
+        </div>}
 
         <BookmarkIcon style={{ color: green[500] }} />
         <BookmarkBorderIcon style={{ color: green[500] }} />
