@@ -1,13 +1,14 @@
 import ReactQuill from 'react-quill'
 import './QuillEditor.css'
-//import './nav-bar-for-editor.css'
-import { useEffect } from 'react';
+import './nav-bar-for-editor.css'
+import { useEffect, useState } from 'react';
 import { getNoteById, deleteNoteById } from '../../store/notes'
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import { green } from '@material-ui/core/colors';
+
 //useParams here grab the noteId called id
 function QuillEditor() {
   const { id } = useParams();
@@ -39,6 +40,22 @@ function QuillEditor() {
       <div className="rte-nav">
         <button type="button" onClick={deleteNote}>Delete Note</button>
         {/* {isBookmard && icon || isBookmar} */}
+        <div className="private-public-toggle">
+          <div>Publicccc</div>
+          <div className="onoffswitch2">
+            <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="myonoffswitch2" checked={false}></input>
+            <label class="onoffswitch2-label" for="myonoffswitch2">
+            </label>
+            <div>Private</div>
+          </div>
+          {/* <div className="onoffswitch">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked={false}></input>
+            <label class="onoffswitch-label" for="myonoffswitch">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+            </label>
+          </div> */}
+        </div>
 
         <BookmarkIcon style={{ color: green[500] }} />
         <BookmarkBorderIcon style={{ color: green[500] }} />
@@ -49,7 +66,7 @@ function QuillEditor() {
       //dispatch onkeyevent updateNote
       // onChange={console.log('hello')}
       />
-    </div>
+    </div >
 
   )
 }
