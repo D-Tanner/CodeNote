@@ -28,7 +28,7 @@ router.get('/:id/personal', asyncHandler(async (req, res) => {
   //Find notes by public key
   const userId = req.params.id;
   //console.log(userId)
-  const notes = await Note.findAll({ where: { userId } });
+  const notes = await Note.findAll({ where: { userId }, order: [['updatedAt', 'DESC']] });
   //backend server
   //console.log(notes)
   //Need to add a filter

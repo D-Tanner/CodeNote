@@ -68,7 +68,7 @@ export const getBookmarked = (userId) => async (dispatch) => {
 
 export const getNoteById = (id) => async (dispatch) => {
   const response = await fetch(`/api/notes/${id}`);
-  console.log(response)
+  //console.log(response)
   //check dev tools
   //console.log(response)
   dispatch(currentNote(response.data))
