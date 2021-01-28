@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { getPersonalNotes } from '../../store/notes';
 import { NavLink } from 'react-router-dom';
 import '../GlobalNotes/GlobalNotes.css'
+
 //map over the notes and hav
 function PersonalNotes() {
 
