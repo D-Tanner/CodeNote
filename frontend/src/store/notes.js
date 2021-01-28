@@ -3,6 +3,9 @@ import { fetch } from './csrf'
 //slice of state for notes
 const SET_NOTES = 'session/setNotes';
 const CURRENT_NOTE = 'session/currentNote'
+const NEW_NOTE = 'session/newNote';
+const REMOVE_NOTE = 'session/removeNote'
+
 //action type
 //set notes
 const setNotes = (notes) => {
@@ -16,6 +19,20 @@ const currentNote = (note) => {
   return {
     type: CURRENT_NOTE,
     note
+  }
+}
+
+const newNote = (note) => {
+  return {
+    type: NEW_NOTE,
+    note
+  }
+}
+
+const removeNote = (noteId) => {
+  return {
+    type: REMOVE_NOTE,
+    noteId
   }
 }
 //three thunk functions
@@ -59,6 +76,30 @@ export const getNoteById = (id) => async (dispatch) => {
   return response;
 }
 
+export const createNewNote = (userId) => async (dispatch) => {
+  const response = await fetch(`/api/notes/new`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ userId }),
+  });
+
+  dispatch(newNote(response.data))
+  return response;
+}
+
+//delete note
+export const deleteNoteById = (noteId) => async (dispatch) => {
+  const response = await fetch(`/api/notes/delete/${noteId}`, {
+    method: "DELETE"
+  })
+  //console.log("response in store", response)
+  dispatch(removeNote(response.data))
+  return response;
+}
+
+
 //after getting notes in each of these, we need one action creator set notes.
 //case SET_NOTES (user) type: setNOTES, notes
 const initialNote = { notes: [] }
@@ -71,10 +112,25 @@ const notesReducer = (state = initialNote, action) => {
       newState.notes = action.notes;
       return newState;
     case CURRENT_NOTE:
-      // newState = Object.assign({}, state);
-      // newState.notes.currentNote = action.note
-      // return newState;
       return { ...state, currentNote: action.note }
+    case NEW_NOTE:
+      const addedNote = { notes: [...state.notes, action.note], currentNote: action.note }
+      console.log(addedNote);
+      return addedNote;
+    case REMOVE_NOTE:
+      newState = { ...state }
+
+      const newNote = [];
+      //filter notes that have been deleted
+      newState.notes.forEach(note => {
+
+        if (note.id !== Number(action.noteId)) {
+          return newNote.push(note)
+        }
+      })
+
+      newState.notes = newNote
+      return newState;
     default:
       return state;
   }

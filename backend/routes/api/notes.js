@@ -41,9 +41,28 @@ router.get('/:id', asyncHandler(async (req, res) => {
   //console.log(userId)
   const notes = await Note.findAll({ where: { id } });
   //backend server
-  console.log(notes)
+  //console.log(notes)
   //Need to add a filter
   return res.json(notes);
 }))
+
+
+//POST requests
+router.post('/new', asyncHandler(async (req, res) => {
+
+  const newNote = await Note.create({ title: 'Untitled', content: 'content', userId: req.body.userId, isPublic: false, isBookmarked: false });
+
+  return res.json(newNote);
+}))
+
+//Delete route with specific id
+router.delete("/delete/:id", asyncHandler(async function (req, res) {
+  const id = req.params.id
+  console.log(id)
+  const note = await Note.findOne({ where: { id } });
+  // console.log(note)
+  note.destroy();
+  return res.json(id);
+}));
 
 module.exports = router;
