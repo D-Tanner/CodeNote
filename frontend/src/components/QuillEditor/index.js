@@ -7,6 +7,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { green } from '@material-ui/core/colors';
 
 //useParams here grab the noteId called id
@@ -49,7 +50,7 @@ function QuillEditor() {
       <div className="rte-nav">
 
         {/* button to delete a note specific to the user */}
-        {toggleCheck && <button type="button" onClick={deleteNote}>Delete Note</button>}
+        {toggleCheck && <button type="button" className="delete-button" onClick={deleteNote}><DeleteIcon /></button>}
 
         {/* container for the public/private switch */}
         {toggleCheck && <div className="private-public-toggle">
