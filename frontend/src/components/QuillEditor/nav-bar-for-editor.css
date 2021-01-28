@@ -1,7 +1,8 @@
 .private-public-toggle {
   width: 500px;
-  display: flex;
+  /* display: flex;
   justify-content: space-around;
+  padding: 20px; */
 }
 
 .titles {
@@ -41,7 +42,7 @@
 /* iOS9 Toggle Switch */
 
 .onoffswitch2 {
-    position: relative; width: 117px;
+    position: relative; width: 60px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
 }
 .onoffswitch2-checkbox {
@@ -49,17 +50,18 @@
 }
 .onoffswitch2-label {
     display: block; overflow: hidden; cursor: pointer;
-    height: 35px; padding: 0; line-height: 35px;
+    height: 20px; padding: 0; line-height: 35px;
     border: 2px solid #CCCCCC; border-radius: 35px;
     background-color: #FFFFFF;
     transition: background-color 0.3s ease-in;
 }
 .onoffswitch2-label:before {
     content: "";
-    display: block; width: 35px; margin: 0px;
+    display: block; width: 20px; margin: 0px;
     background: #FFFFFF;
+    /* background:blue; */
     position: absolute; top: 0; bottom: 0;
-    right: 80px;
+    right: 37px;
     border: 2px solid #CCCCCC; border-radius: 35px;
     transition: all 0.3s ease-in 0s;
 }

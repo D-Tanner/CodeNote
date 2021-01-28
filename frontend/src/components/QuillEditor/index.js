@@ -17,7 +17,7 @@ function QuillEditor() {
   const note = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
   const user = useSelector(state => state.session.user.id)
   const userId = (note !== undefined) ? note.userId : null;
-
+  const [toggle, setToggle] = useState(true)
 
   //use note.content
   const deleteNote = async (e) => {
@@ -41,12 +41,12 @@ function QuillEditor() {
         <button type="button" onClick={deleteNote}>Delete Note</button>
         {/* {isBookmard && icon || isBookmar} */}
         <div className="private-public-toggle">
-          <div>Publicccc</div>
+          {/* <div>Publicccc</div> */}
           <div className="onoffswitch2">
-            <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="myonoffswitch2" checked={false}></input>
+            <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="myonoffswitch2" onClick={() => setToggle(!toggle)} checked={toggle}></input>
             <label class="onoffswitch2-label" for="myonoffswitch2">
             </label>
-            <div>Private</div>
+            {/* <div>Private</div> */}
           </div>
           {/* <div className="onoffswitch">
             <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked={false}></input>
