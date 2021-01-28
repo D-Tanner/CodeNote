@@ -1,21 +1,21 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
-const { Note } = require('../../db/models')
+const { Note, Bookmark } = require('../../db/models')
 
 const router = express.Router();
 
 
 router.get('/global', asyncHandler(async (req, res) => {
   //Find notes by public key
-  const notes = await Note.findAll({ where: { isPublic: true }, order: [['updatedAt', 'DESC']] });
-
+  const notes = await Note.findAll({ where: { isPublic: true }, include: [{ model: Bookmark, include: ['isBookmarked'] }], order: [['updatedAt', 'DESC']] });
+  console.log(notes)
   return res.json(notes);
 }))
 
 router.get('/:id/bookmarked', asyncHandler(async (req, res) => {
   //Find notes by public key
   const userId = req.params.id;
-  const notes = await Note.findAll({ where: { userId, isBookmarked: true }, order: [['updatedAt', 'DESC']] });
+  const notes = await Note.findAll({ where: { userId }, order: [['updatedAt', 'DESC']] });
 
   return res.json(notes);
 }))
@@ -60,8 +60,8 @@ router.delete("/delete/:id", asyncHandler(async function (req, res) {
 //Patch routes for updating bookmarks, global status, notes
 router.patch("/bookmark/update/:id", asyncHandler(async function (req, res) {
   const id = req.params.id;
-  const note = await Note.findOne({ where: { id } });
-  await note.update({ isBookmarked: !note.isBookmarked })
+  const bookmark = await Bookmark.findOne({ where: { id } });
+  await note.update({ isBookmarked: !bookmark.isBookmarked })
   return res.json(note)
 }))
 

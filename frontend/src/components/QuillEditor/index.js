@@ -1,7 +1,7 @@
 import ReactQuill from 'react-quill'
 import './QuillEditor.css'
 import './nav-bar-for-editor.css'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getNoteById, deleteNoteById, updateBookmarkById, updateStatusById } from '../../store/notes'
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,7 +17,7 @@ function QuillEditor() {
   const dispatch = useDispatch();
   const note = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
   const userIdNote = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].userId : '')
-  const stateOfBookmark = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].isBookmarked : '')
+  //const stateOfBookmark = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].isBookmarked : '')
   const user = useSelector(state => state.session.user.id)
 
   const toggleCheck = (user === userIdNote) ? true : null;
@@ -68,8 +68,8 @@ function QuillEditor() {
 
 
         <button className="bookmark-button" onClick={() => dispatch(updateBookmarkById(note.id))}>
-          {(stateOfBookmark === true) && <BookmarkIcon style={{ color: green[500] }} />}
-          {(stateOfBookmark === false) && <BookmarkBorderIcon style={{ color: green[500] }} />}
+          {/* {(stateOfBookmark === true) && <BookmarkIcon style={{ color: green[500] }} />} */}
+          {/* {(stateOfBookmark === false) && <BookmarkBorderIcon style={{ color: green[500] }} />} */}
         </button>
 
 

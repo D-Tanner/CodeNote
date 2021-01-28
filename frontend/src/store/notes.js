@@ -56,7 +56,7 @@ const updateStatus = (noteId) => {
 export const getGlobalNotes = () => async (dispatch) => {
   const response = await fetch('/api/notes/global');
   //check dev tools
-  //console.log(response)
+  console.log("getglobalnotes", response)
   dispatch(setNotes(response.data))
   //Do not do anything with this response, it only updates the store
   return response;
@@ -135,9 +135,9 @@ export const updateStatusById = (noteId) => async (dispatch) => {
 
 //after getting notes in each of these, we need one action creator set notes.
 //case SET_NOTES (user) type: setNOTES, notes
-const initialNote = { notes: [] }
+const initialState = { notes: [] }
 
-const notesReducer = (state = initialNote, action) => {
+const notesReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case SET_NOTES:
