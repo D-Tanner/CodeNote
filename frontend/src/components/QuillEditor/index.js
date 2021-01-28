@@ -15,16 +15,18 @@ function QuillEditor() {
   const history = useHistory();
   const dispatch = useDispatch();
   const note = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
-  const userIdNote = useSelector(state => (state.notes.currentNote[0]) ? state.notes.currentNote[0].userId : '')
+  const userIdNote = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].userId : '')
+  const stateOfBookmark = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
   const user = useSelector(state => state.session.user.id)
 
   const toggleCheck = (user === userIdNote) ? true : null;
-
+  // const bookmarked
 
 
 
   const userId = (note !== undefined) ? note.userId : null;
-  const [toggle, setToggle] = useState(true)
+  const [togglePublic, setTogglePublic] = useState(true)
+  const [bookmark, setBookmark] = useState(true)
 
   //use note.content
   const deleteNote = async (e) => {
@@ -45,20 +47,30 @@ function QuillEditor() {
   return (
     <div>
       <div className="rte-nav">
-        <button type="button" onClick={deleteNote}>Delete Note</button>
-        {/* {isBookmard && icon || isBookmar} */}
+
+        {/* button to delete a note specific to the user */}
+        {toggleCheck && <button type="button" onClick={deleteNote}>Delete Note</button>}
+
+        {/* container for the public/private switch */}
         {toggleCheck && <div className="private-public-toggle">
           <div className="toggle-label">Public</div>
           <div className="onoffswitch2">
-            <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="myonoffswitch2" onClick={() => setToggle(!toggle)} checked={toggle}></input>
+            <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="myonoffswitch2" onClick={() => setTogglePublic(!togglePublic)} checked={togglePublic}></input>
             <label class="onoffswitch2-label" for="myonoffswitch2">
             </label>
           </div>
           <div className="toggle-label">Private</div>
         </div>}
 
-        <BookmarkIcon style={{ color: green[500] }} />
-        <BookmarkBorderIcon style={{ color: green[500] }} />
+        {/* button for the bookmark logic */}
+
+
+        <button className="bookmark-button" onClick={() => setBookmark(!bookmark)}>
+          {(bookmark === true) && <BookmarkIcon style={{ color: green[500] }} />}
+          {(bookmark === false) && <BookmarkBorderIcon style={{ color: green[500] }} />}
+        </button>
+
+
       </div>
       <ReactQuill theme="snow"
         value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
