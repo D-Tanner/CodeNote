@@ -54,13 +54,13 @@ function QuillEditor() {
 
         {/* container for the public/private switch */}
         {toggleCheck && <div className="private-public-toggle">
-          <div className="toggle-label">Public</div>
+          <div className="toggle-label">Private</div>
           <div className="onoffswitch2">
             <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="myonoffswitch2" onClick={() => setTogglePublic(!togglePublic)} checked={togglePublic}></input>
             <label class="onoffswitch2-label" for="myonoffswitch2">
             </label>
           </div>
-          <div className="toggle-label">Private</div>
+          <div className="toggle-label">Public</div>
         </div>}
 
         {/* button for the bookmark logic */}

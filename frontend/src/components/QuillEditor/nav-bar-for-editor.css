@@ -7,14 +7,12 @@
 
 
 .bookmark-button {
-
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;
     cursor:pointer;
     overflow: hidden;
     outline:none;
-
 }
 
 .delete-button {
@@ -24,11 +22,10 @@
     cursor:pointer;
     overflow: hidden;
     outline:none;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.titles {
-  color: blue;
-}
+
 
 .toggle-label {
   color:rgb(242,242,242)
