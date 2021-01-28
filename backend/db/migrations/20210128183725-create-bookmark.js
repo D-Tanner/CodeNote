@@ -1,27 +1,26 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Notes', {
+    return queryInterface.createTable('Bookmarks', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      title: {
-        type: Sequelize.STRING(255)
-      },
-      content: {
-        type: Sequelize.TEXT
-      },
-      isPublic: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN
-      },
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: { model: 'Users' }
+      },
+      noteId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: 'Notes' }
+      },
+      isBookmarked: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -34,6 +33,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Notes');
+    return queryInterface.dropTable('Bookmarks');
   }
 };

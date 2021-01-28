@@ -4,22 +4,21 @@ const faker = require('faker');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    const notes = []
+    const bookmarks = []
     for (let i = 1; i < 20; i++) {
       let newAnswer = {
-        title: faker.lorem.words(),
-        content: faker.lorem.paragraph(),
-        isPublic: random.boolean(),
         userId: Math.floor(Math.random() * 3) + 1,
+        noteId: Math.floor(Math.random() * 19) + 1,
+        isBookmarked: random.boolean(),
         createdAt: new Date(),
         updatedAt: new Date()
       }
-      notes.push(newAnswer)
+      bookmarks.push(newAnswer)
     }
-    return queryInterface.bulkInsert('Notes', notes, {});
+    return queryInterface.bulkInsert('Bookmarks', bookmarks, {});
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Notes', null, {});
+    return queryInterface.bulkDelete('Bookmarks', null, {});
   }
 };

@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   Note.associate = function (models) {
     Note.belongsTo(models.User, { foreignKey: 'userId' })
     Note.hasMany(models.Image, { foreignKey: 'noteId' })
+    Note.hasOne(models.Bookmark, { foreignKey: 'noteId' })
   };
   return Note;
 };
