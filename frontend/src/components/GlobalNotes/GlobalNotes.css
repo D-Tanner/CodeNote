@@ -1,0 +1,33 @@
+
+
+.each-note {
+  border-top: 0.5px solid rgb(29, 27, 27);
+  padding: 5px;
+  height: 88px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin-bottom: 6px;
+  color:rgb(242, 242, 242)
+}
+
+.content {
+  color:#b4b4b4;
+  overflow: hidden;
+
+  height: 50px;
+
+
+}
+
+.nav-link{
+  text-decoration: none;
+}
+
+.each-note:hover {
+  background-color: rgba(99, 96, 96, 0.267);
+  transition-duration: 0.4s;
+}

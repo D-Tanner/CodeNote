@@ -1,25 +1,30 @@
 .main-container {
   display: flex;
   flex-direction: row;
-  background-color: aqua;
+  background-color: #262626;
   height: 100%;
   margin: 0;
 }
 
 .navbar-homepage {
-  width: 204px;
+  /* width: 204px; */
+  width: 15%;
   max-width: 395px;
   padding: 1px;
+  overflow: hidden;
 }
 
 .notes-homepage {
   width: 371px;
+  /* width: 40%; */
   max-width: 759px;
 }
 
 .text-editor-homepage {
   max-width: 980px;
-  width: 855px;
+  width: 100%;
+  /* width: 855px; */
+  overflow: hidden;
 }
 
 .col-resize {
@@ -27,4 +32,27 @@
   height: 100%;
   background-color: grey;
   cursor: col-resize;
+}
+
+.notes-homepage {
+  overflow-y: scroll;
+}
+
+.notes-homepage::-webkit-scrollbar {
+  width: 9px;               /* width of the entire scrollbar */
+}
+
+.notes-homepage::-webkit-scrollbar-track {
+  background: rgb(38,38,38);        /* color of the tracking area */
+}
+
+.notes-homepage::-webkit-scrollbar-thumb {
+  background-color: rgb(165, 165, 190);    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid rgb(38,38,38);  /* creates padding around scroll thumb */
+}
+
+.nav-link {
+  text-decoration: none;
+  color: a6a6a6;
 }
