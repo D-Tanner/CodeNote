@@ -23,7 +23,7 @@ function HomePage() {
     e.preventDefault();
 
     let newNote = await dispatch(createNewNote(sessionUser.id))
-    console.log("!!!!!!!!!!!!!!!!!!!!!!", newNote)
+    //console.log("!!!!!!!!!!!!!!!!!!!!!!", newNote)
     history.push(`/personal/${newNote.data.id}`)
     //I want to be redirected to /personal page/:newNoteId
   }

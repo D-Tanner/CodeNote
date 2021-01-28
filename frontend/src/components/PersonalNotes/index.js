@@ -7,9 +7,17 @@ import '../GlobalNotes/GlobalNotes.css'
 //map over the notes and hav
 function PersonalNotes() {
 
-  const notes = useSelector(state => state.notes.notes);
+  let notes = useSelector(state => state.notes.notes);
   const userId = useSelector(state => state.session.user.id);
-  //console.log(userId)
+
+  //adds the new note at the top instead of at the bottom
+  if (notes.length) {
+    if (notes[notes.length - 2].updatedAt < notes[notes.length - 1].updatedAt) {
+      let shifted = notes.pop();
+      notes.unshift(shifted)
+    }
+  }
+  console.log(notes)
   const dispatch = useDispatch();
 
   useEffect(() => {
