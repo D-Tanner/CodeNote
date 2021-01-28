@@ -12,12 +12,14 @@
   max-width: 395px;
   padding: 1px;
   overflow: hidden;
+  background-color: #000000;
 }
 
 .notes-homepage {
   width: 371px;
   /* width: 40%; */
   max-width: 759px;
+  background-color: #1a1a1a;
 }
 
 .text-editor-homepage {
@@ -25,6 +27,7 @@
   width: 100%;
   /* width: 855px; */
   overflow: hidden;
+  background-color: #262626;
 }
 
 .col-resize {

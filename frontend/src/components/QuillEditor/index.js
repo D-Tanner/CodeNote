@@ -15,13 +15,17 @@ function QuillEditor() {
   const history = useHistory();
   const dispatch = useDispatch();
   const note = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
+  const userIdNote = useSelector(state => (state.notes.currentNote[0]) ? state.notes.currentNote[0].userId : '')
   const user = useSelector(state => state.session.user.id)
-  const toggleCheck = useSelector(state => (state.session.user.id === state.notes.currentNote[0].userId))
-  // const toggleCheck = useSelector(state => (console.log(state.session.user.id, state.notes.currentNote[0].userId)))
+
+  const toggleCheck = (user === userIdNote) ? true : null;
+
+
+
 
   const userId = (note !== undefined) ? note.userId : null;
   const [toggle, setToggle] = useState(true)
-  const [hiddenToggle, setHiddenToggle] = useState(false)
+
   //use note.content
   const deleteNote = async (e) => {
     e.preventDefault();
