@@ -78,5 +78,14 @@ router.patch("/status/update/:id", asyncHandler(async function (req, res) {
   return res.json(note)
 }))
 
+router.patch("/:id/edit", asyncHandler(async function (req, res) {
+  const id = req.params.id;
+  const body = req.body;
+  console.log(body)
+  const note = await Note.findOne({ where: { id } });
+
+  return res.json(note)
+}))
+
 
 module.exports = router;

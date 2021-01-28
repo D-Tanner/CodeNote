@@ -2,7 +2,7 @@ import ReactQuill from 'react-quill'
 import './QuillEditor.css'
 import './nav-bar-for-editor.css'
 import { useEffect } from 'react';
-import { getNoteById, deleteNoteById, updateBookmarkById, updateStatusById } from '../../store/notes'
+import { getNoteById, deleteNoteById, updateBookmarkById, updateStatusById, editNoteById } from '../../store/notes'
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
@@ -78,7 +78,8 @@ function QuillEditor() {
         value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
         readOnly={user !== userId}
         // e.target.value
-        onChange={(value) => console.log(value)}
+        onChange={(value) => dispatch(editNoteById(note.id, { value }))}
+
       />
     </div >
 

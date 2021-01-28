@@ -7,6 +7,7 @@ const NEW_NOTE = 'session/newNote';
 const REMOVE_NOTE = 'session/removeNote'
 const UPDATE_BOOKMARK = 'session/updateBookmark'
 const UPDATE_STATUS = 'session/updateStatus'
+const EDIT_NOTE = 'session/editNote'
 //action type
 //set notes
 const setNotes = (notes) => {
@@ -48,6 +49,14 @@ const updateStatus = (noteId) => {
   return {
     type: UPDATE_STATUS,
     noteId
+  }
+}
+
+const editNote = (noteId, content) => {
+  return {
+    type: EDIT_NOTE,
+    noteId,
+    content
   }
 }
 //three thunk functions
@@ -133,6 +142,18 @@ export const updateStatusById = (noteId) => async (dispatch) => {
   return response;
 }
 
+export const editNoteById = (noteId, content) => async (dispatch) => {
+  // console.log("!!!!!!!!!!!!!!!", noteId, content)
+  const response = await fetch(`api/notes/${noteId}/edit`, {
+    method: "PATCH",
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(content)
+  })
+  console.log(response)
+  dispatch(editNote(response.data))
+  return response;
+}
+
 //after getting notes in each of these, we need one action creator set notes.
 //case SET_NOTES (user) type: setNOTES, notes
 const initialState = { notes: [] }
@@ -143,6 +164,9 @@ const notesReducer = (state = initialState, action) => {
     case SET_NOTES:
       newState = Object.assign({}, state);
       newState.notes = action.notes;
+      if (action.notes) {
+        newState.currentNote = [action.notes[0]]
+      }
       return newState;
     case CURRENT_NOTE:
       return { ...state, currentNote: action.note }
@@ -162,9 +186,7 @@ const notesReducer = (state = initialState, action) => {
       newState.notes = newNote
       return newState;
     case UPDATE_BOOKMARK:
-
       return { ...state, currentNote: [action.noteId] };
-
     case UPDATE_STATUS:
       return { ...state, currentNote: [action.noteId] }
     default:
