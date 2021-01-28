@@ -77,6 +77,8 @@ function QuillEditor() {
       <ReactQuill theme="snow"
         value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
         readOnly={user !== userId}
+        // e.target.value
+        onChange={(value) => console.log(value)}
       />
     </div >
 

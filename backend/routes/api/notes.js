@@ -7,7 +7,13 @@ const router = express.Router();
 
 router.get('/global', asyncHandler(async (req, res) => {
   //Find notes by public key
-  const notes = await Note.findAll({ where: { isPublic: true }, include: [{ model: Bookmark, include: ['isBookmarked'] }], order: [['updatedAt', 'DESC']] });
+  const notes = await Note.findAll(
+    {
+      where: { isPublic: true },
+      include: Bookmark,
+      order: [['updatedAt', 'DESC']]
+    });
+  // const notes = await Note.findAll({ where: { isPublic: true }, order: [['updatedAt', 'DESC']] });
   console.log(notes)
   return res.json(notes);
 }))
@@ -33,8 +39,8 @@ router.get('/:id', asyncHandler(async (req, res) => {
   //Find notes by public key
   const id = req.params.id;
 
-  const notes = await Note.findAll({ where: { id }, order: [['updatedAt', 'DESC']] });
-
+  const notes = await Note.findAll({ where: { id }, include: [Bookmark], order: [['updatedAt', 'DESC']] });
+  console.log(notes)
   return res.json(notes);
 }))
 
@@ -42,7 +48,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 //POST requests
 router.post('/new', asyncHandler(async (req, res) => {
 
-  const newNote = await Note.create({ title: 'Untitled', content: 'content', userId: req.body.userId, isPublic: false, isBookmarked: false });
+  const newNote = await Note.create({ title: 'Untitled', content: 'content', userId: req.body.userId, isPublic: false });
 
   return res.json(newNote);
 }))
@@ -61,8 +67,8 @@ router.delete("/delete/:id", asyncHandler(async function (req, res) {
 router.patch("/bookmark/update/:id", asyncHandler(async function (req, res) {
   const id = req.params.id;
   const bookmark = await Bookmark.findOne({ where: { id } });
-  await note.update({ isBookmarked: !bookmark.isBookmarked })
-  return res.json(note)
+  await bookmark.update({ isBookmarked: !bookmark.isBookmarked })
+  return res.json(bookmark)
 }))
 
 router.patch("/status/update/:id", asyncHandler(async function (req, res) {
