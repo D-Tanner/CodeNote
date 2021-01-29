@@ -193,12 +193,11 @@ const notesReducer = (state = initialState, action) => {
     case UPDATE_STATUS:
       return { ...state, currentNote: [action.noteId] }
     case EDIT_NOTE:
-    // newState = { ...state }
-    // console.log(newState.currentNote.title)
-    // console.log(newState.currentNote.content)
-    // //console.log("action.content", action.content)
-    // //console.log("action.noteId", action.noteId)
-    // return newState
+      newState = { ...state }
+      newState.currentNote[0].title = action.content.data.title
+      newState.currentNote[0].content = action.content.data.content
+
+      return newState
     default:
       return state;
   }
