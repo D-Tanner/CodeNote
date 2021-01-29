@@ -146,14 +146,14 @@ export const updateStatusById = (noteId) => async (dispatch) => {
 export const editNoteById = (noteId, content) => async (dispatch) => {
   // console.log("!!!!!!!!!!!!!!!", noteId, content)
   console.log(noteId, content)
-  // const response = await fetch(`api/notes/edit/${noteId}`, {
-  //   method: "PATCH",
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify({ content })
-  // })
-  // console.log(response)
-  // dispatch(editNote(response.data))
-  // return response;
+  const response = await fetch(`api/notes/edit/${noteId}`, {
+    method: "PATCH",
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ content })
+  })
+  console.log(response)
+  dispatch(editNote(response.data))
+  return response;
 
 }
 
