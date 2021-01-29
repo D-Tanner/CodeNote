@@ -79,11 +79,15 @@ router.patch("/status/update/:id", asyncHandler(async function (req, res) {
 
 router.patch("/edit/:id", asyncHandler(async function (req, res) {
   const id = req.params.id;
-  const bodyString = req.body.value;
-  const bodyTitle = bodyString.split('</h1>')[0] + "</h1>"
-  console.log("body!", bodyTitle)
-  const note = await Note.findOne({ where: { id } });
+  const bodyString = req.body.content;
 
+  const bodyTitle = bodyString.split('</h1>')[0]
+  const bodyContent = bodyString.split('</h1>')[1]
+  console.log("body!", bodyTitle)
+  console.log("content!", bodyContent)
+  const note = await Note.findOne({ where: { id } });
+  note.update({ title: bodyTitle, content: bodyContent })
+  console.log(note.title)
   return res.json(note)
 }))
 

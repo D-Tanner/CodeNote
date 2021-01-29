@@ -79,7 +79,10 @@ function QuillEditor() {
         readOnly={user !== userId}
         // e.target.value
         onChange={(value) => {
-          dispatch(editNoteById(note.id, value))
+          if (note.id !== undefined) {
+            dispatch(editNoteById(note.id, value))
+
+          }
         }}
 
       />
