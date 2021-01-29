@@ -1,7 +1,7 @@
 import ReactQuill from 'react-quill'
 import './QuillEditor.css'
 import './nav-bar-for-editor.css'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getNoteById, deleteNoteById, updateBookmarkById, updateStatusById, editNoteById } from '../../store/notes'
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,16 +16,20 @@ function QuillEditor() {
   const history = useHistory();
   const dispatch = useDispatch();
   const note = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
+  // const note = useSelector(state => (state.notes.currentNote !== undefined && state.notes.currentNote !== []) ? state.notes.currentNote[0] : '')
   const userIdNote = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].userId : '')
+  //const userIdNote = useSelector(state => (state.notes.currentNote) ? state.notes.currentNote[0].userId : '')
   //const stateOfBookmark = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].isBookmarked : '')
   const user = useSelector(state => state.session.user.id)
+  //const [valueState, setValueState] = useState('')
 
+  // const toggleCheck = (user === 1) ? true : null;
   const toggleCheck = (user === userIdNote) ? true : null;
 
-  let valueCheck = '';
+  let valueState = '';
 
   const userId = (note !== undefined) ? note.userId : null;
-  //const [bookmark, setBookmark] = useState(false)
+  //const [saveButton, setSaveButton] = useState(false)
 
   //use note.content
   const deleteNote = async (e) => {
@@ -36,8 +40,13 @@ function QuillEditor() {
     // console.log(note)
     history.push(`/personal`)
   }
+  //hello
+  //update value of rte
+  const setValueState = (value) => {
+    valueState = value
+    console.log(valueState)
 
-  //update bookmark
+  }
 
   useEffect(() => {
     if (id !== undefined) {
@@ -52,11 +61,21 @@ function QuillEditor() {
         {/* button to delete a note specific to the user */}
         {toggleCheck && <button type="button" className="delete-button" onClick={deleteNote}><DeleteIcon /></button>}
 
+        {/* Button for saving feature */}
+        {toggleCheck && <button onClick={() => {
+          //console.log('before', valueState)
+          //setSaveButton(false);
+          dispatch(editNoteById(note.id, valueState))
+          valueState = '';
+          window.location.reload(false);
+          //console.log('after', note)
+        }}>Save</button>}
         {/* container for the public/private switch */}
         {toggleCheck && <div className="private-public-toggle">
           <div className="toggle-label">Private</div>
           <div className="onoffswitch2">
             <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="myonoffswitch2" onClick={() => dispatch(updateStatusById(note.id))} checked={note.isPublic}></input>
+            {/* <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="myonoffswitch2" onClick={() => dispatch(updateStatusById(note.id))} checked={true}></input> */}
             <label class="onoffswitch2-label" for="myonoffswitch2">
             </label>
           </div>
@@ -81,15 +100,11 @@ function QuillEditor() {
       {(user === userId) && <ReactQuill theme="snow"
         value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
         onChange={(value) => {
-          //variable to stop the onchange on rte from firing patch requests when just naviagting to other notes
-          //const valueCheck = `<h1>${note.title}</h1><p>${note.content}</p>`
-          if ((note.id !== undefined)) {
-            //console.log("valueCheck", valueCheck)
-            console.log("value", value)
-            //console.log(value === valueCheck)
-            dispatch(editNoteById(note.id, value))
-          }
+          setValueState(value);
+          //setSaveButton(true)
         }}
+      // onKeyUp={() => setSaveButton(true)}
+
       />}
     </div >
 

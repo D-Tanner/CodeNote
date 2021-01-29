@@ -32,7 +32,7 @@ function PersonalNotes() {
         {notes.map((note, idx) => {
           return (
             <>
-              <NavLink to={`/personal/${note.id}`} className="nav-link">
+              <NavLink to={`/personal/${note.id}`} className="nav-link" key={idx}>
                 <div className="each-note">
                   <div className="title">{note.title}</div>
                   <div className="content">{note.content}</div>
