@@ -19,7 +19,7 @@ function QuillEditor() {
   const userIdNote = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].userId : '')
   //const stateOfBookmark = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].isBookmarked : '')
   const user = useSelector(state => state.session.user.id)
-
+  console.log("!!!!!!!!", userIdNote)
   const toggleCheck = (user === userIdNote) ? true : null;
   // const bookmarked
   //console.log(stateOfBookmark)
