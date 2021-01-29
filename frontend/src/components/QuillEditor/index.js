@@ -26,7 +26,7 @@ function QuillEditor() {
   let valueState = '';
 
   const userId = (note !== undefined) ? note.userId : null;
-  //const [bookmark, setBookmark] = useState(false)
+  const [saveButton, setSaveButton] = useState(false)
 
   //use note.content
   const deleteNote = async (e) => {
@@ -38,7 +38,12 @@ function QuillEditor() {
     history.push(`/personal`)
   }
   //hello
-  //update bookmark
+  //update value of rte
+  const setValueState = (value) => {
+    valueState = value
+    console.log(valueState)
+
+  }
 
   useEffect(() => {
     if (id !== undefined) {
@@ -54,7 +59,13 @@ function QuillEditor() {
         {toggleCheck && <button type="button" className="delete-button" onClick={deleteNote}><DeleteIcon /></button>}
 
         {/* Button for saving feature */}
-        <button onClick={() => console.log(valueState)}>Save</button>
+        {toggleCheck && saveButton && <button onClick={() => {
+          console.log('before', valueState)
+          dispatch(editNoteById(note.id, valueState))
+          valueState = '';
+          setSaveButton(false);
+          console.log('after', valueState.length)
+        }}>Save</button>}
         {/* container for the public/private switch */}
         {toggleCheck && <div className="private-public-toggle">
           <div className="toggle-label">Private</div>
@@ -84,15 +95,10 @@ function QuillEditor() {
       {(user === userId) && <ReactQuill theme="snow"
         value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
         onChange={(value) => {
-          valueState = value;
-          // //variable to stop the onchange on rte from firing patch requests when just naviagting to other notes
-          // //useState
-          // //const valueCheck = `<h1>${note.title}</h1><p>${note.content}</p>`
-          // if ((note.id !== undefined)) {
-          //   setValueState(value)
-          //   //dispatch(editNoteById(note.id, value))
-          // }
+          setValueState(value);
         }}
+        onKeyUp={() => setSaveButton(true)}
+
       />}
     </div >
 
