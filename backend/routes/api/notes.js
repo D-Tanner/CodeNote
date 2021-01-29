@@ -10,7 +10,7 @@ router.get('/global', asyncHandler(async (req, res) => {
   const notes = await Note.findAll(
     {
       where: { isPublic: true },
-      include: Bookmark,
+      // include: [{ model: Bookmark, where }],
       order: [['updatedAt', 'DESC']]
     });
   // const notes = await Note.findAll({ where: { isPublic: true }, order: [['updatedAt', 'DESC']] });
@@ -37,9 +37,11 @@ router.get('/:id/personal', asyncHandler(async (req, res) => {
 router.get('/:id', asyncHandler(async (req, res) => {
   //Find notes by public key
   const id = req.params.id;
-
-  const notes = await Note.findAll({ where: { id }, include: [Bookmark], order: [['updatedAt', 'DESC']] });
-  //console.log(notes)
+  //const userId = req.params.userId //once included -> userId: userId
+  // const notes = await Note.findAll({ where: { id }, include: [{ model: Bookmark, where: { noteId: id } }], order: [['updatedAt', 'DESC']] });
+  const notes = await Note.findAll({ where: { id }, order: [['updatedAt', 'DESC']] });
+  //const bookmark = await Bookmark.findAll({ where: { id } })
+  console.log("!!!!!!!!!", notes)
   return res.json(notes);
 }))
 
@@ -65,6 +67,8 @@ router.delete("/delete/:id", asyncHandler(async function (req, res) {
 //Patch routes for updating bookmarks, global status, notes
 router.patch("/bookmark/update/:id", asyncHandler(async function (req, res) {
   const id = req.params.id;
+  //const userId = req.params.userId
+  //Needs to inlcude userId and noteId
   const bookmark = await Bookmark.findOne({ where: { id } });
   await bookmark.update({ isBookmarked: !bookmark.isBookmarked })
   return res.json(bookmark)
