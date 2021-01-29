@@ -19,14 +19,14 @@ function QuillEditor() {
   const userIdNote = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].userId : '')
   //const stateOfBookmark = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].isBookmarked : '')
   const user = useSelector(state => state.session.user.id)
-  console.log(note)
+
   const toggleCheck = (user === userIdNote) ? true : null;
   // const bookmarked
   //console.log(stateOfBookmark)
 
 
   const userId = (note !== undefined) ? note.userId : null;
-  //const [togglePublic, setTogglePublic] = useState(true)
+  const [rteValue, setRteValue] = '';
   //const [bookmark, setBookmark] = useState(false)
 
   //use note.content
@@ -84,6 +84,7 @@ function QuillEditor() {
         value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
         onChange={(value) => {
           if (note.id !== undefined) {
+            console.log(note.id)
             dispatch(editNoteById(note.id, value))
           }
         }}

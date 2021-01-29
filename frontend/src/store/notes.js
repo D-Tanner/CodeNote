@@ -145,7 +145,7 @@ export const updateStatusById = (noteId) => async (dispatch) => {
 
 export const editNoteById = (noteId, content) => async (dispatch) => {
   //console.log("!!!!!!!!!!!!!!!", noteId, content)
-  const response = await fetch(`/api/notes/edit/${noteId}`, {
+  const response = await fetch(`/api/noteID/edit/${noteId}`, {
     method: "PATCH",
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ content })
@@ -196,7 +196,6 @@ const notesReducer = (state = initialState, action) => {
       newState = { ...state }
       newState.currentNote[0].title = action.content.data.title
       newState.currentNote[0].content = action.content.data.content
-
       return newState
     default:
       return state;
