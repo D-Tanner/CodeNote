@@ -144,13 +144,14 @@ export const updateStatusById = (noteId) => async (dispatch) => {
 }
 
 export const editNoteById = (noteId, content) => async (dispatch) => {
-  // console.log("!!!!!!!!!!!!!!!", noteId, content)
+  //console.log("!!!!!!!!!!!!!!!", noteId, content)
   const response = await fetch(`/api/notes/edit/${noteId}`, {
     method: "PATCH",
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ content })
   })
-  dispatch(editNote(response.data))
+  //console.log("response", response)
+  dispatch(editNote(noteId, response))
   return response;
 
 }
@@ -184,16 +185,20 @@ const notesReducer = (state = initialState, action) => {
           return newNote.push(note)
         }
       })
-
       newState.notes = newNote
       newState.currentNote = [newState.notes[0]]
-      console.log(newState.notes)
-
       return newState;
     case UPDATE_BOOKMARK:
       return { ...state, currentNote: [action.noteId] };
     case UPDATE_STATUS:
       return { ...state, currentNote: [action.noteId] }
+    case EDIT_NOTE:
+    // newState = { ...state }
+    // console.log(newState.currentNote.title)
+    // console.log(newState.currentNote.content)
+    // //console.log("action.content", action.content)
+    // //console.log("action.noteId", action.noteId)
+    // return newState
     default:
       return state;
   }
