@@ -8,6 +8,7 @@ import './GlobalNotes.css'
 function GlobalNotes() {
 
   const notes = useSelector(state => state.notes.notes);
+
   const dispatch = useDispatch();
   // const {id} = useParams();
   useEffect(() => {

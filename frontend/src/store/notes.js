@@ -5,7 +5,9 @@ const SET_NOTES = 'session/setNotes';
 const CURRENT_NOTE = 'session/currentNote'
 const NEW_NOTE = 'session/newNote';
 const REMOVE_NOTE = 'session/removeNote'
-
+const UPDATE_BOOKMARK = 'session/updateBookmark'
+const UPDATE_STATUS = 'session/updateStatus'
+const EDIT_NOTE = 'session/editNote'
 //action type
 //set notes
 const setNotes = (notes) => {
@@ -35,13 +37,35 @@ const removeNote = (noteId) => {
     noteId
   }
 }
+
+const updateBookmark = (noteId) => {
+  return {
+    type: UPDATE_BOOKMARK,
+    noteId
+  }
+}
+
+const updateStatus = (noteId) => {
+  return {
+    type: UPDATE_STATUS,
+    noteId
+  }
+}
+
+const editNote = (noteId, content) => {
+  return {
+    type: EDIT_NOTE,
+    noteId,
+    content
+  }
+}
 //three thunk functions
 //Global - userId passed in to async funciton. Get request method. Findall where userid === notes
 // /api/notes/global
 export const getGlobalNotes = () => async (dispatch) => {
   const response = await fetch('/api/notes/global');
   //check dev tools
-  //console.log(response)
+  console.log('right here', response)
   dispatch(setNotes(response.data))
   //Do not do anything with this response, it only updates the store
   return response;
@@ -50,6 +74,7 @@ export const getGlobalNotes = () => async (dispatch) => {
 // /api/notes/personal
 export const getPersonalNotes = (userId) => async (dispatch) => {
   const response = await fetch(`/api/notes/${userId}/personal`);
+
   dispatch(setNotes(response.data))
   return response;
 }
@@ -68,7 +93,7 @@ export const getBookmarked = (userId) => async (dispatch) => {
 
 export const getNoteById = (id) => async (dispatch) => {
   const response = await fetch(`/api/notes/${id}`);
-  console.log(response)
+  //console.log(response)
   //check dev tools
   //console.log(response)
   dispatch(currentNote(response.data))
@@ -99,38 +124,80 @@ export const deleteNoteById = (noteId) => async (dispatch) => {
   return response;
 }
 
+export const updateBookmarkById = (noteId) => async (dispatch) => {
+  const response = await fetch(`/api/notes/bookmark/update/${noteId}`, {
+    method: "PATCH"
+  })
+  //console.log("response in store", response)
+  dispatch(updateBookmark(response.data))
+  return response;
+}
+
+//updates either public or private
+export const updateStatusById = (noteId) => async (dispatch) => {
+  const response = await fetch(`/api/notes/status/update/${noteId}`, {
+    method: "PATCH"
+  })
+  //console.log("response in store", response)
+  dispatch(updateStatus(response.data))
+  return response;
+}
+
+export const editNoteById = (noteId, content) => async (dispatch) => {
+  //console.log("!!!!!!!!!!!!!!!", noteId, content)
+  const response = await fetch(`/api/noteID/edit/${noteId}`, {
+    method: "PATCH",
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ content })
+  })
+  //console.log("response", response)
+  dispatch(editNote(noteId, response))
+  return response;
+
+}
 
 //after getting notes in each of these, we need one action creator set notes.
 //case SET_NOTES (user) type: setNOTES, notes
-const initialNote = { notes: [] }
+const initialState = { notes: [] }
 
-const notesReducer = (state = initialNote, action) => {
+const notesReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case SET_NOTES:
       newState = Object.assign({}, state);
       newState.notes = action.notes;
+      if (action.notes) {
+        newState.currentNote = [action.notes[0]]
+      }
       return newState;
     case CURRENT_NOTE:
       return { ...state, currentNote: action.note }
     case NEW_NOTE:
-      const addedNote = { notes: [...state.notes, action.note], currentNote: action.note }
-      console.log(addedNote);
+      const addedNote = { notes: [...state.notes, action.note], currentNote: [action.note] }
+      //console.log(addedNote);
       return addedNote;
     case REMOVE_NOTE:
       newState = { ...state }
-
       const newNote = [];
       //filter notes that have been deleted
       newState.notes.forEach(note => {
-
         if (note.id !== Number(action.noteId)) {
           return newNote.push(note)
         }
       })
-
       newState.notes = newNote
+      newState.currentNote = [newState.notes[0]]
       return newState;
+    case UPDATE_BOOKMARK:
+      return { ...state, currentNote: [action.noteId] };
+    case UPDATE_STATUS:
+      return { ...state, currentNote: [action.noteId] }
+    case EDIT_NOTE:
+      newState = { ...state }
+      console.log(action.content.data)
+      newState.currentNote[0].title = action.content.data.title
+      newState.currentNote[0].content = action.content.data.content
+      return newState
     default:
       return state;
   }
