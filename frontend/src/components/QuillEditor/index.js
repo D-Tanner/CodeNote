@@ -1,7 +1,7 @@
 import ReactQuill from 'react-quill'
 import './QuillEditor.css'
 import './nav-bar-for-editor.css'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getNoteById, deleteNoteById, updateBookmarkById, updateStatusById, editNoteById } from '../../store/notes'
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,10 +19,11 @@ function QuillEditor() {
   const userIdNote = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].userId : '')
   //const stateOfBookmark = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].isBookmarked : '')
   const user = useSelector(state => state.session.user.id)
+  //const [valueState, setValueState] = useState('')
 
   const toggleCheck = (user === userIdNote) ? true : null;
 
-  let valueCheck = '';
+  let valueState = '';
 
   const userId = (note !== undefined) ? note.userId : null;
   //const [bookmark, setBookmark] = useState(false)
@@ -36,7 +37,7 @@ function QuillEditor() {
     // console.log(note)
     history.push(`/personal`)
   }
-
+  //hello
   //update bookmark
 
   useEffect(() => {
@@ -52,6 +53,8 @@ function QuillEditor() {
         {/* button to delete a note specific to the user */}
         {toggleCheck && <button type="button" className="delete-button" onClick={deleteNote}><DeleteIcon /></button>}
 
+        {/* Button for saving feature */}
+        <button onClick={() => console.log(valueState)}>Save</button>
         {/* container for the public/private switch */}
         {toggleCheck && <div className="private-public-toggle">
           <div className="toggle-label">Private</div>
@@ -81,14 +84,14 @@ function QuillEditor() {
       {(user === userId) && <ReactQuill theme="snow"
         value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
         onChange={(value) => {
-          //variable to stop the onchange on rte from firing patch requests when just naviagting to other notes
-          //const valueCheck = `<h1>${note.title}</h1><p>${note.content}</p>`
-          if ((note.id !== undefined)) {
-            //console.log("valueCheck", valueCheck)
-            console.log("value", value)
-            //console.log(value === valueCheck)
-            dispatch(editNoteById(note.id, value))
-          }
+          valueState = value;
+          // //variable to stop the onchange on rte from firing patch requests when just naviagting to other notes
+          // //useState
+          // //const valueCheck = `<h1>${note.title}</h1><p>${note.content}</p>`
+          // if ((note.id !== undefined)) {
+          //   setValueState(value)
+          //   //dispatch(editNoteById(note.id, value))
+          // }
         }}
       />}
     </div >
