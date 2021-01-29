@@ -74,18 +74,19 @@ function QuillEditor() {
 
 
       </div>
-      <ReactQuill theme="snow"
+      {/* Determines either a readonly rte or editable rte */}
+      {(user === userId) && <ReactQuill theme="snow"
         value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
-        readOnly={user !== userId}
-        // e.target.value
+        readOnly
+      />}
+      {(user !== userId) && <ReactQuill theme="snow"
+        value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
         onChange={(value) => {
           if (note.id !== undefined) {
             dispatch(editNoteById(note.id, value))
-
           }
         }}
-
-      />
+      />}
     </div >
 
   )
