@@ -34,7 +34,6 @@ function QuillEditor() {
     e.preventDefault();
 
     await dispatch(deleteNoteById(note.id))
-    console.log('delete successful')
     history.push(`/personal`)
   }
 

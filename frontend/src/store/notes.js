@@ -184,7 +184,11 @@ const notesReducer = (state = initialState, action) => {
           return newNote.push(note)
         }
       })
+
       newState.notes = newNote
+      newState.currentNote = [newState.notes[0]]
+      console.log(newState.notes)
+
       return newState;
     case UPDATE_BOOKMARK:
       return { ...state, currentNote: [action.noteId] };
