@@ -174,6 +174,7 @@ const notesReducer = (state = initialState, action) => {
       return { ...state, currentNote: action.note }
     case NEW_NOTE:
       const addedNote = { notes: [...state.notes, action.note], currentNote: [action.note] }
+      // const addedNote = { notes: [action.note, ...state.notes], currentNote: [action.note] }
       //console.log(addedNote);
       return addedNote;
     case REMOVE_NOTE:
@@ -194,9 +195,27 @@ const notesReducer = (state = initialState, action) => {
       return { ...state, currentNote: [action.noteId] }
     case EDIT_NOTE:
       newState = { ...state }
-      console.log(action.content.data)
+      const noteId = action.content.data.id;
+      let indexOfNoteInFeed = null;
+      let count = 0;
+      //console.log("?????????", action.content.data)
+      // console.log("?????????", newState.notes)
+      newState.notes.forEach(note => {
+        if (note.id === noteId) {
+          indexOfNoteInFeed = count
+        } else {
+          count++;
+        }
+
+      })
+      //updates current note
       newState.currentNote[0].title = action.content.data.title
       newState.currentNote[0].content = action.content.data.content
+
+      //updates store
+      newState.notes[indexOfNoteInFeed].title = action.content.data.title
+      newState.notes[indexOfNoteInFeed].content = action.content.data.content
+      //notes.notes update as well
       return newState
     default:
       return state;
