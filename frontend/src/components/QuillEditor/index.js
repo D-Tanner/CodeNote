@@ -21,12 +21,10 @@ function QuillEditor() {
   const user = useSelector(state => state.session.user.id)
 
   const toggleCheck = (user === userIdNote) ? true : null;
-  // const bookmarked
-  //console.log(stateOfBookmark)
 
+  let valueCheck = '';
 
   const userId = (note !== undefined) ? note.userId : null;
-  const [rteValue, setRteValue] = '';
   //const [bookmark, setBookmark] = useState(false)
 
   //use note.content
@@ -83,9 +81,13 @@ function QuillEditor() {
       {(user === userId) && <ReactQuill theme="snow"
         value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
         onChange={(value) => {
-          if (note.id !== undefined) {
-            console.log(note.id)
-            dispatch(editNoteById(note.id, value))
+          //variable to stop the onchange on rte from firing patch requests
+          const valueCheck = `<h1>${note.title}</h1><p>${note.content}</p>`
+          if ((note.id !== undefined) && (value !== valueCheck)) {
+            console.log("valueCheck", valueCheck)
+            console.log("value", value)
+            console.log(value === valueCheck)
+            //dispatch(editNoteById(note.id, value))
           }
         }}
       />}
