@@ -81,13 +81,13 @@ function QuillEditor() {
       {(user === userId) && <ReactQuill theme="snow"
         value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
         onChange={(value) => {
-          //variable to stop the onchange on rte from firing patch requests
-          const valueCheck = `<h1>${note.title}</h1><p>${note.content}</p>`
-          if ((note.id !== undefined) && (value !== valueCheck)) {
-            console.log("valueCheck", valueCheck)
+          //variable to stop the onchange on rte from firing patch requests when just naviagting to other notes
+          //const valueCheck = `<h1>${note.title}</h1><p>${note.content}</p>`
+          if ((note.id !== undefined)) {
+            //console.log("valueCheck", valueCheck)
             console.log("value", value)
-            console.log(value === valueCheck)
-            //dispatch(editNoteById(note.id, value))
+            //console.log(value === valueCheck)
+            dispatch(editNoteById(note.id, value))
           }
         }}
       />}

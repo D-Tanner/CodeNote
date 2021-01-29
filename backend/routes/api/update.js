@@ -12,8 +12,8 @@ router.patch("/edit/:id", asyncHandler(async function (req, res) {
   //takes out <p> tags
   let bodyContent = bodyString.split('</h1>')[1]
   bodyContent = bodyContent.slice(3, bodyContent.length - 4)
-  console.log("body!", bodyTitle)
-  console.log("content!", bodyContent)
+  //console.log("body!", bodyTitle)
+  //console.log("content!", bodyContent)
   const note = await Note.findOne({ where: { id } });
   note.update({ title: bodyTitle, content: bodyContent })
 
