@@ -9,6 +9,7 @@ function PersonalNotes() {
 
   let notes = useSelector(state => state.notes.notes);
   const userId = useSelector(state => state.session.user.id);
+  const noteId = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
 
   //adds the new note at the top instead of at the bottom
   if (notes.length) {
@@ -33,7 +34,7 @@ function PersonalNotes() {
           return (
             <>
               <NavLink to={`/personal/${note.id}`} className="nav-link" key={idx}>
-                <div className="each-note">
+                <div className={(noteId.id === note.id) ? "selected-note" : "each-note"}>
                   <div className="title">{note.title}</div>
                   <div className="content">{note.content}</div>
                 </div>

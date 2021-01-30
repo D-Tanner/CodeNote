@@ -8,6 +8,7 @@ import './GlobalNotes.css'
 function GlobalNotes() {
 
   const notes = useSelector(state => state.notes.notes);
+  const noteId = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
 
   const dispatch = useDispatch();
   // const {id} = useParams();
@@ -24,7 +25,7 @@ function GlobalNotes() {
           return (
             <>
               <NavLink to={`/global/${note.id}`} className="nav-link" key={idx}>
-                <div className="each-note">
+                <div className={(noteId.id === note.id) ? "selected-note" : "each-note"}>
                   <div className="title">{note.title}</div>
                   <div className="content">{note.content}</div>
                 </div>

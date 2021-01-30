@@ -44,7 +44,7 @@ function QuillEditor() {
   //update value of rte
   const setValueState = (value) => {
     valueState = value
-    console.log(valueState)
+    //console.log(valueState)
 
   }
 
