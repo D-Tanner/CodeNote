@@ -21,5 +21,17 @@ router.get('/:userId/:noteId', asyncHandler(async (req, res) => {
   // // const notes = await Note.findAll({ where: { isPublic: true }, order: [['updatedAt', 'DESC']] });
   // return res.json(notes);
 }))
+router.get('/all/:userId', asyncHandler(async (req, res) => {
+  const userId = req.params.userId
+
+
+  const bookmark = await Bookmark.findAll({ where: { userId } })
+  console.log("???????????", bookmark)
+  return res.json(bookmark);
+
+}))
+
+
+
 
 module.exports = router;

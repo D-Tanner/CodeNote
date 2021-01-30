@@ -3,6 +3,7 @@ import './QuillEditor.css'
 import './nav-bar-for-editor.css'
 import { useEffect, useState } from 'react';
 import { getNoteById, deleteNoteById, updateBookmarkById, updateStatusById, editNoteById } from '../../store/notes'
+import { getBookmark } from '../../store/bookmark'
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
@@ -16,22 +17,20 @@ function QuillEditor() {
   const history = useHistory();
   const dispatch = useDispatch();
   const note = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
-  // const note = useSelector(state => (state.notes.currentNote !== undefined && state.notes.currentNote !== []) ? state.notes.currentNote[0] : '')
   const userIdNote = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].userId : '')
-  //const userIdNote = useSelector(state => (state.notes.currentNote) ? state.notes.currentNote[0].userId : '')
   //const stateOfBookmark = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].isBookmarked : '')
   const user = useSelector(state => state.session.user.id)
   //const [valueState, setValueState] = useState('')
 
-  // const toggleCheck = (user === 1) ? true : null;
+
   const toggleCheck = (user === userIdNote) ? true : null;
 
 
 
   const userId = (note !== undefined) ? note.userId : null;
-  //const [saveButton, setSaveButton] = useState(false)
 
-  //use note.content
+
+
   const deleteNote = async (e) => {
     e.preventDefault();
 
@@ -39,15 +38,16 @@ function QuillEditor() {
 
     history.push(`/personal`)
   }
-  //hello
-  //update value of rte
 
-
-  //const saveNote =
 
   useEffect(() => {
     if (id !== undefined) {
+
       dispatch(getNoteById(id))
+
+      //console.log('hello')
+      dispatch(getBookmark(user, id))
+
     }
   }, [dispatch, id])
 

@@ -65,7 +65,7 @@ const editNote = (noteId, content) => {
 export const getGlobalNotes = () => async (dispatch) => {
   const response = await fetch('/api/notes/global');
   //check dev tools
-  console.log('right here', response)
+  //console.log('right here', response)
   dispatch(setNotes(response.data))
   //Do not do anything with this response, it only updates the store
   return response;
@@ -81,7 +81,7 @@ export const getPersonalNotes = (userId) => async (dispatch) => {
 
 //
 //Bookmarked.
-// /api/notes/saved
+///api/notes/saved
 export const getBookmarked = (userId) => async (dispatch) => {
   const response = await fetch(`/api/notes/${userId}/bookmarked`);
   //check dev tools

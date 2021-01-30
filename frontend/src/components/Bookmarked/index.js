@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
+import { getAllBookmarkByUser } from '../../store/bookmark';
 import { getBookmarked } from '../../store/notes';
 import { NavLink } from 'react-router-dom';
 import '../GlobalNotes/GlobalNotes.css'
@@ -14,6 +15,7 @@ function Bookmarked() {
 
   useEffect(() => {
     dispatch(getBookmarked(userId))
+    //dispatch(getAllBookmarkByUser(userId))
   }, [dispatch, userId])
   //Hello
   //console.log(notes)

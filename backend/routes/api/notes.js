@@ -20,7 +20,11 @@ router.get('/global', asyncHandler(async (req, res) => {
 router.get('/:id/bookmarked', asyncHandler(async (req, res) => {
   //Find notes by public key
   const userId = req.params.id;
-  const notes = await Note.findAll({ where: { userId }, order: [['updatedAt', 'DESC']] });
+  const notes = await Note.findAll({
+    where: { userId },
+    include: [{ model: Bookmark, where: { userId, isBookmarked: false } }],
+    order: [['updatedAt', 'DESC']]
+  });
 
   return res.json(notes);
 }))
