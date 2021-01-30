@@ -24,8 +24,6 @@ function QuillEditor() {
 
   const toggleCheck = (user === userIdNote) ? true : null;
 
-
-
   const userId = (note !== undefined) ? note.userId : null;
 
 

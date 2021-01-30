@@ -45,4 +45,13 @@ router.patch("/update/:userId/:noteId", asyncHandler(async function (req, res) {
 }))
 
 
+router.post('/new/:userId/:noteId', asyncHandler(async (req, res) => {
+  const userId = req.params.userId;
+  const noteId = req.params.noteId;
+
+  const newBookmark = await Bookmark.create({ userId, noteId, isBookmarked: false });
+
+  return res.json(newBookmark);
+}))
+
 module.exports = router;

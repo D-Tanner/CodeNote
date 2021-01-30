@@ -9,6 +9,7 @@ import GlobalNotes from '../GlobalNotes'
 import PersonalNotes from '../PersonalNotes'
 import Bookmarked from '../Bookmarked'
 import { createNewNote } from '../../store/notes'
+import { newBookmark } from '../../store/bookmark'
 
 import './HomePage.css'
 
@@ -19,12 +20,14 @@ function HomePage() {
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
   const note = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
+  const userId = (note !== undefined) ? note.userId : null;
 
 
   const handleNewNote = async (e) => {
     e.preventDefault();
 
     let newNote = await dispatch(createNewNote(sessionUser.id))
+    await dispatch(newBookmark(userId, newNote.data.id))
     //console.log("!!!!!!!!!!!!!!!!!!!!!!", newNote)
     history.push(`/personal/${newNote.data.id}`)
     //I want to be redirected to /personal page/:newNoteId

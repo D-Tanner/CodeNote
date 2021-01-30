@@ -6,6 +6,7 @@ import { fetch } from './csrf'
 const CURRENT_BOOKMARK = 'session/currentBookmarkd';
 const ALL_BOOKMARKS = 'session/allBookmarks'
 const UPDATE_BOOKMARK = 'session/updateBookmark'
+const NEW_BOOKMARK = 'session/newBookmark'
 //action type
 const currentBookmark = (bookmark) => {
   return {
@@ -24,6 +25,13 @@ const allBookmarks = (bookmark) => {
 const updateBookmark = (bookmark) => {
   return {
     type: UPDATE_BOOKMARK,
+    bookmark
+  }
+}
+
+const newBookmarkCreate = (bookmark) => {
+  return {
+    type: NEW_BOOKMARK,
     bookmark
   }
 }
@@ -53,6 +61,14 @@ export const updateBookmarkById = (userId, noteId) => async (dispatch) => {
   return response;
 }
 
+export const newBookmark = (userId, noteId) => async (dispatch) => {
+  const response = await fetch(`/api/bookmarks/new/${userId}/${noteId}`, {
+    method: "POST"
+  })
+  dispatch(newBookmarkCreate(response))
+  return response;
+}
+
 
 
 const initialState = { allbookmarks: {} }
@@ -68,14 +84,16 @@ const bookmarkReducer = (state = initialState, action) => {
       return newState;
     case ALL_BOOKMARKS:
       newState = { ...state }
-      // newState.allBookmarks = action
+
       return newState;
     case UPDATE_BOOKMARK:
       newState = { ...state }
-      //newState.currentBookmark = action.bookmark[0];
-
       newState.currentBookmark = action.bookmark.data
-      // console.log("actionnnnnn", action.bookmark.data)
+      return newState;
+    case NEW_BOOKMARK:
+      newState = { ...state }
+      newState.currentBookmark = action.bookmark.data
+
       return newState;
     default:
       return state;
