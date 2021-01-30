@@ -25,7 +25,7 @@ function Bookmarked() {
           return (
             <>
               <NavLink to={`/bookmarked/${note.id}`} className="nav-link" key={idx}>
-                <div className={(noteId.id === note.id) ? "selected-note" : "each-note"}>
+                <div className={(noteId.id === note.id) ? "selected-note each-note" : "each-note"}>
                   <div className="title">{note.title}</div>
                   <div className="content">{note.content}</div>
                 </div>

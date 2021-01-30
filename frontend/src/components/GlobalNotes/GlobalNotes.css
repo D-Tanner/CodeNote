@@ -10,12 +10,6 @@
 }
 
 .selected-note {
-  border-top: 0.5px solid rgb(29, 27, 27);
-  padding: 5px;
-  height: 88px;
-  font-family: Arial, Helvetica, sans-serif;
-  display: flex;
-  flex-direction: column;
   background-color: rgba(99, 96, 96, 0.267);
 }
 
