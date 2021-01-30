@@ -26,7 +26,7 @@ function QuillEditor() {
   // const toggleCheck = (user === 1) ? true : null;
   const toggleCheck = (user === userIdNote) ? true : null;
 
-  let valueState = '';
+
 
   const userId = (note !== undefined) ? note.userId : null;
   //const [saveButton, setSaveButton] = useState(false)
@@ -36,17 +36,14 @@ function QuillEditor() {
     e.preventDefault();
 
     await dispatch(deleteNoteById(note.id))
-    // console.log('delete successful')
-    // console.log(note)
+
     history.push(`/personal`)
   }
   //hello
   //update value of rte
-  const setValueState = (value) => {
-    valueState = value
-    //console.log(valueState)
 
-  }
+
+  //const saveNote =
 
   useEffect(() => {
     if (id !== undefined) {
@@ -61,20 +58,18 @@ function QuillEditor() {
         {/* button to delete a note specific to the user */}
         {toggleCheck && <button type="button" className="delete-button" onClick={deleteNote}><DeleteIcon /></button>}
 
-        {/* Button for saving feature */}
-        {toggleCheck && <button onClick={() => {
-          //console.log('before', valueState)
-          //setSaveButton(false);
-          dispatch(editNoteById(note.id, valueState))
-          valueState = '';
-          window.location.reload(false);
-          //console.log('after', note)
-        }}>Save</button>}
         {/* container for the public/private switch */}
         {toggleCheck && <div className="private-public-toggle">
           <div className="toggle-label">Private</div>
           <div className="onoffswitch2">
-            <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="myonoffswitch2" onClick={() => dispatch(updateStatusById(note.id))} checked={note.isPublic}></input>
+            <input type="checkbox"
+              name="onoffswitch2"
+              class="onoffswitch2-checkbox"
+              id="myonoffswitch2"
+              onClick={() => dispatch(updateStatusById(note.id))}
+              checked={note.isPublic}>
+
+            </input>
             {/* <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="myonoffswitch2" onClick={() => dispatch(updateStatusById(note.id))} checked={true}></input> */}
             <label class="onoffswitch2-label" for="myonoffswitch2">
             </label>
@@ -99,8 +94,11 @@ function QuillEditor() {
       />}
       {(user === userId) && <ReactQuill theme="snow"
         value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
-        onChange={(value) => {
-          setValueState(value);
+        onChange={(value, delta, source, editor) => {
+          if (source === 'user') {
+
+            dispatch(editNoteById(note.id, value))
+          }
           //setSaveButton(true)
         }}
       // onKeyUp={() => setSaveButton(true)}

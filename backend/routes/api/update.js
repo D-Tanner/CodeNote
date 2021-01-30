@@ -11,6 +11,7 @@ router.patch("/edit/:id", asyncHandler(async function (req, res) {
   const bodyTitle = bodyString.split('</h1>')[0].split('<h1>')[1]
   //takes out <p> tags
   let bodyContent = bodyString.split('</h1>')[1]
+  console.log(bodyContent)
   bodyContent = bodyContent.slice(3, bodyContent.length - 4)
   //console.log("body!", bodyTitle)
   //console.log("content!", bodyContent)
