@@ -18,6 +18,8 @@ function HomePage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
+  const note = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
+
 
   const handleNewNote = async (e) => {
     e.preventDefault();
@@ -51,9 +53,7 @@ function HomePage() {
       </div>
       {/* <div className="col-resize"></div> */}
       <div className="text-editor-homepage">
-        {/* <Route path="/global/:id"> <QuillEditor /></Route>
-        <Route path="/personal/:id"> <QuillEditor /></Route>
-        <Route path="/bookmarked/:id"> <QuillEditor /></Route> */}
+
         <Switch>
           <Route path='/' exact> <QuillEditor /></Route>
           <Route path='/global' exact><QuillEditor /></Route>

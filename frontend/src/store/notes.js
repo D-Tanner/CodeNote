@@ -5,7 +5,7 @@ const SET_NOTES = 'session/setNotes';
 const CURRENT_NOTE = 'session/currentNote'
 const NEW_NOTE = 'session/newNote';
 const REMOVE_NOTE = 'session/removeNote'
-const UPDATE_BOOKMARK = 'session/updateBookmark'
+// const UPDATE_BOOKMARK = 'session/updateBookmark'
 const UPDATE_STATUS = 'session/updateStatus'
 const EDIT_NOTE = 'session/editNote'
 //action type
@@ -38,12 +38,12 @@ const removeNote = (noteId) => {
   }
 }
 
-const updateBookmark = (noteId) => {
-  return {
-    type: UPDATE_BOOKMARK,
-    noteId
-  }
-}
+// const updateBookmark = (noteId) => {
+//   return {
+//     type: UPDATE_BOOKMARK,
+//     noteId
+//   }
+// }
 
 const updateStatus = (noteId) => {
   return {
@@ -124,14 +124,14 @@ export const deleteNoteById = (noteId) => async (dispatch) => {
   return response;
 }
 
-export const updateBookmarkById = (noteId) => async (dispatch) => {
-  const response = await fetch(`/api/notes/bookmark/update/${noteId}`, {
-    method: "PATCH"
-  })
-  //console.log("response in store", response)
-  dispatch(updateBookmark(response.data))
-  return response;
-}
+// export const updateBookmarkById = (noteId) => async (dispatch) => {
+//   const response = await fetch(`/api/notes/bookmark/update/${noteId}`, {
+//     method: "PATCH"
+//   })
+//   //console.log("response in store", response)
+//   dispatch(updateBookmark(response.data))
+//   return response;
+// }
 
 //updates either public or private
 export const updateStatusById = (noteId) => async (dispatch) => {
@@ -189,8 +189,8 @@ const notesReducer = (state = initialState, action) => {
       newState.notes = newNote
       newState.currentNote = [newState.notes[0]]
       return newState;
-    case UPDATE_BOOKMARK:
-      return { ...state, currentNote: [action.noteId] };
+    // case UPDATE_BOOKMARK:
+    //   return { ...state, currentNote: [action.noteId] };
     case UPDATE_STATUS:
       return { ...state, currentNote: [action.noteId] }
     case EDIT_NOTE:
