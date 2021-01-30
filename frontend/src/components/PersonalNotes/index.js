@@ -12,7 +12,7 @@ function PersonalNotes() {
   const noteId = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
 
   //adds the new note at the top instead of at the bottom
-  if (notes.length) {
+  if (notes.length >= 3) {
     if (notes[notes.length - 2].updatedAt < notes[notes.length - 1].updatedAt) {
       let shifted = notes.pop();
       notes.unshift(shifted)
