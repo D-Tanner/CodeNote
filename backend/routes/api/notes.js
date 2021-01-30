@@ -41,7 +41,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
   // const notes = await Note.findAll({ where: { id }, include: [{ model: Bookmark, where: { noteId: id } }], order: [['updatedAt', 'DESC']] });
   const notes = await Note.findAll({ where: { id }, order: [['updatedAt', 'DESC']] });
   //const bookmark = await Bookmark.findAll({ where: { id } })
-  console.log("!!!!!!!!!", notes)
+  //console.log("!!!!!!!!!", notes)
   return res.json(notes);
 }))
 
