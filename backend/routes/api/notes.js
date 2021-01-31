@@ -22,10 +22,10 @@ router.get('/:id/bookmarked', asyncHandler(async (req, res) => {
   const userId = req.params.id;
   const bookmarks = await Bookmark.findAll({
     where: { userId, isBookmarked: true },
-    include: [{ model: Note, where: { userId } }],
+    include: [{ model: Note }],
     order: [['updatedAt', 'DESC']]
   });
-  //console.log(bookmarks)
+  console.log(";aslkda;sldfjkjfjsdkla;df", bookmarks)
   return res.json(bookmarks);
   // const userId = req.params.id;
   // const notes = await Note.findAll({
@@ -72,7 +72,7 @@ router.delete("/delete/:id", asyncHandler(async function (req, res) {
 
   const note = await Note.findOne({ where: { id } });
   const bookmark = await Bookmark.destroy({ where: { noteId: id } })
-  console.log("!!!!!!!!!", bookmark)
+  ///console.log("!!!!!!!!!", bookmark)
   // const note = await Note.findAll({
   //   where: { id },
   //   include: [{ model: Bookmark, where: { noteId: id } }],
