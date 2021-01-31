@@ -1,7 +1,6 @@
 //Page for home. Three vertical divs containing navbar search, notes, and rich-text-editor
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import './HomePage.css';
 import { Route, Switch, NavLink, useHistory } from 'react-router-dom'
 import ProfileButton from '../Navigation/ProfileButton'
 import QuillEditor from '../QuillEditor'
@@ -12,8 +11,10 @@ import { createNewNote } from '../../store/notes'
 import { newBookmark } from '../../store/bookmark'
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import { grey, green } from '@material-ui/core/colors';
 import './HomePage.css'
-import { grey } from '@material-ui/core/colors';
 
 
 function HomePage() {
@@ -43,6 +44,16 @@ function HomePage() {
         <span><ProfileButton user={sessionUser} />CodeNote</span>
 
         <div>
+          <Fab
+            variant="extended"
+            size="small"
+            color="disabled"
+            aria-label="add"
+            style={{ color: grey[900] }}
+          >
+            <AddIcon className="new-note" />
+            <span class="new-note-text">New Note</span>
+          </Fab>
           <div><button type="button" onClick={handleNewNote}>New Note</button></div>
           <div><NavLink className="nav-link" to="/global">Global Notes</NavLink></div>
           <div><NavLink className="nav-link" to="/personal">Personal Notes</NavLink></div>
@@ -97,7 +108,7 @@ function HomePage() {
         </Switch>
 
       </div>
-    </div>
+    </div >
   )
 }
 

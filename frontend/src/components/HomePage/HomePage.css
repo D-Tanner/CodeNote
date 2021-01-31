@@ -26,8 +26,9 @@
   /* height: 90vh; */
 }
 
-.social-icons {
-
+.new-note-text {
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
 }
 .notes-homepage {
   width: 371px;
