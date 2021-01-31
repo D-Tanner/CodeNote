@@ -43,7 +43,8 @@ function QuillEditor() {
     e.preventDefault();
 
     //console.log(user, note.title, note.content)
-    let copied = await dispatch(makeFileCopyOfNote(user, note.title, note.content))
+    let newNote = await dispatch(makeFileCopyOfNote(user, note.title, note.content))
+
     history.push('/personal')
 
   }
@@ -85,7 +86,8 @@ function QuillEditor() {
           <div className="toggle-label">Public</div>
         </div>}
 
-        {(!toggleCheck) && <button type="button" className="file-copy" onClick={makeFileCopy}><FileCopyIcon /></button>}
+        {/* {(!toggleCheck) && <button type="button" className="file-copy" onClick={makeFileCopy}><FileCopyIcon /></button>} */}
+        {<button type="button" className="file-copy" onClick={makeFileCopy}><FileCopyIcon /></button>}
 
         {/* button for the bookmark logic */}
         <button className="bookmark-button" onClick={() => dispatch(updateBookmarkById(user, note.id))}>
