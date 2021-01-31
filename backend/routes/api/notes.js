@@ -25,7 +25,7 @@ router.get('/:id/bookmarked', asyncHandler(async (req, res) => {
     include: [{ model: Note }],
     order: [['updatedAt', 'DESC']]
   });
-  console.log(";aslkda;sldfjkjfjsdkla;df", bookmarks)
+
   return res.json(bookmarks);
   // const userId = req.params.id;
   // const notes = await Note.findAll({
@@ -62,6 +62,17 @@ router.get('/:id', asyncHandler(async (req, res) => {
 router.post('/new', asyncHandler(async (req, res) => {
 
   const newNote = await Note.create({ title: 'Untitled', content: 'content', userId: req.body.userId, isPublic: false });
+
+  return res.json(newNote);
+}))
+
+router.post('/copy', asyncHandler(async (req, res) => {
+  console.log('here in copy')
+  const userId = req.body.userId
+  const title = req.body.title
+  const content = req.body.content
+
+  const newNote = await Note.create({ title, content, userId, isPublic: false });
 
   return res.json(newNote);
 }))

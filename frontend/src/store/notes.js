@@ -8,6 +8,7 @@ const REMOVE_NOTE = 'session/removeNote'
 const SHOW_BOOKMARKED = 'session/showBookmark'
 const UPDATE_STATUS = 'session/updateStatus'
 const EDIT_NOTE = 'session/editNote'
+const MAKE_COPY = 'session/makeCopy'
 //action type
 //set notes
 const setNotes = (notes) => {
@@ -59,6 +60,13 @@ const editNote = (noteId, content) => {
     content
   }
 }
+
+const makeCopy = (note) => {
+  return {
+    type: MAKE_COPY,
+    note
+  }
+}
 //three thunk functions
 //Global - userId passed in to async funciton. Get request method. Findall where userid === notes
 // /api/notes/global
@@ -85,7 +93,7 @@ export const getPersonalNotes = (userId) => async (dispatch) => {
 export const getBookmarked = (userId) => async (dispatch) => {
   const response = await fetch(`/api/notes/${userId}/bookmarked`);
   //check dev tools
-  //console.log(response)
+
   dispatch(showBookmarked(response.data))
   //Do not do anything with this response, it only updates the store
   return response;
@@ -93,15 +101,16 @@ export const getBookmarked = (userId) => async (dispatch) => {
 
 export const getNoteById = (id) => async (dispatch) => {
   const response = await fetch(`/api/notes/${id}`);
-  //console.log(response)
+
   //check dev tools
-  //console.log(response)
+
   dispatch(currentNote(response.data))
   //Do not do anything with this response, it only updates the store
   return response;
 }
 
 export const createNewNote = (userId) => async (dispatch) => {
+  console.log(userId)
   const response = await fetch(`/api/notes/new`, {
     method: "POST",
     headers: {
@@ -116,6 +125,7 @@ export const createNewNote = (userId) => async (dispatch) => {
 
 //delete note
 export const deleteNoteById = (noteId) => async (dispatch) => {
+
   const response = await fetch(`/api/notes/delete/${noteId}`, {
     method: "DELETE"
   })
@@ -124,14 +134,19 @@ export const deleteNoteById = (noteId) => async (dispatch) => {
   return response;
 }
 
-// export const updateBookmarkById = (noteId) => async (dispatch) => {
-//   const response = await fetch(`/api/notes/bookmark/update/${noteId}`, {
-//     method: "PATCH"
-//   })
-//   //console.log("response in store", response)
-//   dispatch(updateBookmark(response.data))
-//   return response;
-// }
+export const makeFileCopyOfNote = (userId, title, content) => async (dispatch) => {
+
+  const response = await fetch(`/api/notes/copy`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ userId, title, content })
+  })
+  //console.log("response in store", response)
+  dispatch(makeCopy(response))
+  return response;
+}
 
 //updates either public or private
 export const updateStatusById = (noteId) => async (dispatch) => {
@@ -189,8 +204,6 @@ const notesReducer = (state = initialState, action) => {
       return { ...state, currentNote: action.note }
     case NEW_NOTE:
       const addedNote = { notes: [...state.notes, action.note], currentNote: [action.note] }
-      // const addedNote = { notes: [action.note, ...state.notes], currentNote: [action.note] }
-      //console.log(addedNote);
       return addedNote;
     case REMOVE_NOTE:
       newState = { ...state }
@@ -204,8 +217,7 @@ const notesReducer = (state = initialState, action) => {
       newState.notes = newNote
       newState.currentNote = [newState.notes[0]]
       return newState;
-    // case UPDATE_BOOKMARK:
-    //   return { ...state, currentNote: [action.noteId] };
+
     case UPDATE_STATUS:
       return { ...state, currentNote: [action.noteId] }
     case EDIT_NOTE:
@@ -213,8 +225,7 @@ const notesReducer = (state = initialState, action) => {
       const noteId = action.content.data.id;
       let indexOfNoteInFeed = null;
       let count = 0;
-      //console.log("?????????", action.content.data)
-      // console.log("?????????", newState.notes)
+
       newState.notes.forEach(note => {
         if (note.id === noteId) {
           indexOfNoteInFeed = count
@@ -232,6 +243,10 @@ const notesReducer = (state = initialState, action) => {
       newState.notes[indexOfNoteInFeed].content = action.content.data.content
       //notes.notes update as well
       return newState
+    case MAKE_COPY:
+      newState = { ...state }
+      // newState.currentNote = [action.note.data]
+      return newState;
     default:
       return state;
   }

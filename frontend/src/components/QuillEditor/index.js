@@ -2,7 +2,7 @@ import ReactQuill from 'react-quill'
 import './QuillEditor.css'
 import './nav-bar-for-editor.css'
 import { useEffect, useState } from 'react';
-import { getNoteById, deleteNoteById, updateStatusById, editNoteById } from '../../store/notes'
+import { getNoteById, deleteNoteById, updateStatusById, editNoteById, makeFileCopyOfNote } from '../../store/notes'
 import { getBookmark, updateBookmarkById, newBookmark } from '../../store/bookmark'
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,6 +10,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { green } from '@material-ui/core/colors';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 //useParams here grab the noteId called id
 function QuillEditor() {
@@ -38,7 +39,14 @@ function QuillEditor() {
     history.push(`/personal`)
   }
 
+  const makeFileCopy = async (e) => {
+    e.preventDefault();
 
+    //console.log(user, note.title, note.content)
+    let copied = await dispatch(makeFileCopyOfNote(user, note.title, note.content))
+    history.push('/personal')
+
+  }
 
   //for changing routes
   useEffect(() => {
@@ -77,9 +85,9 @@ function QuillEditor() {
           <div className="toggle-label">Public</div>
         </div>}
 
+        {(!toggleCheck) && <button type="button" className="file-copy" onClick={makeFileCopy}><FileCopyIcon /></button>}
+
         {/* button for the bookmark logic */}
-
-
         <button className="bookmark-button" onClick={() => dispatch(updateBookmarkById(user, note.id))}>
           {/* <button className="bookmark-button" onClick={() => console.log('hello')}> */}
           {(stateOfBookmark === true) && <BookmarkIcon style={{ color: green[500] }} />}

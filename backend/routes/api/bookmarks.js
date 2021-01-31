@@ -10,17 +10,9 @@ router.get('/:userId/:noteId', asyncHandler(async (req, res) => {
 
   const bookmark = await Bookmark.findAll({ where: { userId, noteId } })
 
-  ///console.log("???????????h", bookmark)
   return res.json(bookmark);
 
-  // const notes = await Note.findAll(
-  //   {
-  //     where: { isPublic: true },
-  //     // include: [{ model: Bookmark, where }],
-  //     order: [['updatedAt', 'DESC']]
-  //   });
-  // // const notes = await Note.findAll({ where: { isPublic: true }, order: [['updatedAt', 'DESC']] });
-  // return res.json(notes);
+
 }))
 
 
@@ -29,7 +21,7 @@ router.get('/all/:userId', asyncHandler(async (req, res) => {
 
 
   const bookmark = await Bookmark.findAll({ where: { userId } })
-  //console.log("???????????", bookmark)
+
   return res.json(bookmark);
 
 }))
