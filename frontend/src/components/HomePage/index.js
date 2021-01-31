@@ -11,10 +11,13 @@ import { createNewNote } from '../../store/notes'
 import { newBookmark } from '../../store/bookmark'
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import Fab from '@material-ui/core/Fab';
+
 import AddIcon from '@material-ui/icons/Add';
 import { grey, green } from '@material-ui/core/colors';
 import './HomePage.css'
+import { makeStyles } from '@material-ui/core/styles';
+
+
 
 
 function HomePage() {
@@ -43,18 +46,11 @@ function HomePage() {
       <div className="navbar-homepage">
         <span><ProfileButton user={sessionUser} />CodeNote</span>
 
+        <button type="button" class="new-note-button" onClick={handleNewNote}>
+          <span><AddIcon /></span>
+          <div id="button-label">New Note</div>
+        </button>
         <div>
-          <Fab
-            variant="extended"
-            size="small"
-            color="disabled"
-            aria-label="add"
-            style={{ color: grey[900] }}
-          >
-            <AddIcon className="new-note" />
-            <span class="new-note-text">New Note</span>
-          </Fab>
-          <div><button type="button" onClick={handleNewNote}>New Note</button></div>
           <div><NavLink className="nav-link" to="/global">Global Notes</NavLink></div>
           <div><NavLink className="nav-link" to="/personal">Personal Notes</NavLink></div>
           <div><NavLink className="nav-link" to="/bookmarked">Bookmarked</NavLink></div>
