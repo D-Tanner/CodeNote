@@ -3,7 +3,7 @@ import './QuillEditor.css'
 import './nav-bar-for-editor.css'
 import { useEffect, useState } from 'react';
 import { getNoteById, deleteNoteById, updateStatusById, editNoteById } from '../../store/notes'
-import { getBookmark, updateBookmarkById, deleteBookmark } from '../../store/bookmark'
+import { getBookmark, updateBookmarkById, newBookmark } from '../../store/bookmark'
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
@@ -19,6 +19,8 @@ function QuillEditor() {
   const note = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
   const userIdNote = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].userId : '')
   const stateOfBookmark = useSelector(state => (state.bookmark.currentBookmark !== undefined) ? state.bookmark.currentBookmark.isBookmarked : '')
+  //const bookmarkCheck = useSelector(state => (state.bookmark.currentBookmark !== undefined) ? state.bookmark.currentBookmark : '')
+
   const user = useSelector(state => state.session.user.id)
   //const [valueState, setValueState] = useState('')
 
@@ -47,10 +49,23 @@ function QuillEditor() {
     if (id !== undefined) {
 
       dispatch(getNoteById(id))
-      //console.log('hello')
       dispatch(getBookmark(user, id))
+      //console.log('hello')
+
+      // if (bookmarkCheck.data.length === 0) {
+      //   await dispatch(newBookmark(userId, note.id))
+      // }
+      // if (hasABookmark === []) {
+      //   console.log('hasl;dfja;sldkfj')
+      // }
     }
   }, [dispatch, id])
+
+  // console.log(userId, note.id)
+  // if (Object.keys(bookmarkCheck).length === 0) {
+  //   dispatch(newBookmark(userId, note.id))
+  // }
+
 
   return (
     <div>

@@ -37,12 +37,12 @@ const newBookmarkCreate = (bookmark) => {
   }
 }
 
-const destroyBookmark = (bookmark) => {
-  return {
-    type: DELETE_BOOKMARK,
-    bookmark
-  }
-}
+// const destroyBookmark = (bookmark) => {
+//   return {
+//     type: DELETE_BOOKMARK,
+//     bookmark
+//   }
+// }
 
 
 export const getBookmark = (userId, noteId) => async (dispatch) => {
@@ -77,13 +77,13 @@ export const newBookmark = (userId, noteId) => async (dispatch) => {
   return response;
 }
 
-export const deleteBookmark = (noteId) => async (dispatch) => {
-  const response = await fetch(`/api/bookmarks/delete/${noteId}`, {
-    method: "DELETE"
-  })
-  dispatch(newBookmarkCreate(response))
-  return response;
-}
+// export const deleteBookmark = (noteId) => async (dispatch) => {
+//   const response = await fetch(`/api/bookmarks/delete/${noteId}`, {
+//     method: "DELETE"
+//   })
+//   dispatch(newBookmarkCreate(response))
+//   return response;
+// }
 
 
 
@@ -94,9 +94,15 @@ const bookmarkReducer = (state = initialState, action) => {
   switch (action.type) {
     case CURRENT_BOOKMARK:
       newState = { ...state }
-      //console.log(action.bookmark[0])
+      //console.log(action.bookmark.length)
+      if (action.bookmark.length === 0) {
+        newState.currentBookmark = {};
+
+      } else {
+        newState.currentBookmark = action.bookmark[0]
+
+      }
       //newState = Object.assign({}, state)
-      newState.currentBookmark = action.bookmark[0]
       return newState;
     case ALL_BOOKMARKS:
       newState = { ...state }

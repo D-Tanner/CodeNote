@@ -9,7 +9,8 @@ router.get('/:userId/:noteId', asyncHandler(async (req, res) => {
   const noteId = req.params.noteId
 
   const bookmark = await Bookmark.findAll({ where: { userId, noteId } })
-  //console.log("???????????", bookmark)
+
+  console.log("???????????h", bookmark)
   return res.json(bookmark);
 
   // const notes = await Note.findAll(
@@ -28,7 +29,7 @@ router.get('/all/:userId', asyncHandler(async (req, res) => {
 
 
   const bookmark = await Bookmark.findAll({ where: { userId } })
-  console.log("???????????", bookmark)
+  //console.log("???????????", bookmark)
   return res.json(bookmark);
 
 }))
