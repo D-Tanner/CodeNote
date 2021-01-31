@@ -10,8 +10,10 @@ import PersonalNotes from '../PersonalNotes'
 import Bookmarked from '../Bookmarked'
 import { createNewNote } from '../../store/notes'
 import { newBookmark } from '../../store/bookmark'
-
+import GitHubIcon from '@material-ui/icons/GitHub';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import './HomePage.css'
+import { grey } from '@material-ui/core/colors';
 
 
 function HomePage() {
@@ -46,7 +48,10 @@ function HomePage() {
           <div><NavLink className="nav-link" to="/personal">Personal Notes</NavLink></div>
           <div><NavLink className="nav-link" to="/bookmarked">Bookmarked</NavLink></div>
         </div>
-
+        <div className="social-links">
+          <span class="social-icons"><a target="_blank" href="https://www.linkedin.com/in/dillon-tanner-a881951aa"><LinkedInIcon fontSize="large" style={{ color: grey[600] }} /></a></span>
+          <span class="social-icons"><a target="_blank" href="https://github.com/D-Tanner"><GitHubIcon fontSize="large" style={{ color: grey[600] }} /></a></span>
+        </div>
       </div>
       {/* <div className="col-resize"></div> */}
       <div className="notes-homepage">
@@ -90,6 +95,7 @@ function HomePage() {
 
 
         </Switch>
+
       </div>
     </div>
   )

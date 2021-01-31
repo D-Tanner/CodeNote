@@ -8,13 +8,27 @@
 
 .navbar-homepage {
   /* width: 204px; */
-  width: 15%;
+  width: 20%;
   max-width: 395px;
   padding: 1px;
   overflow: hidden;
   background-color: #000000;
 }
 
+.social-links {
+  /* background-color: white; */
+  z-index: 1;
+  bottom: 20;
+  display: flex;
+  position: relative;
+  top: 550;
+  justify-content: space-around;
+  /* height: 90vh; */
+}
+
+.social-icons {
+
+}
 .notes-homepage {
   width: 371px;
   /* width: 40%; */
