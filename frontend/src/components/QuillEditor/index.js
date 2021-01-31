@@ -14,21 +14,17 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 //useParams here grab the noteId called id
 function QuillEditor() {
+
+
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
   const note = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
   const userIdNote = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0].userId : '')
   const stateOfBookmark = useSelector(state => (state.bookmark.currentBookmark !== undefined) ? state.bookmark.currentBookmark.isBookmarked : '')
-  //const bookmarkCheck = useSelector(state => (state.bookmark.currentBookmark !== undefined) ? state.bookmark.currentBookmark : '')
-
   const user = useSelector(state => state.session.user.id)
-  //const [valueState, setValueState] = useState('')
-
   const toggleCheck = (user === userIdNote) ? true : null;
-
   const userId = (note !== undefined) ? note.userId : null;
-
 
 
   const deleteNote = async (e) => {
@@ -42,8 +38,8 @@ function QuillEditor() {
   const makeFileCopy = async (e) => {
     e.preventDefault();
 
-    //console.log(user, note.title, note.content)
-    let newNote = await dispatch(makeFileCopyOfNote(user, note.title, note.content))
+
+    await dispatch(makeFileCopyOfNote(user, note.title, note.content))
 
     history.push('/personal')
 
@@ -119,7 +115,7 @@ function QuillEditor() {
 
         />
       }
-    </div >
+    </div>
 
   )
 }

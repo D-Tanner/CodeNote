@@ -16,6 +16,8 @@ import './HomePage.css'
 
 function HomePage() {
 
+  const areThereNotesOnPage = useSelector(state => (state.notes.notes.length !== 0) ? true : false)
+
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
@@ -28,7 +30,7 @@ function HomePage() {
 
     let newNote = await dispatch(createNewNote(sessionUser.id))
     await dispatch(newBookmark(userId, newNote.data.id))
-    //console.log("!!!!!!!!!!!!!!!!!!!!!!", newNote)
+
     history.push(`/personal/${newNote.data.id}`)
     //I want to be redirected to /personal page/:newNoteId
   }
@@ -59,14 +61,35 @@ function HomePage() {
 
         <Switch>
           <Route path='/' exact> <QuillEditor /></Route>
+
+
+          {/* {areThereNotesOnPage && <div>
+            <Route path='/global' exact><QuillEditor /></Route>
+            <Route path='/global/:id'><QuillEditor /></Route>
+          </div>}
+
+          {areThereNotesOnPage && <div>
+            <Route path='/personal' exact><QuillEditor /></Route>
+            <Route path='/personal/:id'><QuillEditor /></Route>
+          </div>}
+
+          {areThereNotesOnPage && <div>
+            <Route path='/bookmarked' exact><QuillEditor /></Route>
+            <Route path='/bookmarked/:id'><QuillEditor /></Route>
+          </div>} */}
+
           <Route path='/global' exact><QuillEditor /></Route>
           <Route path='/global/:id'><QuillEditor /></Route>
+
+
 
           <Route path='/personal' exact><QuillEditor /></Route>
           <Route path='/personal/:id'><QuillEditor /></Route>
 
+
           <Route path='/bookmarked' exact><QuillEditor /></Route>
           <Route path='/bookmarked/:id'><QuillEditor /></Route>
+
 
         </Switch>
       </div>

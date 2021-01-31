@@ -244,9 +244,7 @@ const notesReducer = (state = initialState, action) => {
       //notes.notes update as well
       return newState
     case MAKE_COPY:
-      // newState = { ...state }
-      // // newState.currentNote = [action.note.data]
-      // return newState;
+
       const addedCopy = { notes: [...state.notes, action.note.data], currentNote: [action.note.data] }
       return addedCopy;
     default:
