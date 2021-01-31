@@ -22,7 +22,7 @@ function GlobalNotes() {
   const checkForBookmark = async (note) => {
 
     let currentBookmark = await dispatch(getBookmark(user, note.id))
-    console.log("HERERERE", currentBookmark)
+    //console.log("HERERERE", currentBookmark)
     if (currentBookmark.data.length === 0) {
       await dispatch(newBookmark(user, note.id))
     }

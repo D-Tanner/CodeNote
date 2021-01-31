@@ -34,15 +34,11 @@ function QuillEditor() {
     e.preventDefault();
 
     await dispatch(deleteNoteById(note.id))
-    //await dispatch(deleteBookmark(note.id))
-    //console.log(userId, note.id)
+
     history.push(`/personal`)
   }
 
-  // if (id !== undefined && note.id) {
-  //   dispatch(getNoteById(note.id))
-  //   dispatch(getBookmark(user, note.id))
-  // }
+
 
   //for changing routes
   useEffect(() => {
@@ -50,21 +46,10 @@ function QuillEditor() {
 
       dispatch(getNoteById(id))
       dispatch(getBookmark(user, id))
-      //console.log('hello')
 
-      // if (bookmarkCheck.data.length === 0) {
-      //   await dispatch(newBookmark(userId, note.id))
-      // }
-      // if (hasABookmark === []) {
-      //   console.log('hasl;dfja;sldkfj')
-      // }
     }
   }, [dispatch, id])
 
-  // console.log(userId, note.id)
-  // if (Object.keys(bookmarkCheck).length === 0) {
-  //   dispatch(newBookmark(userId, note.id))
-  // }
 
 
   return (
@@ -95,7 +80,7 @@ function QuillEditor() {
         {/* button for the bookmark logic */}
 
 
-        <button className="bookmark-button" onClick={() => dispatch(updateBookmarkById(userId, note.id))}>
+        <button className="bookmark-button" onClick={() => dispatch(updateBookmarkById(user, note.id))}>
           {/* <button className="bookmark-button" onClick={() => console.log('hello')}> */}
           {(stateOfBookmark === true) && <BookmarkIcon style={{ color: green[500] }} />}
           {(stateOfBookmark === false) && <BookmarkBorderIcon style={{ color: green[500] }} />}
