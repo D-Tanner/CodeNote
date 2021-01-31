@@ -5,7 +5,7 @@ const SET_NOTES = 'session/setNotes';
 const CURRENT_NOTE = 'session/currentNote'
 const NEW_NOTE = 'session/newNote';
 const REMOVE_NOTE = 'session/removeNote'
-// const UPDATE_BOOKMARK = 'session/updateBookmark'
+const SHOW_BOOKMARKED = 'session/showBookmark'
 const UPDATE_STATUS = 'session/updateStatus'
 const EDIT_NOTE = 'session/editNote'
 //action type
@@ -38,12 +38,12 @@ const removeNote = (noteId) => {
   }
 }
 
-// const updateBookmark = (noteId) => {
-//   return {
-//     type: UPDATE_BOOKMARK,
-//     noteId
-//   }
-// }
+const showBookmarked = (bookmarked) => {
+  return {
+    type: SHOW_BOOKMARKED,
+    bookmarked
+  }
+}
 
 const updateStatus = (noteId) => {
   return {
@@ -86,7 +86,7 @@ export const getBookmarked = (userId) => async (dispatch) => {
   const response = await fetch(`/api/notes/${userId}/bookmarked`);
   //check dev tools
   //console.log(response)
-  dispatch(setNotes(response.data))
+  dispatch(showBookmarked(response.data))
   //Do not do anything with this response, it only updates the store
   return response;
 }
@@ -170,6 +170,21 @@ const notesReducer = (state = initialState, action) => {
         newState.currentNote = [action.notes[0]]
       }
       return newState;
+    case SHOW_BOOKMARKED:
+      newState = { ...state }
+      if (action.bookmarked.length > 0) {
+        let newNotes = [];
+        action.bookmarked.forEach((bookmark, idx) => {
+          newNotes.push(bookmark.Note)
+        })
+        newState.notes = newNotes;
+        newState.currentNote = [newNotes[0]]
+      } else {
+        newState.notes = []
+        newState.currentNote = [];
+      }
+
+      return newState
     case CURRENT_NOTE:
       return { ...state, currentNote: action.note }
     case NEW_NOTE:
