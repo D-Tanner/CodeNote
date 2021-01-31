@@ -59,19 +59,19 @@ function HomePage() {
         </button>
 
         {/* navigation tabs */}
-        <div class={globalPage ? "route-selected route" : "route"}>
+        <div class={globalPage ? "route-selected route" : "route not-selected"}>
           <NavLink className="nav-link-tab" to="/global">
             <span><PublicIcon fontSize="small" /></span>
             <div id="note-tab-label">Global</div>
           </NavLink>
         </div>
-        <div class={personalPage ? "route-selected route" : "route"}>
+        <div class={personalPage ? "route-selected route" : "route not-selected"}>
           <NavLink className="nav-link-tab" to="/personal">
             <span><DescriptionIcon fontSize="small" /></span>
             <div id="note-tab-label">Personal</div>
           </NavLink>
         </div>
-        <div class={bookmarkPage ? "route-selected route" : "route"}>
+        <div class={bookmarkPage ? "route-selected route" : "route not-selected"}>
           <NavLink className="nav-link-tab" to="/bookmarked">
             <span><BookmarkIcon fontSize="small" /></span>
             <div id="note-tab-label">Bookmarked</div>

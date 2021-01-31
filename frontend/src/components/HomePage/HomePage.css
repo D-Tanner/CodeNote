@@ -129,10 +129,10 @@
   font-size: 18px;
   display: flex;
 }
-.route:hover {
+/* .route:hover {
   background-color: rgba(99, 96, 96, 0.267);
   transition-duration: 0.2s
-}
+} */
 
 #note-tab-label {
   overflow: hidden;
@@ -142,4 +142,9 @@
  font-size: 16px;
  padding: 3px 0px 0px 3px;
  font-family: Arial, Helvetica, sans-serif;
+}
+
+.not-selected:hover {
+  background-color: rgba(73, 72, 72, 0.267);
+  transition-duration: 0.2s
 }

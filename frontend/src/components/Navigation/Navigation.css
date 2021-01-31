@@ -1,6 +1,6 @@
 .logo-image {
   background-size:cover;
-  max-width: 28px;
+  max-width: 50px;
   height: auto;
 }
 
@@ -17,12 +17,70 @@
     width: 90%;
 }
 
+.logo-button:hover #user-email{
+  color: white;
+}
+
 #user-email {
   color: #bfcccc;
   height: 100%;
   width: 100%;
   text-align: left;
-  padding: 3px 0px 0px 5px;
+  font-size: 20px;
+  padding: 7px 0px 0px 9px;
   overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.profile-dropdown {
+  background-color: white;
+  /* display: block; */
+  position: absolute;
+  padding: 10px;
+  width: 250px;
+  height: 150px;
+  margin-left: 5px;
+  background-color: #262626;
+  color: #e6e6e6;
+  border-radius: 1px;
+}
+.profile-info {
+  padding: 10px;
+}
+
+.logout-button {
+  display: flex;
+  justify-content: left;
+  outline:none;
+  height: 36px;
+
+  width: 100%;
+
+
+  /* border-radius:40px; */
+  background-color: #bdc7c0;
+  border: 0.5px solid #bdc7c0;
+  color: black;
+  letter-spacing:1px;
+  text-shadow:0;
+  cursor: pointer;
+  font: 14px;
+  /* margin: 40px 4px 40px 4px; */
+
+  transition: all 0.25s ease;
+
+}
+
+#logout-label {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.logout-button:hover {
+    background-color: #808581;
+    /* background-color: blue; */
+    border: 0.5px solid #808581;
+    transition-duration: 0.2s;
 }

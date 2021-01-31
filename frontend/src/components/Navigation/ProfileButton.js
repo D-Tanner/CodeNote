@@ -41,13 +41,13 @@ function ProfileButton({ user }) {
       </button>
 
       {showMenu && (
-        <ul className="profile-dropdown">
-          <li>{user.username}</li>
-          <li>{user.email}</li>
-          <li>
-            <button onClick={logout}>Log Out</button>
-          </li>
-        </ul>
+        <div class="profile-dropdown">
+          <div class="profile-info">{user.username}</div>
+          <div class="profile-info">{user.email}</div>
+          <div class="profile-info">
+            <button class="logout-button" onClick={logout}><div id="logout-label">Log Out</div></button>
+          </div>
+        </div>
       )}
     </>
   );
