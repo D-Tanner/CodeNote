@@ -3,7 +3,7 @@ import './QuillEditor.css'
 import './nav-bar-for-editor.css'
 import { useEffect, useState } from 'react';
 import { getNoteById, deleteNoteById, updateStatusById, editNoteById } from '../../store/notes'
-import { getBookmark, updateBookmarkById } from '../../store/bookmark'
+import { getBookmark, updateBookmarkById, deleteBookmark } from '../../store/bookmark'
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
@@ -32,7 +32,8 @@ function QuillEditor() {
     e.preventDefault();
 
     await dispatch(deleteNoteById(note.id))
-
+    //await dispatch(deleteBookmark(note.id))
+    //console.log(userId, note.id)
     history.push(`/personal`)
   }
 

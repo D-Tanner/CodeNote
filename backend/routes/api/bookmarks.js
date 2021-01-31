@@ -54,4 +54,13 @@ router.post('/new/:userId/:noteId', asyncHandler(async (req, res) => {
   return res.json(newBookmark);
 }))
 
+router.delete('/delete/:userId/:noteId', asyncHandler(async (req, res) => {
+  const noteId = req.params.noteId;
+  //console.log(userId, noteId)
+  const bookmark = await Bookmark.findOne({ where: { noteId } });
+  console.log(bookmark)
+  //bookmark.destroy();
+  return;
+}))
+
 module.exports = router;

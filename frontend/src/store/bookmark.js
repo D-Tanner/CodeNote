@@ -3,10 +3,11 @@ import { fetch } from './csrf'
 
 
 //slice of state
-const CURRENT_BOOKMARK = 'session/currentBookmarkd';
+const CURRENT_BOOKMARK = 'session/currentBookmarkd'
 const ALL_BOOKMARKS = 'session/allBookmarks'
 const UPDATE_BOOKMARK = 'session/updateBookmark'
 const NEW_BOOKMARK = 'session/newBookmark'
+const DELETE_BOOKMARK = 'session/deleteBookmark'
 //action type
 const currentBookmark = (bookmark) => {
   return {
@@ -32,6 +33,13 @@ const updateBookmark = (bookmark) => {
 const newBookmarkCreate = (bookmark) => {
   return {
     type: NEW_BOOKMARK,
+    bookmark
+  }
+}
+
+const destroyBookmark = (bookmark) => {
+  return {
+    type: DELETE_BOOKMARK,
     bookmark
   }
 }
@@ -69,6 +77,14 @@ export const newBookmark = (userId, noteId) => async (dispatch) => {
   return response;
 }
 
+export const deleteBookmark = (noteId) => async (dispatch) => {
+  const response = await fetch(`/api/bookmarks/delete/${noteId}`, {
+    method: "DELETE"
+  })
+  dispatch(newBookmarkCreate(response))
+  return response;
+}
+
 
 
 const initialState = { allbookmarks: {} }
@@ -93,7 +109,9 @@ const bookmarkReducer = (state = initialState, action) => {
     case NEW_BOOKMARK:
       newState = { ...state }
       newState.currentBookmark = action.bookmark.data
-
+      return newState;
+    case DELETE_BOOKMARK:
+      newState = { ...state }
       return newState;
     default:
       return state;

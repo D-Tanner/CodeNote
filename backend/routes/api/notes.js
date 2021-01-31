@@ -63,8 +63,16 @@ router.delete("/delete/:id", asyncHandler(async function (req, res) {
   const id = req.params.id
 
   const note = await Note.findOne({ where: { id } });
-
+  const bookmark = await Bookmark.destroy({ where: { noteId: id } })
+  console.log("!!!!!!!!!", bookmark)
+  // const note = await Note.findAll({
+  //   where: { id },
+  //   include: [{ model: Bookmark, where: { noteId: id } }],
+  // });
+  //const bookmark = await Bookmark.findAll({ where: { noteId: id } })
+  //console.log("!!!!!!!!!!!!!!", note[0].dataValues.Bookmarks.length)
   note.destroy();
+
   return res.json(id);
 }));
 
