@@ -14,7 +14,9 @@ function Bookmarked() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+
     dispatch(getBookmarked(userId))
+
     //dispatch(getAllBookmarkByUser(userId))
   }, [dispatch, userId])
   //Hello
