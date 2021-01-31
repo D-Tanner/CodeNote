@@ -32,10 +32,3 @@ function Navigation({ isLoaded }) {
 }
 
 export default Navigation;
-
-    // <ul>
-    //   <li>
-    //     {/* <NavLink exact to="/">Home</NavLink> */}
-    //     {isLoaded && sessionLinks}
-    //   </li>
-    // </ul>

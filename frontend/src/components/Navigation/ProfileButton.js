@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
+import './Navigation.css'
+import image from './Logo.PNG'
 
 function ProfileButton({ user }) {
+  const username = useSelector(state => state.session.user.username)
+
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -30,9 +34,12 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+      <button onClick={openMenu} class="logo-button">
+
+        <img src={image} class="logo-image" />
+        <div id="user-email" >{username}</div>
       </button>
+
       {showMenu && (
         <ul className="profile-dropdown">
           <li>{user.username}</li>
