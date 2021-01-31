@@ -9,6 +9,10 @@
   flex-direction: column;
 }
 
+.selected-note {
+  background-color: rgba(99, 96, 96, 0.267);
+}
+
 .title {
   margin-bottom: 6px;
   color:rgb(242, 242, 242)

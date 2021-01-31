@@ -9,21 +9,28 @@ import GlobalNotes from '../GlobalNotes'
 import PersonalNotes from '../PersonalNotes'
 import Bookmarked from '../Bookmarked'
 import { createNewNote } from '../../store/notes'
+import { newBookmark } from '../../store/bookmark'
 
 import './HomePage.css'
 
 
 function HomePage() {
 
+  const areThereNotesOnPage = useSelector(state => (state.notes.notes.length !== 0) ? true : false)
+
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
+  const note = useSelector(state => (state.notes.currentNote !== undefined) ? state.notes.currentNote[0] : '')
+  const userId = (note !== undefined) ? note.userId : null;
+
 
   const handleNewNote = async (e) => {
     e.preventDefault();
-
+    history.push(`/personal`)
     let newNote = await dispatch(createNewNote(sessionUser.id))
-    //console.log("!!!!!!!!!!!!!!!!!!!!!!", newNote)
+    await dispatch(newBookmark(userId, newNote.data.id))
+
     history.push(`/personal/${newNote.data.id}`)
     //I want to be redirected to /personal page/:newNoteId
   }
@@ -51,19 +58,54 @@ function HomePage() {
       </div>
       {/* <div className="col-resize"></div> */}
       <div className="text-editor-homepage">
-        {/* <Route path="/global/:id"> <QuillEditor /></Route>
-        <Route path="/personal/:id"> <QuillEditor /></Route>
-        <Route path="/bookmarked/:id"> <QuillEditor /></Route> */}
+
         <Switch>
           <Route path='/' exact> <QuillEditor /></Route>
-          <Route path='/global' exact><QuillEditor /></Route>
-          <Route path='/global/:id'><QuillEditor /></Route>
 
-          <Route path='/personal' exact><QuillEditor /></Route>
+
+          {/* {areThereNotesOnPage && <div>
+            <Route path='/global' exact><QuillEditor /></Route>
+            <Route path='/global/:id'><QuillEditor /></Route>
+          </div>} */}
+
+          {/* {areThereNotesOnPage && <div>
+            <Route path='/personal' exact><QuillEditor /></Route>
           <Route path='/personal/:id'><QuillEditor /></Route>
+          </div>} */}
 
-          <Route path='/bookmarked' exact><QuillEditor /></Route>
-          <Route path='/bookmarked/:id'><QuillEditor /></Route>
+          {/* {areThereNotesOnPage && <div>
+            <Route path='/bookmarked' exact><QuillEditor /></Route>
+            <Route path='/bookmarked/:id'><QuillEditor /></Route>
+          </div>} */}
+
+          {/* {(!areThereNotesOnPage) && <div>
+            <Route path='/bookmarked' exact><Bookmarked /></Route>
+            <Route path='/bookmarked/:id'><Bookmarked /></Route>
+          </div>} */}
+
+
+
+          {/* <Route path='/global' exact><QuillEditor /></Route>
+          <Route path='/global/:id'><QuillEditor /></Route> */}
+
+
+
+          {/* <Route path='/personal' exact><QuillEditor /></Route>
+          <Route path='/personal/:id'><QuillEditor /></Route> */}
+
+
+          {/* <Route path='/bookmarked' exact><QuillEditor /></Route>
+          <Route path='/bookmarked/:id'><QuillEditor /></Route> */}
+
+          <Route path='/global' exact>{areThereNotesOnPage && <QuillEditor />}</Route>
+          <Route path='/global/:id'>{areThereNotesOnPage && <QuillEditor />}</Route>
+
+          <Route path='/bookmarked' exact>{areThereNotesOnPage && <QuillEditor />}</Route>
+          <Route path='/bookmarked/:id'>{areThereNotesOnPage && <QuillEditor />}</Route>
+
+          <Route path='/personal' exact>{areThereNotesOnPage && <QuillEditor />}</Route>
+          <Route path='/personal/:id'>{areThereNotesOnPage && <QuillEditor />}</Route>
+
 
         </Switch>
       </div>

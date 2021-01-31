@@ -5,9 +5,10 @@ const SET_NOTES = 'session/setNotes';
 const CURRENT_NOTE = 'session/currentNote'
 const NEW_NOTE = 'session/newNote';
 const REMOVE_NOTE = 'session/removeNote'
-const UPDATE_BOOKMARK = 'session/updateBookmark'
+const SHOW_BOOKMARKED = 'session/showBookmark'
 const UPDATE_STATUS = 'session/updateStatus'
 const EDIT_NOTE = 'session/editNote'
+const MAKE_COPY = 'session/makeCopy'
 //action type
 //set notes
 const setNotes = (notes) => {
@@ -38,10 +39,10 @@ const removeNote = (noteId) => {
   }
 }
 
-const updateBookmark = (noteId) => {
+const showBookmarked = (bookmarked) => {
   return {
-    type: UPDATE_BOOKMARK,
-    noteId
+    type: SHOW_BOOKMARKED,
+    bookmarked
   }
 }
 
@@ -59,13 +60,20 @@ const editNote = (noteId, content) => {
     content
   }
 }
+
+const makeCopy = (note) => {
+  return {
+    type: MAKE_COPY,
+    note
+  }
+}
 //three thunk functions
 //Global - userId passed in to async funciton. Get request method. Findall where userid === notes
 // /api/notes/global
 export const getGlobalNotes = () => async (dispatch) => {
   const response = await fetch('/api/notes/global');
   //check dev tools
-  console.log('right here', response)
+  //console.log('right here', response)
   dispatch(setNotes(response.data))
   //Do not do anything with this response, it only updates the store
   return response;
@@ -81,27 +89,28 @@ export const getPersonalNotes = (userId) => async (dispatch) => {
 
 //
 //Bookmarked.
-// /api/notes/saved
+///api/notes/saved
 export const getBookmarked = (userId) => async (dispatch) => {
   const response = await fetch(`/api/notes/${userId}/bookmarked`);
   //check dev tools
-  //console.log(response)
-  dispatch(setNotes(response.data))
+
+  dispatch(showBookmarked(response.data))
   //Do not do anything with this response, it only updates the store
   return response;
 }
 
 export const getNoteById = (id) => async (dispatch) => {
   const response = await fetch(`/api/notes/${id}`);
-  //console.log(response)
+
   //check dev tools
-  //console.log(response)
+
   dispatch(currentNote(response.data))
   //Do not do anything with this response, it only updates the store
   return response;
 }
 
 export const createNewNote = (userId) => async (dispatch) => {
+  console.log(userId)
   const response = await fetch(`/api/notes/new`, {
     method: "POST",
     headers: {
@@ -116,6 +125,7 @@ export const createNewNote = (userId) => async (dispatch) => {
 
 //delete note
 export const deleteNoteById = (noteId) => async (dispatch) => {
+
   const response = await fetch(`/api/notes/delete/${noteId}`, {
     method: "DELETE"
   })
@@ -124,12 +134,17 @@ export const deleteNoteById = (noteId) => async (dispatch) => {
   return response;
 }
 
-export const updateBookmarkById = (noteId) => async (dispatch) => {
-  const response = await fetch(`/api/notes/bookmark/update/${noteId}`, {
-    method: "PATCH"
+export const makeFileCopyOfNote = (userId, title, content) => async (dispatch) => {
+
+  const response = await fetch(`/api/notes/copy`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ userId, title, content })
   })
   //console.log("response in store", response)
-  dispatch(updateBookmark(response.data))
+  dispatch(makeCopy(response))
   return response;
 }
 
@@ -170,12 +185,25 @@ const notesReducer = (state = initialState, action) => {
         newState.currentNote = [action.notes[0]]
       }
       return newState;
+    case SHOW_BOOKMARKED:
+      newState = { ...state }
+      if (action.bookmarked.length > 0) {
+        let newNotes = [];
+        action.bookmarked.forEach((bookmark, idx) => {
+          newNotes.push(bookmark.Note)
+        })
+        newState.notes = newNotes;
+        newState.currentNote = [newNotes[0]]
+      } else {
+        newState.notes = []
+        newState.currentNote = [];
+      }
+
+      return newState
     case CURRENT_NOTE:
       return { ...state, currentNote: action.note }
     case NEW_NOTE:
       const addedNote = { notes: [...state.notes, action.note], currentNote: [action.note] }
-      // const addedNote = { notes: [action.note, ...state.notes], currentNote: [action.note] }
-      //console.log(addedNote);
       return addedNote;
     case REMOVE_NOTE:
       newState = { ...state }
@@ -189,8 +217,7 @@ const notesReducer = (state = initialState, action) => {
       newState.notes = newNote
       newState.currentNote = [newState.notes[0]]
       return newState;
-    case UPDATE_BOOKMARK:
-      return { ...state, currentNote: [action.noteId] };
+
     case UPDATE_STATUS:
       return { ...state, currentNote: [action.noteId] }
     case EDIT_NOTE:
@@ -198,8 +225,7 @@ const notesReducer = (state = initialState, action) => {
       const noteId = action.content.data.id;
       let indexOfNoteInFeed = null;
       let count = 0;
-      //console.log("?????????", action.content.data)
-      // console.log("?????????", newState.notes)
+
       newState.notes.forEach(note => {
         if (note.id === noteId) {
           indexOfNoteInFeed = count
@@ -217,6 +243,10 @@ const notesReducer = (state = initialState, action) => {
       newState.notes[indexOfNoteInFeed].content = action.content.data.content
       //notes.notes update as well
       return newState
+    case MAKE_COPY:
+
+      const addedCopy = { notes: [...state.notes, action.note.data], currentNote: [action.note.data] }
+      return addedCopy;
     default:
       return state;
   }

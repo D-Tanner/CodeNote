@@ -20,9 +20,21 @@ router.get('/global', asyncHandler(async (req, res) => {
 router.get('/:id/bookmarked', asyncHandler(async (req, res) => {
   //Find notes by public key
   const userId = req.params.id;
-  const notes = await Note.findAll({ where: { userId }, order: [['updatedAt', 'DESC']] });
+  const bookmarks = await Bookmark.findAll({
+    where: { userId, isBookmarked: true },
+    include: [{ model: Note }],
+    order: [['updatedAt', 'DESC']]
+  });
 
-  return res.json(notes);
+  return res.json(bookmarks);
+  // const userId = req.params.id;
+  // const notes = await Note.findAll({
+  //   where: { userId },
+  //   include: [{ model: Bookmark, where: { userId, isBookmarked: true } }],
+  //   order: [['updatedAt', 'DESC']]
+  // });
+
+  // return res.json(notes);
 }))
 
 router.get('/:id/personal', asyncHandler(async (req, res) => {
@@ -41,7 +53,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
   // const notes = await Note.findAll({ where: { id }, include: [{ model: Bookmark, where: { noteId: id } }], order: [['updatedAt', 'DESC']] });
   const notes = await Note.findAll({ where: { id }, order: [['updatedAt', 'DESC']] });
   //const bookmark = await Bookmark.findAll({ where: { id } })
-  console.log("!!!!!!!!!", notes)
+  //console.log("!!!!!!!!!", notes)
   return res.json(notes);
 }))
 
@@ -54,25 +66,44 @@ router.post('/new', asyncHandler(async (req, res) => {
   return res.json(newNote);
 }))
 
+router.post('/copy', asyncHandler(async (req, res) => {
+  console.log('here in copy')
+  const userId = req.body.userId
+  const title = req.body.title
+  const content = req.body.content
+
+  const newNote = await Note.create({ title, content, userId, isPublic: false });
+
+  return res.json(newNote);
+}))
+
 //Delete route with specific id
 router.delete("/delete/:id", asyncHandler(async function (req, res) {
   const id = req.params.id
 
   const note = await Note.findOne({ where: { id } });
-
+  const bookmark = await Bookmark.destroy({ where: { noteId: id } })
+  ///console.log("!!!!!!!!!", bookmark)
+  // const note = await Note.findAll({
+  //   where: { id },
+  //   include: [{ model: Bookmark, where: { noteId: id } }],
+  // });
+  //const bookmark = await Bookmark.findAll({ where: { noteId: id } })
+  //console.log("!!!!!!!!!!!!!!", note[0].dataValues.Bookmarks.length)
   note.destroy();
+
   return res.json(id);
 }));
 
 //Patch routes for updating bookmarks, global status, notes
-router.patch("/bookmark/update/:id", asyncHandler(async function (req, res) {
-  const id = req.params.id;
-  //const userId = req.params.userId
-  //Needs to inlcude userId and noteId
-  const bookmark = await Bookmark.findOne({ where: { id } });
-  await bookmark.update({ isBookmarked: !bookmark.isBookmarked })
-  return res.json(bookmark)
-}))
+// router.patch("/bookmark/update/:id", asyncHandler(async function (req, res) {
+//   const id = req.params.id;
+//   //const userId = req.params.userId
+//   //Needs to inlcude userId and noteId
+//   const bookmark = await Bookmark.findOne({ where: { id } });
+//   await bookmark.update({ isBookmarked: !bookmark.isBookmarked })
+//   return res.json(bookmark)
+// }))
 
 router.patch("/status/update/:id", asyncHandler(async function (req, res) {
   const id = req.params.id;
