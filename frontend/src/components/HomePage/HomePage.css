@@ -21,7 +21,7 @@
   bottom: 20;
   display: flex;
   position: relative;
-  top: 550;
+  top: 350;
   justify-content: space-around;
   /* height: 90vh; */
 }
@@ -42,7 +42,7 @@
   text-shadow:0;
   cursor: pointer;
   font: 14px;
-  margin: 0px 4px 0px 4px;
+  margin: 40px 4px 40px 4px;
   /* font-weight: bold; */
   transition: all 0.25s ease;
   font-family: Arial, Helvetica, sans-serif;
@@ -56,7 +56,7 @@
  text-align: left;
  padding-left: 4px;
  padding-top: 7px;
- height: 100%;
+ height: 25px;
  width: 100%;
  font-size: 16px;
 }
@@ -107,5 +107,37 @@
 
 .nav-link {
   text-decoration: none;
-  color: a6a6a6;
+  color: #e6e6e6;
+
+}
+
+.nav-link-tab {
+  text-decoration: none;
+  color: #e6e6e6;
+  display: flex;
+  width: 100%;
+}
+
+
+.route-selected {
+  background-color: rgba(99, 96, 96, 0.267);
+}
+
+.route {
+  padding: 5px;
+  font-size: 18px;
+  display: flex;
+}
+.route:hover {
+  background-color: rgba(99, 96, 96, 0.267);
+  transition-duration: 0.2s
+}
+
+#note-tab-label {
+  overflow: hidden;
+  min-width: 95px;
+ color: #e6e6e6;
+ text-align: left;
+ font-size: 16px;
+ padding: 3px 0px 0px 3px
 }
