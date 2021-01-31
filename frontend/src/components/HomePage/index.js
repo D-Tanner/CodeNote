@@ -1,7 +1,6 @@
 //Page for home. Three vertical divs containing navbar search, notes, and rich-text-editor
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import './HomePage.css';
 import { Route, Switch, NavLink, useHistory } from 'react-router-dom'
 import ProfileButton from '../Navigation/ProfileButton'
 import QuillEditor from '../QuillEditor'
@@ -10,11 +9,24 @@ import PersonalNotes from '../PersonalNotes'
 import Bookmarked from '../Bookmarked'
 import { createNewNote } from '../../store/notes'
 import { newBookmark } from '../../store/bookmark'
-
+import GitHubIcon from '@material-ui/icons/GitHub';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
+import PublicIcon from '@material-ui/icons/Public';
+import AddIcon from '@material-ui/icons/Add';
+import DescriptionIcon from '@material-ui/icons/Description';
+import { grey, green } from '@material-ui/core/colors';
 import './HomePage.css'
 
 
+
+
+
 function HomePage() {
+
+  const bookmarkPage = window.location.href.includes('/bookmarked')
+  const personalPage = window.location.href.includes('/personal')
+  const globalPage = window.location.href.includes('/global')
 
   const areThereNotesOnPage = useSelector(state => (state.notes.notes.length !== 0) ? true : false)
 
@@ -40,15 +52,39 @@ function HomePage() {
       <div className="navbar-homepage">
         <span><ProfileButton user={sessionUser} />CodeNote</span>
 
-        <div>
-          <div><button type="button" onClick={handleNewNote}>New Note</button></div>
-          <div><NavLink className="nav-link" to="/global">Global Notes</NavLink></div>
-          <div><NavLink className="nav-link" to="/personal">Personal Notes</NavLink></div>
-          <div><NavLink className="nav-link" to="/bookmarked">Bookmarked</NavLink></div>
+        {/* new note button */}
+        <button type="button" class="new-note-button" onClick={handleNewNote}>
+          <span><AddIcon /></span>
+          <div id="button-label">New Note</div>
+        </button>
+
+        {/* navigation tabs */}
+        <div class={globalPage ? "route-selected route" : "route not-selected"}>
+          <NavLink className="nav-link-tab" to="/global">
+            <span><PublicIcon fontSize="small" /></span>
+            <div id="note-tab-label">Global</div>
+          </NavLink>
+        </div>
+        <div class={personalPage ? "route-selected route" : "route not-selected"}>
+          <NavLink className="nav-link-tab" to="/personal">
+            <span><DescriptionIcon fontSize="small" /></span>
+            <div id="note-tab-label">Personal</div>
+          </NavLink>
+        </div>
+        <div class={bookmarkPage ? "route-selected route" : "route not-selected"}>
+          <NavLink className="nav-link-tab" to="/bookmarked">
+            <span><BookmarkIcon fontSize="small" /></span>
+            <div id="note-tab-label">Bookmarked</div>
+          </NavLink>
         </div>
 
+
+        <div className="social-links">
+          <span class="social-icons"><a target="_blank" href="https://www.linkedin.com/in/dillon-tanner-a881951aa"><LinkedInIcon fontSize="large" style={{ color: grey[600] }} /></a></span>
+          <span class="social-icons"><a target="_blank" href="https://github.com/D-Tanner"><GitHubIcon fontSize="large" style={{ color: grey[600] }} /></a></span>
+        </div>
       </div>
-      {/* <div className="col-resize"></div> */}
+
       <div className="notes-homepage">
         <Switch>
           <Route path="/global"><GlobalNotes /></Route>
@@ -56,60 +92,24 @@ function HomePage() {
           <Route path="/bookmarked"><Bookmarked /></Route>
         </Switch>
       </div>
-      {/* <div className="col-resize"></div> */}
+
       <div className="text-editor-homepage">
 
         <Switch>
           <Route path='/' exact> <QuillEditor /></Route>
 
 
-          {/* {areThereNotesOnPage && <div>
-            <Route path='/global' exact><QuillEditor /></Route>
-            <Route path='/global/:id'><QuillEditor /></Route>
-          </div>} */}
-
-          {/* {areThereNotesOnPage && <div>
-            <Route path='/personal' exact><QuillEditor /></Route>
-          <Route path='/personal/:id'><QuillEditor /></Route>
-          </div>} */}
-
-          {/* {areThereNotesOnPage && <div>
-            <Route path='/bookmarked' exact><QuillEditor /></Route>
-            <Route path='/bookmarked/:id'><QuillEditor /></Route>
-          </div>} */}
-
-          {/* {(!areThereNotesOnPage) && <div>
-            <Route path='/bookmarked' exact><Bookmarked /></Route>
-            <Route path='/bookmarked/:id'><Bookmarked /></Route>
-          </div>} */}
-
-
-
-          {/* <Route path='/global' exact><QuillEditor /></Route>
-          <Route path='/global/:id'><QuillEditor /></Route> */}
-
-
-
-          {/* <Route path='/personal' exact><QuillEditor /></Route>
-          <Route path='/personal/:id'><QuillEditor /></Route> */}
-
-
-          {/* <Route path='/bookmarked' exact><QuillEditor /></Route>
-          <Route path='/bookmarked/:id'><QuillEditor /></Route> */}
-
-          <Route path='/global' exact>{areThereNotesOnPage && <QuillEditor />}</Route>
           <Route path='/global/:id'>{areThereNotesOnPage && <QuillEditor />}</Route>
 
-          <Route path='/bookmarked' exact>{areThereNotesOnPage && <QuillEditor />}</Route>
           <Route path='/bookmarked/:id'>{areThereNotesOnPage && <QuillEditor />}</Route>
 
-          <Route path='/personal' exact>{areThereNotesOnPage && <QuillEditor />}</Route>
           <Route path='/personal/:id'>{areThereNotesOnPage && <QuillEditor />}</Route>
 
 
         </Switch>
+
       </div>
-    </div>
+    </div >
   )
 }
 
