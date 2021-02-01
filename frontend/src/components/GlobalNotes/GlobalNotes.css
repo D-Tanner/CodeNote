@@ -1,7 +1,8 @@
 
 
 .each-note {
-  border-top: 0.5px solid rgb(29, 27, 27);
+  /* border-top: 1px solid rgb(29, 27, 27); */
+  border-top: 1px solid rgba(80, 83, 80, 0.336);
   padding: 5px;
   height: 88px;
   font-family: Arial, Helvetica, sans-serif;
@@ -15,7 +16,8 @@
 
 .title {
   margin-bottom: 6px;
-  color:rgb(242, 242, 242)
+  color:rgb(242, 242, 242);
+  margin: 15px 5px 6px 4px;
 }
 
 .content {
@@ -34,4 +36,14 @@
 .each-note:hover {
   background-color: rgba(99, 96, 96, 0.267);
   transition-duration: 0.4s;
+}
+
+.note-page-title {
+  font-family: Helvetica, Arial, sans-serif;
+  color: #B4B4B4;
+  font-size: 30px;
+  text-align: left;
+  padding: 10px 10px 10px 0px;
+  margin-bottom: 20px;
+  margin: 5px 10px 20px 20px;
 }
