@@ -84,3 +84,118 @@
     border: 0.5px solid #808581;
     transition-duration: 0.2s;
 }
+
+.main-container {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.login-signup-banner {
+  width: 100%;
+  top: 0;
+  position: absolute;
+  height: 80px;
+  background-color: rgb(29, 29, 29);
+}
+
+
+.element-container {
+  /* background-color: blue; */
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 80px;
+  /* z-index: -10; */
+}
+
+.login-signup-logo {
+  background-size:cover;
+  max-width: 400px;
+  height: auto;
+  padding-top: 5px;
+}
+
+.matrix-image {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    position: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.4;
+}
+
+.nav-container {
+  position: absolute;
+  height: 80px;
+  width: 100%;
+  min-width: 630px;
+  display: flex;
+  /* background-color: blue; */
+  /* flex-direction: row; */
+  justify-content: flex-end;
+
+  z-index: 4;
+  text-decoration: none;
+}
+
+
+.login-button {
+
+    color: #dbd9d9;
+    font-size: 25px;
+    letter-spacing: 2px;
+    max-height: 80px;
+    transition-duration: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    width: 10%;
+    font-family: Arial, Helvetica, sans-serif
+  }
+
+  .login-button:hover {
+    background-color: rgb(68, 68, 70);
+  }
+
+.register-button {
+    color: #dbd9d9;
+    font-size: 25px;
+    letter-spacing: 2px;
+    max-height: 80px;
+    transition-duration: 0.2s;
+    display: flex;
+    margin-right: 40px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    width: 10%;
+    font-family: Arial, Helvetica, sans-serif
+  }
+
+  .register-button:hover {
+    background-color: rgb(68, 68, 70);
+  }
+
+/* .register-button {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  background-color: #0077cc;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+  height: 44px;
+  transition-duration: 0.2s;
+  margin: 10px;
+  padding: 10px;
+  text-decoration: none;
+  width: 10%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.register-button:hover {
+  background-color: rgb(137, 193, 245);
+} */
