@@ -73,7 +73,7 @@ const makeCopy = (note) => {
 export const getGlobalNotes = () => async (dispatch) => {
   const response = await fetch('/api/notes/global');
   //check dev tools
-  //console.log('right here', response)
+
   dispatch(setNotes(response.data))
   //Do not do anything with this response, it only updates the store
   return response;
