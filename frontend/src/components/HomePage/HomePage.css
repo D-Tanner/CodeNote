@@ -4,12 +4,16 @@
   background-color: #262626;
   height: 100%;
   margin: 0;
+  /* display: grid;
+  grid-template-columns: auto auto auto; */
 }
 
 .navbar-homepage {
   /* width: 204px; */
-  width: 20%;
-  max-width: 395px;
+  width: 280px;
+  /* width: 10%; */
+  max-width: 280px;
+  min-width: 196px;
   padding: 1px;
   overflow: hidden;
   background-color: #000000;
@@ -43,7 +47,7 @@
   text-shadow:0;
   cursor: pointer;
   font: 14px;
-  margin: 40px 4px 40px 4px;
+  margin: 40px 4px 40px 10px;
   /* font-weight: bold; */
   transition: all 0.25s ease;
   font-family: Arial, Helvetica, sans-serif;
@@ -67,16 +71,18 @@
   transition-duration: 0.2s
 }
 .notes-homepage {
-  width: 371px;
+  width: 300px;
   /* width: 40%; */
   max-width: 759px;
+  min-width: 280px;
   background-color: #1a1a1a;
 }
 
 .text-editor-homepage {
   max-width: 980px;
+  /* width: 50%; */
+  /* width: 700px; */
   width: 100%;
-  /* width: 855px; */
   overflow: hidden;
   background-color: #262626;
 }
@@ -101,7 +107,7 @@
 }
 
 .notes-homepage::-webkit-scrollbar-thumb {
-  background-color: rgb(165, 165, 190);    /* color of the scroll thumb */
+  background-color: #b4b4b498;    /* color of the scroll thumb */
   border-radius: 20px;       /* roundness of the scroll thumb */
   border: 3px solid rgb(38,38,38);  /* creates padding around scroll thumb */
 }

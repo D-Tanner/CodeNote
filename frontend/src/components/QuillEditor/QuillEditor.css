@@ -4,6 +4,9 @@
  * Copyright (c) 2014, Jason Chen
  * Copyright (c) 2013, salesforce.com
  */
+.quill{
+  color: #b4b4b4;
+}
 
 .ql-container {
   box-sizing: border-box;
@@ -506,19 +509,22 @@
 @media (pointer: coarse) {
   .ql-snow.ql-toolbar button:hover:not(.ql-active),
   .ql-snow .ql-toolbar button:hover:not(.ql-active) {
-    color: #444;
+    /* color: #444; */
+    color: #b4b4b4;
   }
   .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-fill,
   .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-fill,
   .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-stroke.ql-fill,
   .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-stroke.ql-fill {
-    fill: #444;
+    /* fill: #444; */
+    fill: #b4b4b4;
   }
   .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-stroke,
   .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-stroke,
   .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-stroke-miter,
   .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-stroke-miter {
-    stroke: #444;
+    /* stroke: #444; */
+    stroke: #b4b4b4;
   }
 }
 .ql-snow {
@@ -556,7 +562,8 @@
 }
 .ql-snow .ql-stroke {
   fill: none;
-  stroke: #444;
+  /* stroke: #444; */
+  stroke: #b4b4b4;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 2;

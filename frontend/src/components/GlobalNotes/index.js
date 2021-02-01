@@ -32,7 +32,7 @@ function GlobalNotes() {
   //console.log(notes)
   return (
     <div>
-      <h1>Global Notes</h1>
+      <h1 class="note-page-title">Global Notes</h1>
       <div className="all-notes">
         {notes.map((note, idx) => {
           return (
@@ -40,7 +40,8 @@ function GlobalNotes() {
               <NavLink to={`/global/${note.id}`} className="nav-link" key={idx} onClick={() => checkForBookmark(note)}>
                 <div className={(noteId.id === note.id) ? "selected-note each-note" : "each-note"}>
                   <div className="title">{note.title}</div>
-                  <div className="content">{note.content}</div>
+                  {/* <div className="content">{note.content}</div> */}
+                  {/* <div className="user-id">{note.}</div> */}
                 </div>
               </NavLink>
             </>

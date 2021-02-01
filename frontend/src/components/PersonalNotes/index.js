@@ -38,7 +38,7 @@ function PersonalNotes() {
   //console.log("notes", notes)
   return (
     <div>
-      <h1>Personal Notes</h1>
+      <h1 class="note-page-title">Personal</h1>
       <div className="all-notes">
         {notes.map((note, idx) => {
           return (
@@ -46,7 +46,7 @@ function PersonalNotes() {
               <NavLink to={`/personal/${note.id}`} className="nav-link" key={idx} onClick={() => checkForBookmark(note)}>
                 <div className={(noteId.id === note.id) ? "selected-note each-note" : "each-note"}>
                   <div className="title">{note.title}</div>
-                  <div className="content">{note.content}</div>
+                  {/* <div className="content">{note.content}</div> */}
                 </div>
               </NavLink>
             </>
