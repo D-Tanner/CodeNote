@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import LoginFormPage from '../LoginFormPage'
 import image from './ImageWithText.PNG';
 import imageMatrix from './Matrix.png';
 import './Navigation.css';
@@ -25,11 +26,12 @@ function Navigation({ isLoaded }) {
             <img class="matrix-image" src={imageMatrix} />
 
           </div>
-          <div class="form-container">
-            <NavLink to="/login">Log In</NavLink>
-            <NavLink to="/signup">Sign Up</NavLink>
-
+          <div class="nav-container">
+            {/* <LoginFormPage /> */}
+            <NavLink to="/login" className="login-button"><div>Login</div></NavLink>
+            <NavLink to="/signup" className="register-button">Sign Up</NavLink>
           </div>
+          <div></div>
         </div>
       </>
     );
