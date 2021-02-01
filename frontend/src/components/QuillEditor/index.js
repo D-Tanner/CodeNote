@@ -108,7 +108,7 @@ function QuillEditor() {
           onChange={(value, delta, source, editor) => {
             if (source === 'user') {
               if (value.length <= 102400) {
-                console.log(value)
+
                 dispatch(editNoteById(note.id, value))
               } else {
                 window.alert('File size too large! Either delete an image or move it to another note.')
