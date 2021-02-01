@@ -16,6 +16,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 function QuillEditor() {
 
 
+
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -32,16 +33,16 @@ function QuillEditor() {
 
     await dispatch(deleteNoteById(note.id))
 
-    history.push(`/personal`)
+    // history.push(`/personal`)
   }
 
   const makeFileCopy = async (e) => {
     e.preventDefault();
 
 
-    await dispatch(makeFileCopyOfNote(user, note.title, note.content))
-
-    history.push('/personal')
+    let copied = await dispatch(makeFileCopyOfNote(user, note.title, note.content))
+    console.log(copied)
+    history.push(`/personal/${copied.data.id}`)
 
   }
 
@@ -82,12 +83,12 @@ function QuillEditor() {
           <div className="toggle-label">Public</div>
         </div>}
 
-        {/* {(!toggleCheck) && <button type="button" className="file-copy" onClick={makeFileCopy}><FileCopyIcon /></button>} */}
+
         {<button type="button" className="file-copy" onClick={makeFileCopy}><FileCopyIcon /></button>}
 
         {/* button for the bookmark logic */}
         <button className="bookmark-button" onClick={() => dispatch(updateBookmarkById(user, note.id))}>
-          {/* <button className="bookmark-button" onClick={() => console.log('hello')}> */}
+
           {(stateOfBookmark === true) && <BookmarkIcon style={{ color: green[500] }} />}
           {(stateOfBookmark === false) && <BookmarkBorderIcon style={{ color: green[500] }} />}
         </button>
@@ -106,8 +107,12 @@ function QuillEditor() {
           value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
           onChange={(value, delta, source, editor) => {
             if (source === 'user') {
-
-              dispatch(editNoteById(note.id, value))
+              if (value.length <= 102400) {
+                console.log(value)
+                dispatch(editNoteById(note.id, value))
+              } else {
+                window.alert('File size too large! Either delete an image or move it to another note.')
+              }
             }
             //setSaveButton(true)
           }}
