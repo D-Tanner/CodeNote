@@ -86,8 +86,11 @@
     position: relative; width: 60px;
     height: 24px;
     margin: 0px 5px 0px 5px;
-    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select: none;
 }
+
 .onoffswitch2-checkbox {
     display: none;
 }
