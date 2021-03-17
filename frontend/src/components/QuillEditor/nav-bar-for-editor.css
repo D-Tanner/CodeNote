@@ -6,6 +6,8 @@
 }
 
 
+
+
 .bookmark-button {
     background-color: Transparent;
     background-repeat:no-repeat;
@@ -36,8 +38,17 @@
 
 
 
-.toggle-label {
-  color:rgb(242,242,242)
+.toggle-label,
+.tooltiptext {
+  color:rgb(242,242,242);
+      font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.tooltip {
+  /* background-color: blue; */
+  display: flex;
+  align-items: center;
 }
 
 .quill{

@@ -85,7 +85,13 @@ function QuillEditor() {
         </div>}
 
 
-        {<button type="button" className="file-copy" onClick={makeFileCopy}><FileCopyIcon style={{ color: grey[400] }} /></button>}
+        {
+          <div className="tooltip">
+            <div>
+              <button type="button" className="file-copy" onClick={makeFileCopy}><FileCopyIcon style={{ color: grey[400] }} /></button>
+            </div>
+            <div class="tooltiptext">Copy</div>
+          </div>}
 
         {/* button for the bookmark logic */}
         <button className="bookmark-button" onClick={() => dispatch(updateBookmarkById(user, note.id))}>
