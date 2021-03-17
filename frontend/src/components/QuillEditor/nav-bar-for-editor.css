@@ -59,10 +59,11 @@
 .rte-nav {
   /* position: absolute; */
   overflow: hidden;
-  width: 100%;
+  width: 90%;
   height: 60px;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: space-around;
 }
 
 .ql-editor::-webkit-scrollbar {

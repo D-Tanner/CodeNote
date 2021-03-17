@@ -17,11 +17,7 @@ function Bookmarked() {
   useEffect(() => {
 
     dispatch(getBookmarked(userId))
-
-    //dispatch(getAllBookmarkByUser(userId))
   }, [dispatch, userId])
-  //Hello
-  //console.log(notes)
   return (
     <div>
       <h1 class="note-page-title">Bookmarked</h1>

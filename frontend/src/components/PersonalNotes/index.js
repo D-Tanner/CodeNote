@@ -30,13 +30,11 @@ function PersonalNotes() {
   const checkForBookmark = async (note) => {
 
     let currentBookmark = await dispatch(getBookmark(user, note.id))
-    //console.log("HERERERE", currentBookmark)
     if (currentBookmark.data.length === 0) {
       await dispatch(newBookmark(user, note.id))
     }
   }
 
-  //console.log("notes", notes)
   return (
     <div>
       <h1 class="note-page-title">Personal</h1>
@@ -48,8 +46,6 @@ function PersonalNotes() {
                 <div className={(noteId.id === note.id) ? "selected-note each-note" : "each-note"}>
                   <div className="title">{note.title}</div>
                   <div className="notes-date"><Moment format="MMM D" date={note.updatedAt} /></div>
-
-                  {/* <div className="content">{note.content}</div> */}
                 </div>
               </NavLink>
             </>

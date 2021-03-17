@@ -110,7 +110,6 @@ export const getNoteById = (id) => async (dispatch) => {
 }
 
 export const createNewNote = (userId) => async (dispatch) => {
-  console.log(userId)
   const response = await fetch(`/api/notes/new`, {
     method: "POST",
     headers: {
@@ -123,13 +122,11 @@ export const createNewNote = (userId) => async (dispatch) => {
   return response;
 }
 
-//delete note
 export const deleteNoteById = (noteId) => async (dispatch) => {
 
   const response = await fetch(`/api/notes/delete/${noteId}`, {
     method: "DELETE"
   })
-  //console.log("response in store", response)
   dispatch(removeNote(response.data))
   return response;
 }
@@ -143,7 +140,6 @@ export const makeFileCopyOfNote = (userId, title, content) => async (dispatch) =
     },
     body: JSON.stringify({ userId, title, content })
   })
-  //console.log("response in store", response)
   dispatch(makeCopy(response))
   return response;
 }
@@ -153,19 +149,16 @@ export const updateStatusById = (noteId) => async (dispatch) => {
   const response = await fetch(`/api/notes/status/update/${noteId}`, {
     method: "PATCH"
   })
-  //console.log("response in store", response)
   dispatch(updateStatus(response.data))
   return response;
 }
 
 export const editNoteById = (noteId, content) => async (dispatch) => {
-  //console.log("!!!!!!!!!!!!!!!", noteId, content)
   const response = await fetch(`/api/noteID/edit/${noteId}`, {
     method: "PATCH",
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ content })
   })
-  //console.log("response", response)
   dispatch(editNote(noteId, response))
   return response;
 

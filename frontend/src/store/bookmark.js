@@ -54,7 +54,6 @@ export const getBookmark = (userId, noteId) => async (dispatch) => {
 export const getAllBookmarkByUser = (userId) => async (dispatch) => {
   const response = await fetch(`/api/bookmarks/all/${userId}`);
   //check dev tools
-  //console.log(response)
   dispatch(allBookmarks(response.data))
   //Do not do anything with this response, it only updates the store
   return response;
@@ -64,7 +63,6 @@ export const updateBookmarkById = (userId, noteId) => async (dispatch) => {
   const response = await fetch(`/api/bookmarks/update/${userId}/${noteId}`, {
     method: "PATCH"
   })
-  //console.log("response in store", response)
   dispatch(updateBookmark(response))
   return response;
 }
@@ -77,13 +75,6 @@ export const newBookmark = (userId, noteId) => async (dispatch) => {
   return response;
 }
 
-// export const deleteBookmark = (noteId) => async (dispatch) => {
-//   const response = await fetch(`/api/bookmarks/delete/${noteId}`, {
-//     method: "DELETE"
-//   })
-//   dispatch(newBookmarkCreate(response))
-//   return response;
-// }
 
 
 
