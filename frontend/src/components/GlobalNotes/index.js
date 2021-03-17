@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { getGlobalNotes } from '../../store/notes';
 import { NavLink, useParams } from 'react-router-dom';
 import { getBookmark, newBookmark } from '../../store/bookmark'
+import Moment from 'react-moment'
 
 import './GlobalNotes.css'
 //map over the notes and hav
@@ -41,6 +42,7 @@ function GlobalNotes() {
                 <div className={(noteId.id === note.id) ? "selected-note each-note" : "each-note"}>
                   <div className="title">{note.title}</div>
                   {/* <div className="content">{note.content}</div> */}
+                  <div className="notes-date"><Moment format="MMM D" date={note.updatedAt} /></div>
                   {/* <div className="user-id">{note.}</div> */}
                 </div>
               </NavLink>

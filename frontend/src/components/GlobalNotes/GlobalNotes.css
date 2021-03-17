@@ -47,3 +47,11 @@
   margin-bottom: 20px;
   margin: 5px 10px 20px 20px;
 }
+
+.notes-date {
+  font-size: 15px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 7px;
+  margin-right: 10px;
+}
