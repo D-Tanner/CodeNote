@@ -11,6 +11,7 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { green } from '@material-ui/core/colors';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
+import grey from '@material-ui/core/colors/grey';
 
 //useParams here grab the noteId called id
 function QuillEditor() {
@@ -84,7 +85,7 @@ function QuillEditor() {
         </div>}
 
 
-        {<button type="button" className="file-copy" onClick={makeFileCopy}><FileCopyIcon /></button>}
+        {<button type="button" className="file-copy" onClick={makeFileCopy}><FileCopyIcon style={{ color: grey[400] }} /></button>}
 
         {/* button for the bookmark logic */}
         <button className="bookmark-button" onClick={() => dispatch(updateBookmarkById(user, note.id))}>
