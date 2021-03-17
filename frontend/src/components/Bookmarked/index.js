@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
-// import { getAllBookmarkByUser } from '../../store/bookmark';
+import Moment from 'react-moment'
+
 import { getBookmarked } from '../../store/notes';
 import { NavLink } from 'react-router-dom';
 import '../GlobalNotes/GlobalNotes.css'
@@ -31,6 +32,8 @@ function Bookmarked() {
               <NavLink to={`/bookmarked/${note.id}`} className="nav-link" key={idx}>
                 <div className={(noteId.id === note.id) ? "selected-note each-note" : "each-note"}>
                   <div className="title">{note.title}</div>
+                  <div className="notes-date"><Moment format="MMM D" date={note.updatedAt} /></div>
+
                   {/* <div className="content">{note.content}</div> */}
                 </div>
               </NavLink>

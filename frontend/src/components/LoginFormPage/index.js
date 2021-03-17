@@ -24,6 +24,15 @@ function LoginFormPage() {
       });
   }
 
+  const demologin = (e) => {
+    e.preventDefault();
+    setErrors([]);
+    return dispatch(sessionActions.login({ credential: "Demo-lition", password: "password" }))
+      .catch((res) => {
+        if (res.data && res.data.errors) setErrors(res.data.errors);
+      });
+  }
+
   return (
 
     <form onSubmit={handleSubmit} class="form-login">
@@ -48,7 +57,8 @@ function LoginFormPage() {
           required
         />
         {/* </label> */}
-        <button type="submit" class="login-button-form">Log In</button>
+        <button type="submit" className="login-button-form">Log In</button>
+        <button type="submit" onClick={demologin} className="login-button-form">Demo Login</button>
       </div>
     </form>
   );

@@ -4,6 +4,7 @@ import { getPersonalNotes } from '../../store/notes';
 import { getBookmark, newBookmark } from '../../store/bookmark'
 import { NavLink } from 'react-router-dom';
 import '../GlobalNotes/GlobalNotes.css'
+import Moment from 'react-moment'
 
 //map over the notes and hav
 function PersonalNotes() {
@@ -46,6 +47,8 @@ function PersonalNotes() {
               <NavLink to={`/personal/${note.id}`} className="nav-link" key={idx} onClick={() => checkForBookmark(note)}>
                 <div className={(noteId.id === note.id) ? "selected-note each-note" : "each-note"}>
                   <div className="title">{note.title}</div>
+                  <div className="notes-date"><Moment format="MMM D" date={note.updatedAt} /></div>
+
                   {/* <div className="content">{note.content}</div> */}
                 </div>
               </NavLink>
