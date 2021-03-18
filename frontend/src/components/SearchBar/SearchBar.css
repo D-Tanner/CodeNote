@@ -1,0 +1,25 @@
+.searchBar-container input {
+  background-color: blue;
+  border-radius: 20%;
+}
+
+
+.searchbox {
+  background-color: blue;
+  display: flex;
+  flex-direction: row;
+}
+
+.search-icon {
+      height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-border {
+  border: none;
+  padding: 0px;
+  color: white;
+}

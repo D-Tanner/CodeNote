@@ -12,6 +12,12 @@
   grid-template-rows: 100%;
 }
 
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
 .navbar-homepage {
   grid-area: nav;
 
