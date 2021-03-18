@@ -114,10 +114,10 @@ const SearchBar = () => {
     if (!search && globalPage) dispatch(getGlobalNotes())
     if (!search && personalPage) dispatch(getPersonalNotes(userId))
     if (!search && bookmarkPage) dispatch(getBookmarked(userId))
-    // if (search) {
-    //   searchProjects(search)
-    //   dispatch(filterSearchedNotes(matches))
-    // }
+    if (user && search) {
+      searchProjects(search)
+      dispatch(filterSearchedNotes(matches))
+    }
 
   }, [search, globalPage, personalPage, bookmarkPage]);
 
