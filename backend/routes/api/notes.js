@@ -17,7 +17,6 @@ router.get('/global', asyncHandler(async (req, res) => {
   return res.json(notes);
 }))
 
-
 router.get('/:id/bookmarked', asyncHandler(async (req, res) => {
   //Find notes by public key
   const userId = req.params.id;

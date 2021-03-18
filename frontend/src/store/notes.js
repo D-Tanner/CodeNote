@@ -9,8 +9,16 @@ const SHOW_BOOKMARKED = 'session/showBookmark'
 const UPDATE_STATUS = 'session/updateStatus'
 const EDIT_NOTE = 'session/editNote'
 const MAKE_COPY = 'session/makeCopy'
+const FILTER_NOTES = 'session/filterNotes'
 //action type
 //set notes
+const filterNotes = (notes) => {
+  return {
+    type: FILTER_NOTES,
+    notes
+  }
+}
+
 const setNotes = (notes) => {
   return {
     type: SET_NOTES,
@@ -73,10 +81,14 @@ const makeCopy = (note) => {
 export const getGlobalNotes = () => async (dispatch) => {
   const response = await fetch('/api/notes/global');
   //check dev tools
-
   dispatch(setNotes(response.data))
   //Do not do anything with this response, it only updates the store
   return response;
+}
+
+export const filterSearchedNotes = (notes) => async (dispatch) => {
+  dispatch(filterNotes(notes))
+  return "success"
 }
 //Personal
 // /api/notes/personal
@@ -240,6 +252,20 @@ const notesReducer = (state = initialState, action) => {
 
       const addedCopy = { notes: [...state.notes, action.note.data], currentNote: [action.note.data] }
       return addedCopy;
+    case FILTER_NOTES:
+      if (action.notes.length >= 1 && action.notes[0].Note !== undefined) {
+        let newNotes = [];
+        action.notes.forEach((note, idx) => {
+          newNotes.push(note.Note)
+        })
+        console.log("newNotes", newNotes)
+        return { ...state, notes: newNotes }
+      }
+      if (action.notes) {
+        return { ...state, notes: action.notes }
+      } else {
+        return { ...state }
+      }
     default:
       return state;
   }

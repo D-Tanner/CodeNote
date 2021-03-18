@@ -4,8 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
+import { getGlobalNotes, getPersonalNotes, getBookmarked, filterSearchedNotes } from "../../store/notes"
 
 import "./SearchBar.css";
+import HomePage from "../HomePage";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -41,12 +43,12 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     // transition: theme.transitions.create('width'),
     width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
+    // [theme.breakpoints.up('sm')]: {
+    //   width: '12ch',
+    //   '&:focus': {
+    //     width: '20ch',
+    //   },
+    // },
   },
 }));
 
@@ -54,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const SearchBar = () => {
 
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const bookmarkPage = window.location.href.includes('/bookmarked')
   const personalPage = window.location.href.includes('/personal')
@@ -63,43 +66,67 @@ const SearchBar = () => {
   const [matches, setMatches] = useState("");
 
   const userId = useSelector(state => state.session.user.id)
+  const user = useSelector(state => state.notes.notes)
+  const searchProjects = async (searchText) => {
+    let response;
+    let stringCheck = searchText.replace(/[[\]']+/g, "");
+    stringCheck = stringCheck.replaceAll("\\", "");
+
+    if (globalPage) {
+      response = await fetch("/api/notes/global")
+    }
+    if (personalPage) {
+      response = await fetch(`/api/notes/${userId}/personal`)
+    }
+    if (bookmarkPage) {
+      response = await fetch(`/api/notes/${userId}/bookmarked`)
+    }
+
+    const allNotes = await response.json();
+
+    let projectMatches = allNotes.filter((note) => {
+      const regex = new RegExp(`${stringCheck}`, "gi");
+      if (note.title) {
+        return (
+          note.title.match(regex) ||
+          note.content.match(regex)
+        );
+      } else {
+        return (
+          note.Note.title.match(regex) ||
+          note.Note.content.match(regex)
+        )
+      }
 
 
-  // function focusSearchBar() {
-  //   document.getElementById("searchModalInput").focus();
-  // }
+    });
 
+    if (searchText.length === 0) {
+      projectMatches = [];
+    }
 
+    setMatches(projectMatches);
 
-  // const searchProjects = async (searchText) => {
-  //   const response = await fetch("/api/projects/all");
-  //   const allProjects = await response.json();
-  //   let stringCheck = searchText.replace(/[[\]']+/g, "");
-  //   stringCheck = stringCheck.replaceAll("\\", "");
-  //   let projectMatches = allProjects.filter((project) => {
-  //     const regex = new RegExp(`${stringCheck}`, "gi");
+  };
 
-  //     return (
-  //       project.name.match(regex) ||
-  //       project.description.match(regex) ||
-  //       project.user.username.match(regex) ||
-  //       project.user.city.match(regex) ||
-  //       project.user.state.match(regex)
-  //     );
-  //   });
+  useEffect(() => {
 
-  //   if (searchText.length === 0) {
-  //     projectMatches = [];
-  //   }
+    if (!search && globalPage) dispatch(getGlobalNotes())
+    if (!search && personalPage) dispatch(getPersonalNotes(userId))
+    if (!search && bookmarkPage) dispatch(getBookmarked(userId))
+    if (user && search) {
+      searchProjects(search)
+      dispatch(filterSearchedNotes(matches))
+    }
 
-  //   setMatches(projectMatches);
-  // };
+  }, [search, globalPage, personalPage, bookmarkPage]);
 
-  // useEffect(() => {
-  //   focusSearchBar();
-  // });
-
-
+  useEffect(() => {
+    if (search && matches) {
+      dispatch(filterSearchedNotes(matches))
+    }
+    console.log(matches)
+  }, [matches])
 
 
   return (
@@ -107,17 +134,22 @@ const SearchBar = () => {
       {userId &&
         <div className={classes.search}>
           <div className={classes.searchIcon}>
-            <SearchIcon />
+            <SearchIcon className="search-icon" />
           </div>
           <InputBase
             placeholder="Search…"
-            className="no-border"
+            id="no-border"
+            onKeyUp={(e) => {
+              setSearch(e.target.value)
+              searchProjects(e.target.value)
+            }}
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput,
             }}
             inputProps={{ 'aria-label': 'search' }}
           />
+
         </div>
       }
     </>

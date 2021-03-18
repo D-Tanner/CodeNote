@@ -11,15 +11,17 @@
 }
 
 .search-icon {
-      height: 100%;
+    height: 100%;
+    margin-left: 5px;
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.no-border {
+#no-border {
   border: none;
   padding: 0px;
   color: white;
+  margin-left: 40px;
 }
