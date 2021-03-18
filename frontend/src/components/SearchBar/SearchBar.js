@@ -66,8 +66,7 @@ const SearchBar = () => {
   const [matches, setMatches] = useState("");
 
   const userId = useSelector(state => state.session.user.id)
-  const user = useSelector(state => state.notes)
-  console.log(user)
+  const user = useSelector(state => state.notes.notes)
   const searchProjects = async (searchText) => {
     let response;
     let stringCheck = searchText.replace(/[[\]']+/g, "");
@@ -82,9 +81,6 @@ const SearchBar = () => {
     if (bookmarkPage) {
       response = await fetch(`/api/notes/${userId}/bookmarked`)
     }
-
-
-
 
     const allNotes = await response.json();
 
@@ -115,18 +111,18 @@ const SearchBar = () => {
 
   useEffect(() => {
 
-    if (!search && globalPage) dispatch(getGlobalNotes())
-    if (!search && personalPage) dispatch(getPersonalNotes(userId))
-    if (!search && bookmarkPage) dispatch(getBookmarked(userId))
-    if (search) {
-      searchProjects(search)
-      dispatch(filterSearchedNotes(matches))
-    }
-
+    // if (!search && globalPage) dispatch(getGlobalNotes())
+    // if (!search && personalPage) dispatch(getPersonalNotes(userId))
+    // if (!search && bookmarkPage) dispatch(getBookmarked(userId))
+    // if (search) {
+    //   searchProjects(search)
+    //   dispatch(filterSearchedNotes(matches))
+    // }
+    console.log(search)
   }, [search, globalPage, personalPage, bookmarkPage]);
 
   useEffect(() => {
-    if (search) {
+    if (search && matches) {
       dispatch(filterSearchedNotes(matches))
     }
     console.log(matches)
@@ -135,7 +131,7 @@ const SearchBar = () => {
 
   return (
     <>
-      {userId && user &&
+      {userId && user.length > 0 &&
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon className="search-icon" />
@@ -143,11 +139,9 @@ const SearchBar = () => {
           <InputBase
             placeholder="Search…"
             id="no-border"
-            onChange={(e) => {
-
+            onKeyUp={(e) => {
               setSearch(e.target.value)
               searchProjects(e.target.value)
-
             }}
             classes={{
               root: classes.inputRoot,
