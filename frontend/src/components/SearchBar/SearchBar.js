@@ -105,27 +105,6 @@ const SearchBar = () => {
   return (
     <>
       {userId &&
-        // <div className="searchBar-container">
-        //   <input
-        //     type="search"
-        //     name="search"
-        //     className="searchbar-input"
-        //     placeholder="Find notes"
-        //     value={search}
-        //     onChange={(e) => {
-        //       searchProjects(e.target.value);
-        //       setSearch(e.target.value);
-        //     }}
-        //   />
-        // </div>
-        // <div class="searchbox">
-        //   <div>
-        //     <SearchIcon className="search-icon" />
-        //   </div>
-        //   <div>
-        //     <InputBase className="search-bar" />
-        //   </div>
-        // </div>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
