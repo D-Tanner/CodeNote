@@ -115,17 +115,22 @@ const SearchBar = () => {
   };
 
   useEffect(() => {
-    if (globalPage) dispatch(getGlobalNotes())
-    if (personalPage) dispatch(getPersonalNotes(userId))
-    if (bookmarkPage) dispatch(getBookmarked(userId))
 
+    if (!search && globalPage) dispatch(getGlobalNotes())
+    if (!search && personalPage) dispatch(getPersonalNotes(userId))
+    if (!search && bookmarkPage) dispatch(getBookmarked(userId))
     if (search) {
+      searchProjects(search)
       dispatch(filterSearchedNotes(matches))
     }
 
-  }, [matches, globalPage, personalPage, bookmarkPage]);
+  }, [search, globalPage, personalPage, bookmarkPage]);
 
-
+  useEffect(() => {
+    if (search) {
+      dispatch(filterSearchedNotes(matches))
+    }
+  }, [matches])
 
 
   return (
