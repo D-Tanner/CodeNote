@@ -253,7 +253,7 @@ const notesReducer = (state = initialState, action) => {
       const addedCopy = { notes: [...state.notes, action.note.data], currentNote: [action.note.data] }
       return addedCopy;
     case FILTER_NOTES:
-      if (action.notes && action.notes[0].Note) {
+      if (action.notes.length >= 1 && action.notes[0].Note !== undefined) {
         let newNotes = [];
         action.notes.forEach((note, idx) => {
           newNotes.push(note.Note)

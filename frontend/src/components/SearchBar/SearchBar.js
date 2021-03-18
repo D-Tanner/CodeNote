@@ -111,14 +111,14 @@ const SearchBar = () => {
 
   useEffect(() => {
 
-    // if (!search && globalPage) dispatch(getGlobalNotes())
-    // if (!search && personalPage) dispatch(getPersonalNotes(userId))
-    // if (!search && bookmarkPage) dispatch(getBookmarked(userId))
+    if (!search && globalPage) dispatch(getGlobalNotes())
+    if (!search && personalPage) dispatch(getPersonalNotes(userId))
+    if (!search && bookmarkPage) dispatch(getBookmarked(userId))
     // if (search) {
     //   searchProjects(search)
     //   dispatch(filterSearchedNotes(matches))
     // }
-    console.log(search)
+
   }, [search, globalPage, personalPage, bookmarkPage]);
 
   useEffect(() => {
@@ -131,7 +131,7 @@ const SearchBar = () => {
 
   return (
     <>
-      {userId && user.length > 0 &&
+      {userId &&
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon className="search-icon" />
