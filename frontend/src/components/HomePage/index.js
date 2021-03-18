@@ -7,6 +7,8 @@ import QuillEditor from '../QuillEditor'
 import GlobalNotes from '../GlobalNotes'
 import PersonalNotes from '../PersonalNotes'
 import Bookmarked from '../Bookmarked'
+import { useNoteContext } from '../../context/search'
+import SearchBar from "../SearchBar/SearchBar"
 import { createNewNote } from '../../store/notes'
 import { newBookmark } from '../../store/bookmark'
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -52,13 +54,15 @@ function HomePage() {
       <div className="navbar-homepage">
         <span><ProfileButton user={sessionUser} />CodeNote</span>
 
-        {/* new note button */}
+        <div className="search-bar-container">
+          <SearchBar />
+        </div>
         <button type="button" class="new-note-button" onClick={handleNewNote}>
           <span><AddIcon /></span>
           <div id="button-label">New Note</div>
         </button>
 
-        {/* navigation tabs */}
+
         <div class={globalPage ? "route-selected route" : "route not-selected"}>
           <NavLink className="nav-link-tab" to="/global">
             <span><PublicIcon fontSize="small" /></span>

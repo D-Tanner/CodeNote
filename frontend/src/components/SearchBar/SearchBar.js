@@ -1,135 +1,146 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import logo_40x40 from "./logo_40x40.png";
-// import csc from "country-state-city";
-import { SearchModal, useModalContext } from "../../context/Modal";
+import { useNoteContext } from "../../context/search";
+import { useSelector, useDispatch } from "react-redux";
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
+import { fade, makeStyles } from '@material-ui/core/styles';
+
 import "./SearchBar.css";
+
+const useStyles = makeStyles((theme) => ({
+
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '90%',
+    // [theme.breakpoints.up('sm')]: {
+    //   marginLeft: theme.spacing(1),
+    //   width: 'auto',
+    // },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    color: 'white',
+    height: '100%',
+    position: 'absolute',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'white',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    // transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
+  },
+}));
+
 
 const SearchBar = () => {
 
+  const classes = useStyles();
+
+  const bookmarkPage = window.location.href.includes('/bookmarked')
+  const personalPage = window.location.href.includes('/personal')
+  const globalPage = window.location.href.includes('/global')
 
   const [search, setSearch] = useState("");
   const [matches, setMatches] = useState("");
 
-  function focusSearchBar() {
-    document.getElementById("searchModalInput").focus();
-  }
+  const userId = useSelector(state => state.session.user.id)
 
-  // const getStateAbbreviation = (project) => {
-  //   let result;
-  //   const allStates = csc.getStatesOfCountry("US");
 
-  //   let stateName = project.user.state;
+  // function focusSearchBar() {
+  //   document.getElementById("searchModalInput").focus();
+  // }
 
-  //   allStates.forEach((state) => {
-  //     if (state.name === stateName) {
-  //       result = state.isoCode;
-  //     }
+
+
+  // const searchProjects = async (searchText) => {
+  //   const response = await fetch("/api/projects/all");
+  //   const allProjects = await response.json();
+  //   let stringCheck = searchText.replace(/[[\]']+/g, "");
+  //   stringCheck = stringCheck.replaceAll("\\", "");
+  //   let projectMatches = allProjects.filter((project) => {
+  //     const regex = new RegExp(`${stringCheck}`, "gi");
+
+  //     return (
+  //       project.name.match(regex) ||
+  //       project.description.match(regex) ||
+  //       project.user.username.match(regex) ||
+  //       project.user.city.match(regex) ||
+  //       project.user.state.match(regex)
+  //     );
   //   });
-  //   return result;
+
+  //   if (searchText.length === 0) {
+  //     projectMatches = [];
+  //   }
+
+  //   setMatches(projectMatches);
   // };
 
-  const searchProjects = async (searchText) => {
-    const response = await fetch("/api/projects/all");
-    const allProjects = await response.json();
-    let stringCheck = searchText.replace(/[[\]']+/g, "");
-    stringCheck = stringCheck.replaceAll("\\", "");
-    let projectMatches = allProjects.filter((project) => {
-      const regex = new RegExp(`${stringCheck}`, "gi");
+  // useEffect(() => {
+  //   focusSearchBar();
+  // });
 
-      return (
-        project.name.match(regex) ||
-        project.description.match(regex) ||
-        project.user.username.match(regex) ||
-        project.user.city.match(regex) ||
-        project.user.state.match(regex)
-      );
-    });
 
-    if (searchText.length === 0) {
-      projectMatches = [];
-    }
 
-    setMatches(projectMatches);
-  };
-
-  useEffect(() => {
-    focusSearchBar();
-  });
 
   return (
     <>
-      {showSearchBarModal && (
-        <SearchModal onClose={() => setShowSearchBarModal(false)}>
-          <div className="searchBarMatches-container">
-            <div className="searchBar-container">
-              <button
-                id="inputClose-button"
-                onClick={() => setShowSearchBarModal((prev) => !prev)}
-              >
-                <i id="inputClose-icon" className="fa fa-times fa-2x"></i>
-              </button>
-              <input
-                id="searchModalInput"
-                type="search"
-                name="search"
-                className="searchBar-input"
-                placeholder="Find projects by name, description, user, city, or state..."
-                value={search}
-                onChange={(e) => {
-                  searchProjects(e.target.value);
-                  setSearch(e.target.value);
-                }}
-              />
-            </div>
-            <div>
-              {matches && (
-                <div className="searchResults-container">
-                  {matches.map((project, idx) => (
-                    <NavLink key={idx} to={`/${project.id}`} className="a-link" onClick={() => setShowSearchBarModal(false)}>
-                      <li key={idx} className="searchBarMatches">
-                        {!project.thumbnailImgUrl && (
-                          <div className="logo_30x30-container">
-                            <img
-                              className="logo_30x30"
-                              src={logo_40x40}
-                              alt="A small heart with an EKG graph of the electrical impulses that move through the heart displayed inside of it."
-                            />
-                          </div>
-                        )}
-                        {project.thumbnailImgUrl && (
-                          <div className="logo_30x30-container">
-                            <img
-                              className="logo_30x30"
-                              src={project.thumbnailImgUrl}
-                              alt="A small heart with an EKG graph of the electrical impulses that move through the heart displayed inside of it."
-                            />
-                          </div>
-                        )}
-                        {search && (
-                          <>
-                            <div className="searchBarMatches-content">
-                              <p className="projectName">{project.name}</p>
-                              <p>By {project.user.username}</p>
-                            </div>
-                            {/* <div className="searchBarMatches-content">
-                          <p>Created by: {project.user.username}</p>
-                          <p>
-                          Created by: {project.user.city},{" "}
-                          {getStateAbbreviation(project)}
-                          </p>
-                        </div> */}
-                          </>
-                        )}
-                      </li>
-                    </NavLink>
-                  ))}
-                </div>
-              )}
-            </div>
+      {userId &&
+        // <div className="searchBar-container">
+        //   <input
+        //     type="search"
+        //     name="search"
+        //     className="searchbar-input"
+        //     placeholder="Find notes"
+        //     value={search}
+        //     onChange={(e) => {
+        //       searchProjects(e.target.value);
+        //       setSearch(e.target.value);
+        //     }}
+        //   />
+        // </div>
+        // <div class="searchbox">
+        //   <div>
+        //     <SearchIcon className="search-icon" />
+        //   </div>
+        //   <div>
+        //     <InputBase className="search-bar" />
+        //   </div>
+        // </div>
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
           </div>
-        </SearchModal>
-      )}
+          <InputBase
+            placeholder="Search…"
+            className="no-border"
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ 'aria-label': 'search' }}
+          />
+        </div>
+      }
     </>
   );
 };
