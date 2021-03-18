@@ -69,18 +69,41 @@ const SearchBar = () => {
 
 
   const searchProjects = async (searchText) => {
-    const response = await fetch("/api/notes/global");
-    const allNotes = await response.json();
-
+    let response;
     let stringCheck = searchText.replace(/[[\]']+/g, "");
     stringCheck = stringCheck.replaceAll("\\", "");
+
+    if (globalPage) {
+      response = await fetch("/api/notes/global")
+    }
+    if (personalPage) {
+      response = await fetch(`/api/notes/${userId}/personal`)
+    }
+    if (bookmarkPage) {
+      response = await fetch(`/api/notes/${userId}/bookmarked`)
+    }
+
+
+
+
+    const allNotes = await response.json();
+    console.log(allNotes)
+
     let projectMatches = allNotes.filter((note) => {
       const regex = new RegExp(`${stringCheck}`, "gi");
+      if (note.title) {
+        return (
+          note.title.match(regex) ||
+          note.content.match(regex)
+        );
+      } else {
+        return (
+          note.Note.title.match(regex) ||
+          note.Note.content.match(regex)
+        )
+      }
 
-      return (
-        note.title.match(regex) ||
-        note.content.match(regex)
-      );
+
     });
 
     if (searchText.length === 0) {
@@ -88,15 +111,17 @@ const SearchBar = () => {
     }
 
     setMatches(projectMatches);
+
   };
 
   useEffect(() => {
+    if (globalPage) dispatch(getGlobalNotes())
+    if (personalPage) dispatch(getPersonalNotes(userId))
+    if (bookmarkPage) dispatch(getBookmarked(userId))
+
     if (search) {
       dispatch(filterSearchedNotes(matches))
     }
-    if (!search && globalPage) dispatch(getGlobalNotes())
-    if (!search && personalPage) dispatch(getPersonalNotes(userId))
-    if (!search && bookmarkPage) dispatch(getBookmarked(userId))
 
   }, [matches, globalPage, personalPage, bookmarkPage]);
 
@@ -113,9 +138,11 @@ const SearchBar = () => {
           <InputBase
             placeholder="Search…"
             id="no-border"
-            onKeyUp={(e) => {
+            onChange={(e) => {
+
               setSearch(e.target.value)
               searchProjects(e.target.value)
+
             }}
             classes={{
               root: classes.inputRoot,
@@ -123,6 +150,7 @@ const SearchBar = () => {
             }}
             inputProps={{ 'aria-label': 'search' }}
           />
+
         </div>
       }
     </>
