@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
-    width: '80%',
+    width: '90%',
     // [theme.breakpoints.up('sm')]: {
     //   marginLeft: theme.spacing(1),
     //   width: 'auto',
@@ -71,29 +71,29 @@ const SearchBar = () => {
 
 
 
-  // const searchProjects = async (searchText) => {
-  //   const response = await fetch("/api/projects/all");
-  //   const allProjects = await response.json();
-  //   let stringCheck = searchText.replace(/[[\]']+/g, "");
-  //   stringCheck = stringCheck.replaceAll("\\", "");
-  //   let projectMatches = allProjects.filter((project) => {
-  //     const regex = new RegExp(`${stringCheck}`, "gi");
+  const searchProjects = async (searchText) => {
+    const response = await fetch("/api/projects/all");
+    const allProjects = await response.json();
+    let stringCheck = searchText.replace(/[[\]']+/g, "");
+    stringCheck = stringCheck.replaceAll("\\", "");
+    let projectMatches = allProjects.filter((project) => {
+      const regex = new RegExp(`${stringCheck}`, "gi");
 
-  //     return (
-  //       project.name.match(regex) ||
-  //       project.description.match(regex) ||
-  //       project.user.username.match(regex) ||
-  //       project.user.city.match(regex) ||
-  //       project.user.state.match(regex)
-  //     );
-  //   });
+      return (
+        project.name.match(regex) ||
+        project.description.match(regex) ||
+        project.user.username.match(regex) ||
+        project.user.city.match(regex) ||
+        project.user.state.match(regex)
+      );
+    });
 
-  //   if (searchText.length === 0) {
-  //     projectMatches = [];
-  //   }
+    if (searchText.length === 0) {
+      projectMatches = [];
+    }
 
-  //   setMatches(projectMatches);
-  // };
+    setMatches(projectMatches);
+  };
 
   // useEffect(() => {
   //   focusSearchBar();
@@ -112,6 +112,7 @@ const SearchBar = () => {
           <InputBase
             placeholder="Search…"
             id="no-border"
+            onChange={(e) => searchProjects(e.target.value)}
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput,
