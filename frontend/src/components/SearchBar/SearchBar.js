@@ -66,8 +66,8 @@ const SearchBar = () => {
   const [matches, setMatches] = useState("");
 
   const userId = useSelector(state => state.session.user.id)
-
-
+  const user = useSelector(state => state.notes)
+  console.log(user)
   const searchProjects = async (searchText) => {
     let response;
     let stringCheck = searchText.replace(/[[\]']+/g, "");
@@ -87,7 +87,6 @@ const SearchBar = () => {
 
 
     const allNotes = await response.json();
-    console.log(allNotes)
 
     let projectMatches = allNotes.filter((note) => {
       const regex = new RegExp(`${stringCheck}`, "gi");
@@ -130,12 +129,13 @@ const SearchBar = () => {
     if (search) {
       dispatch(filterSearchedNotes(matches))
     }
+    console.log(matches)
   }, [matches])
 
 
   return (
     <>
-      {userId &&
+      {userId && user &&
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon className="search-icon" />
