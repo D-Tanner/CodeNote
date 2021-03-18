@@ -4,8 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
+import { getGlobalNotes, getPersonalNotes, getBookmarked, filterSearchedNotes } from "../../store/notes"
 
 import "./SearchBar.css";
+import HomePage from "../HomePage";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -54,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const SearchBar = () => {
 
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const bookmarkPage = window.location.href.includes('/bookmarked')
   const personalPage = window.location.href.includes('/personal')
@@ -65,26 +68,18 @@ const SearchBar = () => {
   const userId = useSelector(state => state.session.user.id)
 
 
-  // function focusSearchBar() {
-  //   document.getElementById("searchModalInput").focus();
-  // }
-
-
-
   const searchProjects = async (searchText) => {
-    const response = await fetch("/api/projects/all");
-    const allProjects = await response.json();
+    const response = await fetch("/api/notes/global");
+    const allNotes = await response.json();
+
     let stringCheck = searchText.replace(/[[\]']+/g, "");
     stringCheck = stringCheck.replaceAll("\\", "");
-    let projectMatches = allProjects.filter((project) => {
+    let projectMatches = allNotes.filter((note) => {
       const regex = new RegExp(`${stringCheck}`, "gi");
 
       return (
-        project.name.match(regex) ||
-        project.description.match(regex) ||
-        project.user.username.match(regex) ||
-        project.user.city.match(regex) ||
-        project.user.state.match(regex)
+        note.title.match(regex) ||
+        note.content.match(regex)
       );
     });
 
@@ -95,9 +90,15 @@ const SearchBar = () => {
     setMatches(projectMatches);
   };
 
-  // useEffect(() => {
-  //   focusSearchBar();
-  // });
+  useEffect(() => {
+    if (search) {
+      dispatch(filterSearchedNotes(matches))
+    }
+    if (!search && globalPage) dispatch(getGlobalNotes())
+    if (!search && personalPage) dispatch(getPersonalNotes(userId))
+    if (!search && bookmarkPage) dispatch(getBookmarked(userId))
+
+  }, [matches, globalPage, personalPage, bookmarkPage]);
 
 
 
@@ -112,7 +113,10 @@ const SearchBar = () => {
           <InputBase
             placeholder="Search…"
             id="no-border"
-            onChange={(e) => searchProjects(e.target.value)}
+            onKeyUp={(e) => {
+              setSearch(e.target.value)
+              searchProjects(e.target.value)
+            }}
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput,
