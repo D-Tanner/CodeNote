@@ -44,7 +44,7 @@ function GlobalNotes() {
                   {/* <div className="content">{note.content}</div> */}
                   <div className="note-info-container">
 
-                    {note.User && <div className="note-user">From {note.User.username}</div>}
+                    {note.User && <div className="note-user">{note.User.username}</div>}
                     <div className="notes-date"><Moment format="MMM D" date={note.updatedAt} /></div>
                   </div>
                 </div>

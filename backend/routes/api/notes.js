@@ -21,7 +21,7 @@ router.get('/:id/bookmarked', asyncHandler(async (req, res) => {
   const userId = req.params.id;
   const bookmarks = await Bookmark.findAll({
     where: { userId, isBookmarked: true },
-    include: [{ model: Note }, { model: User }],
+    include: [{ model: Note, include: { model: User } }],
     order: [['updatedAt', 'DESC']]
   });
 
@@ -41,15 +41,15 @@ router.get('/:id/personal', asyncHandler(async (req, res) => {
   return res.json(notes);
 }))
 
-// router.get('/note/:userId', asyncHandler(async (req, res) => {
-//   //Find notes by public key
-//   const User = await User.findAll(
-//     {
-//       where: { isPublic: true },
-//       order: [['updatedAt', 'DESC']]
-//     });
-//   return res.json(notes);
-// }))
+router.get('/author/:userId', asyncHandler(async (req, res) => {
+  //Find notes by public key
+  const id = req.params.userId
+  const user = await User.findOne(
+    {
+      where: { id },
+    });
+  return res.json(user);
+}))
 
 router.get('/:id', asyncHandler(async (req, res) => {
   //Find notes by public key
