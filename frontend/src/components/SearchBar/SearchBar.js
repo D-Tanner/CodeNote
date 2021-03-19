@@ -125,7 +125,6 @@ const SearchBar = () => {
     if (search && matches) {
       dispatch(filterSearchedNotes(matches))
     }
-    console.log(matches)
   }, [matches])
 
 

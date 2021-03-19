@@ -42,7 +42,6 @@ function QuillEditor() {
 
 
     let copied = await dispatch(makeFileCopyOfNote(user, note.title, note.content))
-    console.log(copied)
     history.push(`/personal/${copied.data.id}`)
 
   }
@@ -60,75 +59,76 @@ function QuillEditor() {
 
 
   return (
-    <div>
-      <div className="rte-nav">
+    <>
+      {  note && <div>
+        <div className="rte-nav">
 
-        {/* button to delete a note specific to the user */}
-        {toggleCheck && <button type="button" className="delete-button" onClick={deleteNote}><DeleteIcon /></button>}
+          {/* button to delete a note specific to the user */}
+          {toggleCheck && <button type="button" className="delete-button" onClick={deleteNote}><DeleteIcon /></button>}
 
-        {/* container for the public/private switch */}
-        {toggleCheck && <div className="private-public-toggle">
-          <div className="toggle-label">Private</div>
-          <div className="onoffswitch2">
-            <input type="checkbox"
-              name="onoffswitch2"
-              class="onoffswitch2-checkbox"
-              id="myonoffswitch2"
-              onClick={() => dispatch(updateStatusById(note.id))}
-              checked={note.isPublic}>
+          {/* container for the public/private switch */}
+          {toggleCheck && <div className="private-public-toggle">
+            <div className="toggle-label">Private</div>
+            <div className="onoffswitch2">
+              <input type="checkbox"
+                name="onoffswitch2"
+                class="onoffswitch2-checkbox"
+                id="myonoffswitch2"
+                onClick={() => dispatch(updateStatusById(note.id))}
+                checked={note.isPublic}>
 
-            </input>
-            <label class="onoffswitch2-label" for="myonoffswitch2">
-            </label>
-          </div>
-          <div className="toggle-label">Public</div>
-        </div>}
-
-
-        {
-          <div className="tooltip">
-            <div>
-              <button type="button" className="file-copy" onClick={makeFileCopy}><FileCopyIcon style={{ color: grey[400] }} /></button>
+              </input>
+              <label class="onoffswitch2-label" for="myonoffswitch2">
+              </label>
             </div>
-            <div class="tooltiptext">Copy</div>
+            <div className="toggle-label">Public</div>
           </div>}
 
-        {/* button for the bookmark logic */}
-        <button className="bookmark-button" onClick={() => dispatch(updateBookmarkById(user, note.id))}>
 
-          {(stateOfBookmark === true) && <BookmarkIcon style={{ color: green[500] }} />}
-          {(stateOfBookmark === false) && <BookmarkBorderIcon style={{ color: green[500] }} />}
-        </button>
+          {
+            <div className="tooltip">
+              <div>
+                <button type="button" className="file-copy" onClick={makeFileCopy}><FileCopyIcon style={{ color: grey[400] }} /></button>
+              </div>
+              <div class="tooltiptext">Copy</div>
+            </div>}
+
+          {/* button for the bookmark logic */}
+          <button className="bookmark-button" onClick={() => dispatch(updateBookmarkById(user, note.id))}>
+
+            {(stateOfBookmark === true) && <BookmarkIcon style={{ color: green[500] }} />}
+            {(stateOfBookmark === false) && <BookmarkBorderIcon style={{ color: green[500] }} />}
+          </button>
 
 
-      </div>
-      {/* Determines either a readonly rte or editable rte */}
-      {
-        (user !== userId) && <ReactQuill theme="snow"
-          value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
-          readOnly={true}
-        />
-      }
-      {
-        (user === userId) && <ReactQuill theme="snow"
-          value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
-          onChange={(value, delta, source, editor) => {
-            if (source === 'user') {
-              if (value.length <= 102400) {
+        </div>
+        {/* Determines either a readonly rte or editable rte */}
+        {
+          (user !== userId) && <ReactQuill theme="snow"
+            value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
+            readOnly={true}
+          />
+        }
+        {
+          (user === userId) && <ReactQuill theme="snow"
+            value={note ? `<h1>${note.title}</h1><p>${note.content}</p>` : ''}
+            onChange={(value, delta, source, editor) => {
+              if (source === 'user') {
+                if (value.length <= 102400) {
 
-                dispatch(editNoteById(note.id, value))
-              } else {
-                window.alert('File size too large! Either delete an image or move it to another note.')
+                  dispatch(editNoteById(note.id, value))
+                } else {
+                  window.alert('File size too large! Either delete an image or move it to another note.')
+                }
               }
-            }
-            //setSaveButton(true)
-          }}
-        // onKeyUp={() => setSaveButton(true)}
+              //setSaveButton(true)
+            }}
+          // onKeyUp={() => setSaveButton(true)}
 
-        />
-      }
-    </div>
-
+          />
+        }
+      </div>}
+    </>
   )
 }
 
