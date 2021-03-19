@@ -18,6 +18,7 @@ function Bookmarked() {
 
     dispatch(getBookmarked(userId))
   }, [dispatch, userId])
+
   return (
     <div>
       <h1 class="note-page-title">Bookmarked</h1>

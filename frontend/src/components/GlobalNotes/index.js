@@ -42,8 +42,11 @@ function GlobalNotes() {
                 <div className={(noteId.id === note.id) ? "selected-note each-note" : "each-note"}>
                   <div className="title">{note.title}</div>
                   {/* <div className="content">{note.content}</div> */}
-                  <div className="notes-date"><Moment format="MMM D" date={note.updatedAt} /></div>
-                  {/* <div className="user-id">{note.}</div> */}
+                  <div className="note-info-container">
+
+                    {note.User && <div className="note-user">From {note.User.username}</div>}
+                    <div className="notes-date"><Moment format="MMM D" date={note.updatedAt} /></div>
+                  </div>
                 </div>
               </NavLink>
             </>
