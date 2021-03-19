@@ -1,6 +1,6 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
-const { Note, Bookmark } = require('../../db/models')
+const { Note, Bookmark, User } = require('../../db/models')
 
 const router = express.Router();
 
@@ -10,16 +10,18 @@ router.get('/global', asyncHandler(async (req, res) => {
   const notes = await Note.findAll(
     {
       where: { isPublic: true },
+      include: [{ model: User }],
       order: [['updatedAt', 'DESC']]
     });
   return res.json(notes);
 }))
 
+
 router.get('/:id/bookmarked', asyncHandler(async (req, res) => {
   const userId = req.params.id;
   const bookmarks = await Bookmark.findAll({
     where: { userId, isBookmarked: true },
-    include: [{ model: Note }],
+    include: [{ model: Note }, { model: User }],
     order: [['updatedAt', 'DESC']]
   });
 
@@ -34,6 +36,16 @@ router.get('/:id/personal', asyncHandler(async (req, res) => {
 
   return res.json(notes);
 }))
+
+// router.get('/note/:userId', asyncHandler(async (req, res) => {
+//   //Find notes by public key
+//   const User = await User.findAll(
+//     {
+//       where: { isPublic: true },
+//       order: [['updatedAt', 'DESC']]
+//     });
+//   return res.json(notes);
+// }))
 
 router.get('/:id', asyncHandler(async (req, res) => {
   //Find notes by public key
@@ -68,27 +80,12 @@ router.delete("/delete/:id", asyncHandler(async function (req, res) {
 
   const note = await Note.findOne({ where: { id } });
   const bookmark = await Bookmark.destroy({ where: { noteId: id } })
-  ///console.log("!!!!!!!!!", bookmark)
-  // const note = await Note.findAll({
-  //   where: { id },
-  //   include: [{ model: Bookmark, where: { noteId: id } }],
-  // });
-  //const bookmark = await Bookmark.findAll({ where: { noteId: id } })
-  //console.log("!!!!!!!!!!!!!!", note[0].dataValues.Bookmarks.length)
+
   note.destroy();
 
   return res.json(id);
 }));
 
-//Patch routes for updating bookmarks, global status, notes
-// router.patch("/bookmark/update/:id", asyncHandler(async function (req, res) {
-//   const id = req.params.id;
-//   //const userId = req.params.userId
-//   //Needs to inlcude userId and noteId
-//   const bookmark = await Bookmark.findOne({ where: { id } });
-//   await bookmark.update({ isBookmarked: !bookmark.isBookmarked })
-//   return res.json(bookmark)
-// }))
 
 router.patch("/status/update/:id", asyncHandler(async function (req, res) {
   const id = req.params.id;
