@@ -258,7 +258,6 @@ const notesReducer = (state = initialState, action) => {
         action.notes.forEach((note, idx) => {
           newNotes.push(note.Note)
         })
-        console.log("newNotes", newNotes)
         return { ...state, notes: newNotes }
       }
       if (action.notes) {
