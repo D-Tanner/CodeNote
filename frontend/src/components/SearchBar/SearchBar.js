@@ -89,12 +89,14 @@ const SearchBar = () => {
       if (note.title) {
         return (
           note.title.match(regex) ||
-          note.content.match(regex)
+          note.content.match(regex) ||
+          note.User.username.match(regex)
         );
       } else {
         return (
           note.Note.title.match(regex) ||
-          note.Note.content.match(regex)
+          note.Note.content.match(regex) ||
+          note.Note.User.username.match(regex)
         )
       }
 
@@ -125,7 +127,6 @@ const SearchBar = () => {
     if (search && matches) {
       dispatch(filterSearchedNotes(matches))
     }
-    console.log(matches)
   }, [matches])
 
 

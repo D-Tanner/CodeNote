@@ -23,7 +23,6 @@ function GlobalNotes() {
   const checkForBookmark = async (note) => {
 
     let currentBookmark = await dispatch(getBookmark(user, note.id))
-    //console.log("HERERERE", currentBookmark)
     if (currentBookmark.data.length === 0) {
       await dispatch(newBookmark(user, note.id))
     }
@@ -41,7 +40,6 @@ function GlobalNotes() {
               <NavLink to={`/global/${note.id}`} className="nav-link" key={idx} onClick={() => checkForBookmark(note)}>
                 <div className={(noteId.id === note.id) ? "selected-note each-note" : "each-note"}>
                   <div className="title">{note.title}</div>
-                  {/* <div className="content">{note.content}</div> */}
                   <div className="note-info-container">
 
                     {note.User && <div className="note-user">{note.User.username}</div>}
