@@ -12,6 +12,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { green } from '@material-ui/core/colors';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import grey from '@material-ui/core/colors/grey';
+import { getGlobalNotes, getPersonalNotes, getBookmarked, filterSearchedNotes } from "../../store/notes"
+
 
 //useParams here grab the noteId called id
 function QuillEditor() {
@@ -27,35 +29,35 @@ function QuillEditor() {
   const user = useSelector(state => state.session.user.id)
   const toggleCheck = (user === userIdNote) ? true : null;
   const userId = (note !== undefined) ? note.userId : null;
-
+  const [updated, setUpdated] = useState(false);
+  const userSessionId = useSelector(state => state.session.user.id)
+  const bookmarkPage = window.location.href.includes('/bookmarked')
+  const personalPage = window.location.href.includes('/personal')
+  const globalPage = window.location.href.includes('/global')
 
   const deleteNote = async (e) => {
     e.preventDefault();
-
     await dispatch(deleteNoteById(note.id))
-
-    // history.push(`/personal`)
   }
 
   const makeFileCopy = async (e) => {
     e.preventDefault();
-
-
     let copied = await dispatch(makeFileCopyOfNote(user, note.title, note.content))
     history.push(`/personal/${copied.data.id}`)
-
   }
 
   //for changing routes
   useEffect(() => {
     if (id !== undefined) {
-
       dispatch(getNoteById(id))
       dispatch(getBookmark(user, id))
-
     }
+
   }, [dispatch, id])
 
+  useEffect(() => {
+    console.log(note.title)
+  }, [updated])
 
 
   return (
@@ -115,15 +117,17 @@ function QuillEditor() {
             onChange={(value, delta, source, editor) => {
               if (source === 'user') {
                 if (value.length <= 102400) {
-
                   dispatch(editNoteById(note.id, value))
+                  // setTimeout(() => {
+                  //   if (globalPage) dispatch(getGlobalNotes())
+                  //   if (personalPage) dispatch(getPersonalNotes(userSessionId))
+                  //   if (bookmarkPage) dispatch(getBookmarked(userSessionId))
+                  // }, 3000)
                 } else {
                   window.alert('File size too large! Either delete an image or move it to another note.')
                 }
               }
-              //setSaveButton(true)
             }}
-          // onKeyUp={() => setSaveButton(true)}
 
           />
         }
