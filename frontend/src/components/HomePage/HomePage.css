@@ -48,8 +48,10 @@
   justify-content: space-around;
 }
 
-.social-links:hover {
+.linkedin-hover:hover,
+.github-hover:hover {
   opacity: 0.8;
+  transition-duration: 0.5s;
 }
 
 .new-note-button {

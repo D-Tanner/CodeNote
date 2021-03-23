@@ -149,11 +149,13 @@
 .homepage-banner {
   z-index: 15;
   position: absolute;
-  top: 300px;
+  top: 150px;
   width: 100%;
   display: flex;
   justify-content: center;
-  background-color: blue;
+  /* background-color: blue; */
+  color: #dbd9d9;
+
 
 }
 

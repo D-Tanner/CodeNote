@@ -36,7 +36,7 @@ function Navigation({ isLoaded }) {
             <NavLink to="/login" onClick={() => setHomePage(false)} className="login-button"><div>Login</div></NavLink>
             <NavLink to="/signup" onClick={() => setHomePage(false)} className="register-button">Sign Up</NavLink>
           </div>
-          {homePage && <div class="homepage-banner">Hello</div>}
+          {homePage && <div class="homepage-banner">Remember your code and share</div>}
         </div>
       </>
     );

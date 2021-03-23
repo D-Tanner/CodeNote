@@ -84,8 +84,8 @@ function HomePage() {
 
 
         <div className="social-links">
-          <span class="social-icons"><a target="_blank" href="https://www.linkedin.com/in/dillon-tanner-a881951aa"><LinkedInIcon fontSize="large" style={{ color: grey[600] }} /></a></span>
-          <span class="social-icons"><a target="_blank" href="https://github.com/D-Tanner"><GitHubIcon fontSize="large" style={{ color: grey[600] }} /></a></span>
+          <span class="social-icons"><a target="_blank" href="https://www.linkedin.com/in/dillon-tanner-a881951aa"><LinkedInIcon className="linkedin-hover" fontSize="large" style={{ color: grey[600] }} /></a></span>
+          <span class="social-icons"><a target="_blank" href="https://github.com/D-Tanner"><GitHubIcon fontSize="large" className="github-hover" style={{ color: grey[600] }} /></a></span>
         </div>
       </div>
 
