@@ -146,6 +146,16 @@
   text-decoration: none;
 }
 
+.homepage-banner {
+  z-index: 15;
+  position: absolute;
+  top: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: blue;
+
+}
 
 .login-button {
 
