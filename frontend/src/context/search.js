@@ -17,6 +17,7 @@ export const NoteProvider = ({ children }) => {
 
   const [value, setValue] = useState();
   const [searchResults, setSearchResults] = useState()
+  const [homePage, setHomePage] = useState(true)
 
   useEffect(() => {
     setValue(noteRef.current);
@@ -28,7 +29,9 @@ export const NoteProvider = ({ children }) => {
         value={{
           value,
           searchResults,
-          setSearchResults
+          setSearchResults,
+          homePage,
+          setHomePage,
         }}>
         {children}
       </NoteContext.Provider>

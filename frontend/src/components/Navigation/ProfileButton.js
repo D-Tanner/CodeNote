@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import './Navigation.css'
 import image from './Logo.PNG'
+import { useNoteContext } from "../../context/search"
+
 
 function ProfileButton({ user }) {
   const username = useSelector(state => state.session.user.username)
-
+  const history = useHistory("/");
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const { homePage, setHomePage } = useNoteContext();
 
   const openMenu = () => {
     if (showMenu) return;
@@ -29,7 +33,9 @@ function ProfileButton({ user }) {
 
   const logout = (e) => {
     e.preventDefault();
+    setHomePage(true)
     dispatch(sessionActions.logout());
+    history.push("/")
   };
 
   return (
