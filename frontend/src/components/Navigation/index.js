@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import LoginFormPage from '../LoginFormPage'
 import image from './ImageWithText.PNG';
@@ -8,7 +8,7 @@ import './Navigation.css';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
-
+  const history = useHistory()
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
@@ -19,8 +19,8 @@ function Navigation({ isLoaded }) {
     sessionLinks = (
       <>
         <div class="main-container">
-          <div class="login-signup-banner">
-            <img class="login-signup-logo" src={image} />
+          <div class="login-signup-banner" onClick={() => history.push("/")}>
+            <img className="login-signup-logo" src={image} />
           </div>
           <div class="element-container">
             <img class="matrix-image" src={imageMatrix} />

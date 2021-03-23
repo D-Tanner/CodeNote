@@ -17,6 +17,8 @@
     width: 90%;
 }
 
+
+
 .logo-button:hover #user-email{
   color: white;
 }
@@ -93,11 +95,13 @@
 }
 
 .login-signup-banner {
-  width: 100%;
+  width: 20%;
   top: 0;
   position: absolute;
+  z-index: 10;
+  cursor: pointer;
   height: 80px;
-  background-color: rgb(29, 29, 29);
+  background-color: #1d1d1d;
 }
 
 
@@ -134,7 +138,7 @@
   width: 100%;
   min-width: 630px;
   display: flex;
-  /* background-color: blue; */
+  background-color: #1d1d1d;
   /* flex-direction: row; */
   justify-content: flex-end;
 
