@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import './Navigation.css'
@@ -6,7 +7,7 @@ import image from './Logo.PNG'
 
 function ProfileButton({ user }) {
   const username = useSelector(state => state.session.user.username)
-
+  const history = useHistory("/");
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -30,6 +31,7 @@ function ProfileButton({ user }) {
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
+    history.push("/")
   };
 
   return (
