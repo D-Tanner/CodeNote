@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import LoginFormPage from '../LoginFormPage'
 import image from './ImageWithText.PNG';
 import imageMatrix from './Matrix.png';
+import { useNoteContext } from "../../context/search"
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
@@ -11,7 +12,9 @@ function Navigation({ isLoaded }) {
   const history = useHistory()
   const loginPage = window.location.href.includes('/login')
   const signupPage = window.location.href.includes('/signup')
-  const [homePage, setHomePage] = useState(!loginPage && !signupPage)
+  // const [homePage, setHomePage] = useState(!loginPage && !signupPage)
+  const { homePage, setHomePage } = useNoteContext();
+
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
